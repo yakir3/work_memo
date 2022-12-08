@@ -236,8 +236,8 @@ import telegram
 import json
 import traceback
 
-TOKEN = "5702218631:AAEsy0J1BJdV3f6ZlCQjQXUMdLw44K6Mq-k"
-chat_id = "-766985774"
+TOKEN = "xxxxx"
+chat_id = "-xxxxx"
 bot = telegram.Bot(token=TOKEN)
 
 
