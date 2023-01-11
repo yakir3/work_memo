@@ -41,6 +41,11 @@ EOF
 
 # change shell
 chsh -s $(which zsh)
+
+# PowerlineFont
+#https://github.com/powerline/fonts
+cd /tmp && git clone https://github.com/powerline/fonts.git --depth=1
+cd fonts && ./install.sh
 ```
 
 #### VIM
