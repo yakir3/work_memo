@@ -42,12 +42,12 @@ time curl -X POST "http://172.20.1.189:9200/logstash-9u_panda_capital-2022-09-15
 
 ```shell
 # Mysql
-docker run --rm --name mysql -e MYSQL_ROOT_PASSWORD=123qwe123 \
--e MYSQL_DATABASE=yakirtest -p 3306:3306 -d mysql --character-set-server=utf8mb4
+docker run --rm --name mysql -e MYSQL_ROOT_PASSWORD=123qwe123 -e MYSQL_DATABASE=yakirtest -p 3306:3306 --character-set-server=utf8mb4 -d mysql
 
+docker run --name yakir-mysql -e MYSQL_ROOT_PASSWORD=1qaz@WSX -e MYSQL_DATABASE=yakirtest -p 3306:3306 -v /docker-volume/data:/var/lib/mysql -v /docker-volume/log:/var/log/mysql -d mysql --character-set-server=utf8mb4
 
 # Redis
-docker run --name yakir-redis --rm -e REDIS_PASSWORD=123 -d f2256a34639d 
+docker run --name yakir-redis --rm -e REDIS_PASSWORD=123 -p 6379:6379 -v /docker-volume/data:/data -d redis
 
 # Redis Cluster
 

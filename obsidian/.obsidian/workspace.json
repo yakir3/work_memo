@@ -13,7 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "WorkEnv/initEnv.md",
+                "file": "WorkEnv/commonCommand.md",
                 "mode": "source",
                 "source": false
               }
@@ -85,7 +85,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "WorkEnv/initEnv.md",
+                "file": "WorkEnv/commonCommand.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -102,7 +102,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "WorkEnv/initEnv.md",
+                "file": "WorkEnv/commonCommand.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -125,7 +125,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "WorkEnv/initEnv.md"
+                "file": "WorkEnv/commonCommand.md"
               }
             }
           }
@@ -148,13 +148,13 @@
   },
   "active": "752ec8ed3071f248",
   "lastOpenFiles": [
+    "WorkEnv/commonApp.md",
+    "WorkEnv/commonCommand.md",
+    "WorkEnv/initEnv.md",
     "Others/monitor.md",
     "未命名.canvas",
     "Others/schedule.md",
     "Others/ac&pd.md",
-    "WorkEnv/initEnv.md",
-    "WorkEnv/commonApp.md",
-    "WorkEnv/commonCommand.md",
     "tmp.md",
     "Others/uatproxy.md",
     "markdown/kube-eventer.md"
