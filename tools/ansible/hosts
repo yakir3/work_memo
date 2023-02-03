@@ -1,0 +1,21 @@
+[test]
+#192.168.139.130
+127.0.0.1
+8.129.180.134
+
+[test:vars]
+ansible_port=22
+ansible_user=root
+ansible_ssh_pass=123456
+#ansible_ssh_private_key_file=/etc/ansible/keys/node_test
+
+[ubuntu20]
+1.1.1.1  hostname_prefix="ali"
+2.2.2.2  hostname_prefix="tencent"
+
+[all:vars]
+ansible_user=ubuntu
+ansible_port=22
+ansible_become_method=su
+ansible_become_pass='qwe123'
+ansible_ssh_private_key_file=/etc/ansible/keys/node.key

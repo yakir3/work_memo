@@ -1,0 +1,8 @@
+[forbid]
+a=111
+b=222
+c=333
+
+[myvar1]
+testkey1=value1
+testkey2=value2

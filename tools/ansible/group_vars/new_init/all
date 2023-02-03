@@ -1,0 +1,10 @@
+ansible_port: 22
+ansible_user: ubuntu
+#ansible_ssh_pass: 
+ansible_ssh_private_key_file:  /etc/ansible/keys/node.key
+
+#ansible_become: yes
+#ansible_become_user: root
+#ansible_become_method: su
+#ansible_become_pass: wrrkzkjR15p
+hostname_prefix: ALI
