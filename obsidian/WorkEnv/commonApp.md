@@ -33,6 +33,8 @@ Authenticator
 
 划词翻译
 
+Tampermonkey
+
 Adblock for Chrome
 Adblock for Youtube
 ```

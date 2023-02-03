@@ -64,6 +64,9 @@ docker run --name jenkins -d --rm -p 8080:8080 -p 50000:50000 -v /opt/yakir/CICD
 docker run --rm -d --name gitlab -p 50443:443 -p 50080:80 -p 50022:22 -v /opt/yakir/CICD/gitlab/config:/etc/gitlab \
 -v /opt/yakir/CICD/gitlab/logs:/var/log/gitlab -v /opt/yakir/CICD/gitlab/data:/var/opt/gitlab -v /etc/localtime:/etc/localtime gitlab/gitlab-ce
 
+# Jira
+docker run -v /docker-volume/jira --name jira -e ATL_PROXY_NAME=a.com -d -p 8090:8080 atlassian/jira-software
+
 # knowledge-base
 docker run -d --name mrdoc -p 10086:10086 -v /home/tomcat/yakir/MrDoc:/app/MrDoc --net=bridge zmister/mrdoc:v4
 docker run -d --name mrdoc_mysql -e MYSQL_ROOT_PASSWORD=knowledge_base123 -e MYSQL_DATABASE=knowledge_base -v /home/tomcat/yakir/MrDoc/config/mysql_data/:/var/lib/mysql mysql --character-set-server=utf8mb4
