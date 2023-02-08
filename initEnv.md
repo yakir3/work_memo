@@ -44,27 +44,9 @@ chsh -s $(which zsh)
 git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
 
 # config
-cat > ~/.vimrc << "EOF"
-syntax on
-syntax enable
-set t_Co=256
-colorscheme molokai
-
-set tabstop=4
-set nowrap
-set ignorecase
-set encoding=utf-8 fileencodings=utf-8
-
-
-filetype on
-filetype plugin indent on
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
-Plugin 'VundleVim/Vundle.vim'       "vundle插件
-Plugin 'vim-syntastic/syntastic'    "语法检查
-Plugin 'exvim/ex-colorschemes'
-call vundle#end()
-EOF
+mkdir -p ~/.vim/colors
+touch ~/.vimrc
+cp tools/yakir.vimrc ~/.vimrc
 
 # vim
 :PluginInstall
