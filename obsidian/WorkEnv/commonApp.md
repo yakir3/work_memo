@@ -4,17 +4,21 @@
 chrome
 firefox
 
-Apifox
-pycharm
-goland
-visual-studio-code
+SecureCRT
 iterm2
-xshell
+[xshell]
 
-keepassx
-xmind
-sublime-text
+Apifox
+goland
+pycharm
+
 obsidian
+sublime-text
+
+xmind
+keepassx
+
+multipass
 ```
 
 #### ChromePlugin
