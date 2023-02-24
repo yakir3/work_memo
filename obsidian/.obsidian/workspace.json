@@ -13,7 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "WorkEnv/commonApp.md",
+                "file": "SoftwareDeploy/JIRA-config.md",
                 "mode": "source",
                 "source": false
               }
@@ -25,14 +25,13 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "WorkEnv/commonApp.md",
+                "file": "WorkEnv/initEnv.md",
                 "mode": "source",
                 "source": false
               }
             }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "vertical"
@@ -98,7 +97,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "WorkEnv/commonApp.md",
+                "file": "SoftwareDeploy/JIRA-config.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -115,7 +114,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "WorkEnv/commonApp.md",
+                "file": "SoftwareDeploy/JIRA-config.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -138,7 +137,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "WorkEnv/commonApp.md"
+                "file": "SoftwareDeploy/JIRA-config.md"
               }
             }
           }
@@ -159,12 +158,12 @@
       "command-palette:打开命令面板": false
     }
   },
-  "active": "8c2062bb5c818da6",
+  "active": "752ec8ed3071f248",
   "lastOpenFiles": [
-    "SoftwareDeploy/JIRA 配置.md",
-    "WorkEnv/commonApp.md",
     "WorkEnv/commonCommand.md",
+    "WorkEnv/commonApp.md",
     "WorkEnv/initEnv.md",
+    "SoftwareDeploy/JIRA-config.md",
     "Others/monitor.md",
     "未命名.canvas",
     "Others/schedule.md",
