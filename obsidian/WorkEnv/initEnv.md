@@ -46,6 +46,12 @@ chsh -s $(which zsh)
 #https://github.com/powerline/fonts
 cd /tmp && git clone https://github.com/powerline/fonts.git --depth=1
 cd fonts && ./install.sh
+
+# iterm2-color
+# https://iterm2colorschemes.com/
+
+##### 允许安装任何来源软件
+sudo spctl --master-disable
 ```
 
 #### VIM
@@ -91,10 +97,25 @@ mkdir ~/.vim/colors && cp ~/.vim/bundle/ex-colorschemes/colors/molokai.vim ~/.vi
 nf_conntrack
 br_netfilter
 
+
 # master
 curl -sfL https://get.k3s.io | sh -
 cat /var/lib/rancher/k3s/server/node-token  # join token
+##disable traefik
+kubectl -n kube-system delete helmcharts.helm.cattle.io traefik
+kubectl -n kube-system delete helmcharts.helm.cattle.io traefik-crd
+kubectl -n kube-system delete pod --field-selector=status.phase==Succeeded 
+##add to /etc/systemd/system/k3s.service
+--disable traefik \
+--disable traefik-crd \
+##
+systemctl daemon-reload
+rm /var/lib/rancher/k3s/server/manifests/traefik.yaml
+systemctl restart k3s
+
 
 # worker
-curl -sfL http://rancher-mirror.cnrancher.com/k3s/k3s-install.sh | K3S_URL=https://x.x.x.x:6443 K3S_TOKEN=xxx sh -
+curl -sfL https://get.k3s.io | K3S_URL=https://myserver:6443 K3S_TOKEN=mynodetoken sh -
+
+
 ```

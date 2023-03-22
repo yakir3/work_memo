@@ -8,24 +8,24 @@
         "type": "tabs",
         "children": [
           {
-            "id": "752ec8ed3071f248",
+            "id": "3424ebfb8136e86b",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "SoftwareDeploy/JIRA-config.md",
+                "file": "WorkEnv/initEnv.md",
                 "mode": "source",
                 "source": false
               }
             }
           },
           {
-            "id": "8c2062bb5c818da6",
+            "id": "637d529ebac3e353",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "WorkEnv/initEnv.md",
+                "file": "SoftwareDeploy/JiraWorkflow-Upgrade.md",
                 "mode": "source",
                 "source": false
               }
@@ -81,7 +81,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 244.5
+    "width": 331.5
   },
   "right": {
     "id": "c04dbb42c25d3162",
@@ -97,14 +97,14 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "SoftwareDeploy/JIRA-config.md",
-                "collapseAll": false,
+                "file": "WorkEnv/initEnv.md",
+                "collapseAll": true,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
                 "showSearch": false,
                 "searchQuery": "",
-                "backlinkCollapsed": false,
-                "unlinkedCollapsed": true
+                "backlinkCollapsed": true,
+                "unlinkedCollapsed": false
               }
             }
           },
@@ -114,7 +114,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "SoftwareDeploy/JIRA-config.md",
+                "file": "WorkEnv/initEnv.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -132,21 +132,21 @@
             }
           },
           {
-            "id": "981e8bbba17f4e43",
+            "id": "c8d34cad08e96e94",
             "type": "leaf",
             "state": {
               "type": "outline",
               "state": {
-                "file": "SoftwareDeploy/JIRA-config.md"
+                "file": "WorkEnv/initEnv.md"
               }
             }
           }
-        ]
+        ],
+        "currentTab": 3
       }
     ],
     "direction": "horizontal",
-    "width": 300,
-    "collapsed": true
+    "width": 200
   },
   "left-ribbon": {
     "hiddenItems": {
@@ -158,17 +158,17 @@
       "command-palette:打开命令面板": false
     }
   },
-  "active": "752ec8ed3071f248",
+  "active": "3424ebfb8136e86b",
   "lastOpenFiles": [
-    "WorkEnv/commonCommand.md",
-    "WorkEnv/commonApp.md",
+    "SoftwareDeploy/JiraWorkflow-Upgrade.md",
     "WorkEnv/initEnv.md",
-    "SoftwareDeploy/JIRA-config.md",
-    "Others/monitor.md",
-    "未命名.canvas",
-    "Others/schedule.md",
-    "Others/ac&pd.md",
-    "tmp.md",
-    "Others/uatproxy.md"
+    "SoftwareDeploy/Jira工作流自动升级流程.md",
+    "Pasted image 20230321093710.png",
+    "Pasted image 20230321093338.png",
+    "Pasted image 20230321092713.png",
+    "Pasted image 20230321092711.png",
+    "Pasted image 20230321090812.png",
+    "Pasted image 20230321084438.png",
+    "Pasted image 20230321084354.png"
   ]
 }
