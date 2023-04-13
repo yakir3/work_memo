@@ -44,12 +44,16 @@ time curl -X POST "http://172.20.1.189:9200/logstash-9u_panda_capital-2022-09-15
 # Mysql
 docker run --rm --name mysql -e MYSQL_ROOT_PASSWORD=123qwe123 -e MYSQL_DATABASE=yakirtest -p 3306:3306 --character-set-server=utf8mb4 -d mysql
 
-docker run --name yakir-mysql -e MYSQL_ROOT_PASSWORD=1qaz@WSX -e MYSQL_DATABASE=yakirtest -p 3306:3306 -v /docker-volume/data:/var/lib/mysql -v /docker-volume/log:/var/log/mysql -d mysql --character-set-server=utf8mb4
+docker run --rm --name yakir-mysql -e MYSQL_ROOT_PASSWORD=1qaz@WSX -e MYSQL_DATABASE=yakirtest -p 3306:3306 -v /docker-volume/data:/var/lib/mysql -v /docker-volume/log:/var/log/mysql -d mysql --character-set-server=utf8mb4
 
 # Redis
-docker run --name yakir-redis --rm -e REDIS_PASSWORD=123 -p 6379:6379 -v /docker-volume/data:/data -d redis
+docker run --rm --name yakir-redis -e REDIS_PASSWORD=123 -p 6379:6379 -v /docker-volume/data:/data -d redis
 
 # Redis Cluster
+
+# Postgres SQL
+docker run --rm --name yakir-postgres -e POSTGRES_PASSWORD=123qwe -e POSTGRES_DB=yakir_pg_test -p 5432:5432 -d postgres
+POSTGRES_USER
 
 
 # rancher
@@ -84,3 +88,8 @@ docker build -t yakir/uatproxy -f APP-META/Dockerfile .
 # uatproxy 转发 UAT 请求项目，docker 启动方式
 docker run --name uatproxy --rm -d --mount type=bind,source=/home/tomcat/yakir/pycode/uatproxy/db.sqlite3,target=/app/db.sqlite3 -p 8000:8000 yakir/uatproxy:latest
 ```
+
+
+#### [[K8S-Command]]
+
+

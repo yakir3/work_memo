@@ -16,7 +16,6 @@
 >以下字段数据新数据都从发包系统提交的 json 数据中获取，旧数据从上次升级 DB 保存数据获取
 + sql_info 字段数据不为空或与上次升级存在差值时，Jira 工单状态进入 <SQL待执行> ，将 sql_info 数据提交到 Archery 后台，DBA 审核执行（审核执行权限可分离，后续执行交由运维或测试执行？）。Jira 流程触发 <提交SQL> 进入 <SQL执行中> 状态，等待 SQL 执行成功人工点击触发 <SQL执行成功> 进入下一流程。
 ![[Pasted image 20230316145506.png]]
-![Pasted image 20230316145538.png](app://local/Users/yakir/Documents/work_memo/obsidian/Pasted%20image%2020230316145538.png?1678949738008)
 
 + apollo_info 或 config_info 字段数据不为空或与上次升级存在差值时，Jira 流程状态进入 <CONFIG执行中>，等待人工更新完配置后手动触发 <配置升级成功> 进入 <CODE执行中> 状态。
 ![[Pasted image 20230317165145.png]]
@@ -309,7 +308,8 @@ AC webhook：project = AC and issuetype in (升级) and status in (SQL待执行,
 
 QC webhook：project = QC and issuetype in (升级) and status in (SQL待执行, SQL执行中, CONFIG执行中,CODE执行中,"开发/运维修改")
 	![[Pasted image 20230321082706.png]]
-	
+>清理 webhook：delete from ao_4aeacd_webhook_dao;
+
 
 ##### 问题配置
 + 问题类型：新建升级类型，关联问题类型方案到项目。问题类型方案设置 升级 为默认问题
@@ -320,7 +320,7 @@ QC webhook：project = QC and issuetype in (升级) and status in (SQL待执行,
 ![[Pasted image 20230321084438.png]]
 + 字段
 	+ 自定义字段：新增字段，将字段关联到问题类型、项目、界面
-	![[Pasted image 20230321092713.png]]
+	![[Pasted image 20230413143904.png]]
 	+ 新增字段配置与字段配置方案，进行关联
 ![[Pasted image 20230321090812.png]]
 + 通知方案：新建通知方案，关联项目到通知方案中（通知方案通知组为新增 notice 组）
