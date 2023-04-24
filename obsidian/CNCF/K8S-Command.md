@@ -14,6 +14,9 @@ kubectl config set-context --current --namespace=kube-system
 # 快速调试
 kubectl run --rm yakir-busybox --image=busybox -it 
 
+# 批量查看 Pod 状态
+JSONPATH='{range .items[*]};{@.metadata.name}:{range @.status.conditions[*]}{@.type}={@.status},{end}{end};'  \
+ && kubectl get pods -l k8s-app=fluentbit-gke -n kube-system -o jsonpath="$JSONPATH" | tr ";" "\n"
 ```
 
 
