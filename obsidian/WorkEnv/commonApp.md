@@ -19,6 +19,13 @@ xmind
 keepassx
 
 multipass
+
+
+git 
+svn-client
+redis-client
+kafka-client
+mysql-client
 ```
 
 

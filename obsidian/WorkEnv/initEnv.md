@@ -106,8 +106,11 @@ kubectl -n kube-system delete helmcharts.helm.cattle.io traefik
 kubectl -n kube-system delete helmcharts.helm.cattle.io traefik-crd
 kubectl -n kube-system delete pod --field-selector=status.phase==Succeeded 
 ##add to /etc/systemd/system/k3s.service
---disable traefik \
---disable traefik-crd \
+ExecStart=/usr/local/bin/k3s \
+    server \
+    --disable traefik \
+    --disable traefik-crd \
+
 ##
 systemctl daemon-reload
 rm /var/lib/rancher/k3s/server/manifests/traefik.yaml
@@ -117,5 +120,8 @@ systemctl restart k3s
 # worker
 curl -sfL https://get.k3s.io | K3S_URL=https://myserver:6443 K3S_TOKEN=mynodetoken sh -
 
+# access
+mkdir ~/.kube
+cp /etc/rancher/k3s/k3s.yaml ~/.kube/config
 
 ```

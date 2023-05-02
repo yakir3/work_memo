@@ -8,24 +8,12 @@
         "type": "tabs",
         "children": [
           {
-            "id": "9c2f857ccbec4d97",
+            "id": "04fa513f0bf95916",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "WorkEnv/CommonCommand/commonCommand.md",
-                "mode": "source",
-                "source": false
-              }
-            }
-          },
-          {
-            "id": "c8113d322f6b40bd",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "AC/Notes/note-202304.md",
+                "file": "WorkEnv/CommonCommand/cc-kafka.md",
                 "mode": "source",
                 "source": false
               }
@@ -37,26 +25,26 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "AC/ac-tmp.md",
+                "file": "AC/Notes/note-202305.md",
                 "mode": "source",
                 "source": false
               }
             }
           },
           {
-            "id": "052a4cf297a3b467",
+            "id": "e2439d7ff93ded53",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "AC/部署相关/fluent-bit.md",
+                "file": "AC/ac-tmp.md",
                 "mode": "source",
                 "source": false
               }
             }
           }
         ],
-        "currentTab": 3
+        "currentTab": 2
       }
     ],
     "direction": "vertical"
@@ -122,7 +110,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "AC/部署相关/fluent-bit.md",
+                "file": "AC/ac-tmp.md",
                 "collapseAll": true,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -139,7 +127,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "AC/部署相关/fluent-bit.md",
+                "file": "AC/ac-tmp.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -162,7 +150,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "AC/部署相关/fluent-bit.md"
+                "file": "AC/ac-tmp.md"
               }
             }
           }
@@ -182,17 +170,17 @@
       "command-palette:打开命令面板": false
     }
   },
-  "active": "052a4cf297a3b467",
+  "active": "e2439d7ff93ded53",
   "lastOpenFiles": [
-    "WorkEnv/CommonCommand/cc-elasticsearch.md",
-    "AC/部署相关/fluent-bit.md",
-    "AC/Notes/note-202304.md",
-    "WorkEnv/CommonCommand/commonCommand.md",
-    "CNCF/K8S-Command.md",
-    "AC/ac-tmp.md",
-    "WorkEnv/CommonCommand/cc-kafka.md",
-    "AC/ac-record.md",
     "WorkEnv/commonApp.md",
-    "SoftwareDeploy/JiraWorkflow-Upgrade.md"
+    "WorkEnv/CommonCommand/cc-kafka.md",
+    "AC/ac-tmp.md",
+    "CNCF/未命名.md",
+    "CNCF/k8s-yaml.md",
+    "AC/Notes/note-202305.md",
+    "WorkEnv/CommonCommand/cc-elasticsearch.md",
+    "WorkEnv/CommonCommand/commonCommand.md",
+    "WorkEnv/CommonCommand/cc-docker.md",
+    "WorkEnv/CommonCommand/cc-curl.md"
   ]
 }
