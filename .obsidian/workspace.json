@@ -8,7 +8,7 @@
         "type": "tabs",
         "children": [
           {
-            "id": "04fa513f0bf95916",
+            "id": "b9137b20156b0d44",
             "type": "leaf",
             "state": {
               "type": "markdown",
@@ -20,31 +20,42 @@
             }
           },
           {
-            "id": "f4386ea278129c43",
+            "id": "a07935ae5c20a599",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "AC/Notes/note-202305.md",
+                "file": "SoftwareDeploy/Middleware/kafka-server.md",
                 "mode": "source",
                 "source": false
               }
             }
           },
           {
-            "id": "e2439d7ff93ded53",
+            "id": "875bf39af4f39c4e",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "AC/ac-tmp.md",
+                "file": "tmp/AC/Notes/note-202305.md",
+                "mode": "source",
+                "source": false
+              }
+            }
+          },
+          {
+            "id": "3b5f138fba73176b",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "tmp/AC/ac-tmp.md",
                 "mode": "source",
                 "source": false
               }
             }
           }
-        ],
-        "currentTab": 2
+        ]
       }
     ],
     "direction": "vertical"
@@ -110,7 +121,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "AC/ac-tmp.md",
+                "file": "WorkEnv/CommonCommand/cc-kafka.md",
                 "collapseAll": true,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -127,7 +138,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "AC/ac-tmp.md",
+                "file": "WorkEnv/CommonCommand/cc-kafka.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -150,7 +161,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "AC/ac-tmp.md"
+                "file": "WorkEnv/CommonCommand/cc-kafka.md"
               }
             }
           }
@@ -170,17 +181,17 @@
       "command-palette:打开命令面板": false
     }
   },
-  "active": "e2439d7ff93ded53",
+  "active": "b9137b20156b0d44",
   "lastOpenFiles": [
-    "WorkEnv/commonApp.md",
+    "SoftwareDeploy/Middleware/kafka-server.md",
+    "tmp/AC/ac-tmp.md",
+    "tmp/AC/Notes/note-202305.md",
     "WorkEnv/CommonCommand/cc-kafka.md",
-    "AC/ac-tmp.md",
-    "CNCF/未命名.md",
-    "CNCF/k8s-yaml.md",
     "AC/Notes/note-202305.md",
-    "WorkEnv/CommonCommand/cc-elasticsearch.md",
-    "WorkEnv/CommonCommand/commonCommand.md",
-    "WorkEnv/CommonCommand/cc-docker.md",
-    "WorkEnv/CommonCommand/cc-curl.md"
+    "AC/ac-tmp.md",
+    "WorkEnv/attachements/Pasted image 20230412153003.png",
+    "Others/schedule.md",
+    "Others/monitor.md",
+    "CNCF/helm-charts/README.md"
   ]
 }
