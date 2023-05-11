@@ -1,5 +1,5 @@
 [[cc-elasticsearch|Elasticsearch 常用命令]]
-
+[[cc-elasticsearch]]
 
 ```shell
 

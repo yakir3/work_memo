@@ -1,3 +1,5 @@
+[[cc-helm|helm常用命令]]
+
 ## helm repo
 ```shell
 nginx-stable    https://helm.nginx.com/stable

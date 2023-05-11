@@ -1,3 +1,9 @@
+[[cc-kafka|kafka常用命令]]
+
+
+
+
+
 ```shell
 
 ./kafka-server-start.sh -daemon ../config/server.properties 
@@ -47,3 +53,8 @@ kubectl exec -it kafka-client --namespace public-service -- bash
 
 
 ```
+
+
+>参考文档：
+>storaclass 存储类官方说明 = https://kubernetes.io/zh-cn/docs/concepts/storage/storage-classes/
+>nfs-server 存储类部署方式 = https://levelup.gitconnected.com/how-to-use-nfs-in-kubernetes-cluster-storage-class-ed1179a83817
