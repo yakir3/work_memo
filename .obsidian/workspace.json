@@ -55,7 +55,8 @@
               }
             }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -121,7 +122,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "WorkEnv/CommonCommand/cc-kafka.md",
+                "file": "SoftwareDeploy/Middleware/kafka-server.md",
                 "collapseAll": true,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -138,7 +139,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "WorkEnv/CommonCommand/cc-kafka.md",
+                "file": "SoftwareDeploy/Middleware/kafka-server.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -161,7 +162,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "WorkEnv/CommonCommand/cc-kafka.md"
+                "file": "SoftwareDeploy/Middleware/kafka-server.md"
               }
             }
           }
@@ -181,17 +182,17 @@
       "command-palette:打开命令面板": false
     }
   },
-  "active": "b9137b20156b0d44",
+  "active": "a07935ae5c20a599",
   "lastOpenFiles": [
+    "WorkEnv/commonApp/initAPP.md",
     "SoftwareDeploy/Middleware/kafka-server.md",
-    "tmp/AC/ac-tmp.md",
     "tmp/AC/Notes/note-202305.md",
     "WorkEnv/CommonCommand/cc-kafka.md",
+    "tmp/AC/ac-tmp.md",
     "AC/Notes/note-202305.md",
     "AC/ac-tmp.md",
     "WorkEnv/attachements/Pasted image 20230412153003.png",
     "Others/schedule.md",
-    "Others/monitor.md",
-    "CNCF/helm-charts/README.md"
+    "Others/monitor.md"
   ]
 }

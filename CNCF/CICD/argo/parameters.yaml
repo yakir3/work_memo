@@ -1,0 +1,20 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Workflow
+metadata:
+  generateName: hello-world-parameters-
+spec:
+  entrypoint: whalesay
+  arguments:
+    parameters:
+    - name: message
+      value: it's from argo workflow of parameters
+
+  templates:
+  - name: whalesay
+    inputs:
+      parameters:
+      - name: message
+    container:
+      image: busybox
+      command: [echo]
+      args: ["{{inputs.parameters.message}}"]
