@@ -13,19 +13,31 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "WorkEnv/CommonCommand/cc-kafka.md",
+                "file": "WorkEnv/CommonCommand/cc-k8s.md",
                 "mode": "source",
                 "source": false
               }
             }
           },
           {
-            "id": "a07935ae5c20a599",
+            "id": "1be11436bc7d2c34",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "CNCF/AppDefinitionDevelopment/StreamingMessaging/kafka-server.md",
+                "file": "CNCF/AppDefinitionDevelopment/Database/redis-cluster.md",
+                "mode": "source",
+                "source": false
+              }
+            }
+          },
+          {
+            "id": "4dda4a057ef7bbf9",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "CNCF/ObservabilityAnalysis/Logging/fluent-bit.md",
                 "mode": "source",
                 "source": false
               }
@@ -50,6 +62,18 @@
               "type": "markdown",
               "state": {
                 "file": "tmp/AC/ac-tmp.md",
+                "mode": "source",
+                "source": false
+              }
+            }
+          },
+          {
+            "id": "21cbd54381c57e6b",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "tmp/Travel/tmp.md",
                 "mode": "source",
                 "source": false
               }
@@ -122,7 +146,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "CNCF/AppDefinitionDevelopment/StreamingMessaging/kafka-server.md",
+                "file": "CNCF/AppDefinitionDevelopment/Database/redis-cluster.md",
                 "collapseAll": true,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -139,7 +163,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "CNCF/AppDefinitionDevelopment/StreamingMessaging/kafka-server.md",
+                "file": "CNCF/AppDefinitionDevelopment/Database/redis-cluster.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -162,11 +186,12 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "CNCF/AppDefinitionDevelopment/StreamingMessaging/kafka-server.md"
+                "file": "CNCF/AppDefinitionDevelopment/Database/redis-cluster.md"
               }
             }
           }
-        ]
+        ],
+        "currentTab": 3
       }
     ],
     "direction": "horizontal",
@@ -182,17 +207,17 @@
       "command-palette:打开命令面板": false
     }
   },
-  "active": "a07935ae5c20a599",
+  "active": "1be11436bc7d2c34",
   "lastOpenFiles": [
-    "tmp/AC/ac-tmp.md",
-    "WorkEnv/Others/JiraWorkflow-Upgrade.md",
-    "CNCF/README.md",
-    "CNCF/Runtime/CloudNativeStorage/nfs-server.md",
-    "CNCF/Others/kube-eventer.md",
-    "CNCF/AppDefinitionDevelopment/ApplicationDefinitionImageBuild/helm.md",
+    "WorkEnv/CommonCommand/cc-k8s.md",
+    "CNCF/AppDefinitionDevelopment/Database/redis-cluster.md",
+    "CNCF/ObservabilityAnalysis/Logging/fluent-bit.md",
+    "tmp/Travel/tmp.md",
     "CNCF/AppDefinitionDevelopment/StreamingMessaging/kafka-server.md",
-    "CNCF/AppDefinitionDevelopment/ApplicationDefinitionImageBuild/helm/helm-charts.md",
-    "WorkEnv/CommonCommand/cc-elasticsearch.md",
-    "CNCF/ObservabilityAnalysis/Logging/fluent-bit.md"
+    "tmp/AC/ac-tmp.md",
+    "tmp/AC/Notes/note-202305.md",
+    "WorkEnv/ServiceConf/sc-redis-cluster.md",
+    "WorkEnv/ServiceConf/sc-nginx.md",
+    "WorkEnv/CommonCommand/cc-kafka.md"
   ]
 }

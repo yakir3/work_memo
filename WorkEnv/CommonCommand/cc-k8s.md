@@ -2,15 +2,31 @@
 # 查看集群配置信息
 kubectl config view
 kubectl config get-contexts
-
 # 添加、配置集群配置信息
 kubectl config set...
-
 # 切换默认 namespace
 kubectl config set-context --current --namespace=kube-system
 
-# 快速调试
-kubectl run --rm yakir-busybox --image=busybox -it 
+
+# Pod 相关操作
+# 从 yaml 文件创建资源
+kubectl apply -f test.yaml
+kubectl apply -k
+# 创建
+kubectl run --rm pod_name --image=busybox -it 
+# 删除
+kubectl delete pod_name
+# 查看日志
+kubectl logs -f --tail 10 pod_name
+# 查看信息
+kubectl get pod pod_name
+kubectl describe pod pod_name
+# 进入容器终端
+kubectl exec -it pod_name [-c container_name] -- bash/sh
+# 快速 debug 调试
+kubectl debug -it pod_name --image=busybox [--target=container_name]
+
+
 
 # 批量查看 Pod 状态
 JSONPATH='{range .items[*]};{@.metadata.name}:{range @.status.conditions[*]}{@.type}={@.status},{end}{end};'  \

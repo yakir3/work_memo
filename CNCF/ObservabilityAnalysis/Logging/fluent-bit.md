@@ -1,5 +1,7 @@
+
+
 [[cc-elasticsearch|Elasticsearch 常用命令]]
-[[cc-elasticsearch]]
+
 
 ```shell
 
@@ -46,3 +48,8 @@ pip install --upgrade google-cloud-logging
 
 持久化日志？
 
+
+
+>参考文档：
+> 
+ fluent-bit 官方文档 = https://hulining.gitbook.io/fluentbit/pipeline/filters/kubernetes

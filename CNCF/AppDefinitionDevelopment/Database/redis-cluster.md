@@ -1,14 +1,246 @@
+### 一、二进制部署方式
+> 官方包下载地址：http://download.redis.io/redis-stable/
+
+#### 下载编译
 ```shell
+# 下载源码
+wget https://download.redis.io/redis-stable.tar.gz
 
+# 解压编译
+tar -xzvf redis-stable.tar.gz
+cd redis-stable
+make
 
-password: Sa@acclub.io
-
-
-# 验证结果
-kubectl -n middleware debug -it --image=docker.io/bitnami/redis-cluster:7.0.11-debian-11-r0 uat-redis-v3-redis-cluster-0 -- bash
-
-kubectl run --namespace middleware uat-redis-v3-redis-cluster-client --rm --tty -i --restart='Never' \
- --env REDIS_PASSWORD=Sa@acclub.io \
---image docker.io/bitnami/redis-cluster:7.0.11-debian-11-r0 -- bash
+# 安装编译好的二进制命令到执行 prefix 目录
+make PREFIX=/usr/local/bin install
 
 ```
+
+[[sc-redis-cluster|redis配置]]
+
+
+#### 单点配置
+```shell
+# 复制配置文件
+cp redis.conf /etc/redis.conf
+
+# 前台启动 server
+/usr/local/bin/redis-server /etc/redis.conf
+# daemon 方式启动
+nohup /usr/local/bin/redis-server /etc/redis.conf
+```
+
+
+#### 集群配置
+初始化配置与启动
+```shell
+# 创建目录
+mkdir -p /opt/redis/{bin,data,conf,logs}
+mkdir -p /opt/redis/data/{7001..7003}
+
+# 复制编译后二进制命令与配置
+cp /usr/local/bin/redis-* /opt/redis/bin/
+cp redis.conf /opt/redis/conf/redis_7001.conf
+cp redis.conf /opt/redis/conf/redis_7002.conf
+cp redis.conf /opt/redis/conf/redis_7003.conf
+
+# 修改配置文件
+cat > /opt/redis/conf/redis_7001.conf << "EOF"
+bind 0.0.0.0
+port 7001
+# 是否后台进程启动
+daemonize yes
+supervised auto
+pidfile /opt/redis/logs/redis_7001.pid
+logfile /opt/redis/logs/redis_7001.log
+dir /opt/redis/data/7001
+# RDB 持久化配置
+stop-writes-on-bgsave-error yes
+dbfilename dump.rdb
+rdb-del-sync-files no
+masterauth redis123
+requirepass redis123
+# AOF 配置
+appendonly yes
+appendfilename "appendonly.aof"
+appendfsync everysec
+# 集群模式
+cluster-enabled yes
+cluster-node-timeout 15000
+# 禁用高危命令
+rename-command FLUSHALL ""
+rename-command FLUSHDB  ""
+rename-command CONFIG   ""
+rename-command SHUTDOWN ""
+rename-command KEYS     ""
+EOF
+
+# 复制修改其他 redis 节点配置
+cp /opt/redis/conf/redis_7001.conf /opt/redis/conf/redis_7002.conf 
+cp /opt/redis/conf/redis_7001.conf /opt/redis/conf/redis_7003.conf 
+
+# 启动 redis，3主3从模式需启动6个 redis 实例
+redis-server conf/redis_7001.conf
+redis-server conf/redis_7002.conf
+redis-server conf/redis_7003.conf
+```
+集群初始化创建
+```shell
+# cluster-replicas 配置 slave 节点数量，建议为3主3从配置
+redis-cli --cluster-replicas 0 --cluster create \
+127.0.0.1:7001 \
+127.0.0.1:7002 \
+127.0.0.1:7003
+```
+
+
+#### 开机自启
+```shell
+# redis 配置文件方式，打开配置即使用守护进程启动
+daemonize yes
+
+# Systemd 方式，supervised 需配置为 systemd 或 auto
+cat > /etc/systemd/system/redis.service << "EOF"
+[Unit]
+Description=Redis In-Memory Data Store
+Documentation=https://redis.io/
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+# Environment=statedir=/opt/redis
+# ExecStartPre=/bin/mkdir -p ${statedir}
+WorkingDirectory=/opt/redis
+Type=forking
+# 根据配置对应修改
+ExecStart=/usr/local/bin/redis-server /opt/redis/conf/redis_7001.conf
+ExecStop=/usr/local/bin/redis-cli -p 7001 -a redis123 shutdown
+ExecReload=/bin/kill -s HUP $MAINPID
+# PIDFile=/opt/redis/logs/redis_7001.pid
+LimitNOFILE=65535
+#OOMScoreAdjust=-900
+Restart=always
+RestartSec=5s
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target
+EOF
+
+systemctl daemon-reload
+systemctl start redis.service
+systemctl enable redis.service
+```
+
+
+#### 验证
+```shell
+# client 端连接命令与参数
+# /usr/local/bin/redis-cli [-h host] [-p port] [-a password] [-c]
+redis-cli -p 7001 -a redis123 -c 
+SET a aaa
+GET a
+
+# 集群异常处理
+# 查看节点信息
+redis-cli -h 127.0.0.1 -p 7001 -a redis123 -c CLUSTER NODES 
+# 剔除异常节点
+redis-cli -h 127.0.0.1 -p 7001 -a redis123 -c CLUSTER FORGET 82f9c8aa46e695cc21e7e0882e08389f123a5c23
+# 重新将 slot 分片
+redis-cli --cluster reshard 127.0.0.1:7001 -a redis123
+
+
+# 常用命令
+AUTH password
+SELECT DB
+INFO
+KEYS *
+ACL 
+CLUSTER NODES
+CLUSTER INFO
+
+```
+
+
+#### 部署遇到的问题
+```shell
+../deps/jemalloc/lib/libjemalloc.a: No such file or directory
+# 解决：
+apt install libjemalloc-dev
+make 
+
+```
+
+
+### 二、Kubernetes 方式
+#### helm 下载 chart 包
+[[cc-helm|helm使用]]
+```shell
+# 创建中间件 chart 包目录
+mkdir /opt/tc-helm/helm-charts/middleware
+cd /opt/tc-helm/helm-charts/middleware
+
+# 添加 helm 仓库，下载 kafka chart 包
+helm repo add bitnami https://charts.bitnami.com/bitnami
+# 一主多从模式
+helm pull bitnami/redis --untar
+# 集群模式
+helm pull bitnami/redis-cluster  --untar
+cd redis-cluster
+
+```
+
+
+#### 部署 redis-cluster
+```shell
+# Chart.yaml 配置修改，视情况修改
+sed -i 's/^name: .*/name: uat-redis-xxx/' Chart.yaml
+
+
+# values.yaml 配置修改，必修改项
+vim values.yaml
+## 修改全局持久化存储类与密码
+global:
+  storageClass: nfs-client
+  redis:
+    password: redis-pwd
+## 集群相关配置
+cluster:
+  init: true
+  nodes: 6
+  replicas: 1
+
+
+## 安装
+helm -n middleware install uat-redis-cluster .
+
+```
+
+#### 验证
+```shell
+# 查看 redis 密码
+kubectl -n middleware get secret uat-redis-cluster -o jsonpath="{.data.redis-password}" | base64 -d
+
+# kubectl -n middleware get pod
+# kubectl -n middleware get service
+NAME                                   TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)              AGE
+service/uat-redis-cluster-headless   ClusterIP   None            <none>        6379/TCP,16379/TCP   2m20s
+service/uat-redis-cluster            ClusterIP   10.43.148.142   <none>        6379/TCP             2m20s   
+
+
+# k8s 集群内部可通过 service 的 headless 实现集群访问
+kafka.servers = uat-redis-cluster-0.redis-cluster-headless.middleware.svc:6379,uat-redis-cluster-1.redis-cluster-headless.middleware.svc:6379,.....
+
+
+# 启动 client 容器测试
+kubectl -n middleware run redis-client --image docker.io/bitnami/redis-cluster --command -- sleep infinity
+kubectl -n middleware exec -it redis-client -- bash
+```
+
+
+
+>参考文档：
+>1. 官方文档地址 = https://redis.io/docs/getting-started/
+>2. github = https://github.com/redis/redis
+>3. redis 集群方案 = https://segmentfault.com/a/1190000022028642
+>4. k8s redis-cluster 部署 = https://www.airplane.dev/blog/deploy-redis-cluster-on-kubernetes
