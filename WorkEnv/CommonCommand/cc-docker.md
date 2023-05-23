@@ -46,3 +46,26 @@ docker build -t yakir/uatproxy -f APP-META/Dockerfile .
 # uatproxy 转发 UAT 请求项目，docker 启动方式
 docker run --name uatproxy --rm -d --mount type=bind,source=/home/tomcat/yakir/pycode/uatproxy/db.sqlite3,target=/app/db.sqlite3 -p 8000:8000 yakir/uatproxy:latest
 ```
+
+```shell
+# v2ray
+docker run -d --name v2ray -v /opt/third_app/v2ray/:/opt/third_app/v2ray/ -p 12306:12306 v2ray/official v2ray \
+-config=/opt/third_app/v2ray/config.json
+
+# ipsec
+# run
+docker run --name ipsecvpn --env-file ./vpn.env --restart=always -p 500:500/udp -p 4500:4500/udp -d --privileged hwdsl2/ipsec-vpn-server
+# config
+cat ./vpn.env
+VPN_IPSEC_PSK=ipsecpskkey1234567890
+VPN_USER=ipsec123
+VPN_PASSWORD=ipsec123
+#VPN_ADDL_USERS=additional_username_1 additional_username_2
+#VPN_ADDL_PASSWORDS=additional_password_1 additional_password_2
+
+# SSR
+wget -N --no-check-certificate https://raw.githubusercontent.com/ToyoDAdoubi/doubi/master/ssr.sh
+```
+
+
+> 阿里云 ACR 仓库加速地址 = taa4w07u.mirror.aliyuncs.com
