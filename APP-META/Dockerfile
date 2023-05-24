@@ -10,5 +10,5 @@ WORKDIR $APP
 # We copy the rest of the codebase into the image
 COPY . .
 
-#ENTRYPOINT ["/bin/docker-entrypoint.sh"]
+#ENTRYPOINT ["/bin/entrypoint.sh"]
 CMD ["echo", "work_memo"]

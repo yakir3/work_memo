@@ -8,6 +8,8 @@ vim config/elasticsearch.yml
 
 # 3.run 
 ./bin/elasticsearch
+# daemon run
+./bin/elasticsearch -d 
 
 # 4.set password and verify
 ./bin/elasticsearch-setup-passwords interactive
@@ -28,7 +30,15 @@ cd elasticsearch
 # configure and run
 vim values.yaml
 
-
 helm -n logging install elasticsearch .
 
 ```
+
+
+### 官方 ECK operator 部署方式
+详见参考文档
+
+
+> 参考文档：
+> 1、官方 github 文档 = https://github.com/elastic/elasticsearch
+> 2、官方 k8s 集群部署文档 = https://www.elastic.co/downloads/elastic-cloud-kubernetes

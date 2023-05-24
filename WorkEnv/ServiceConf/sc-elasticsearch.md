@@ -17,7 +17,7 @@ path.logs: /opt/elasticsearch/logs/
 cluster.name: yakir-es-cluster
 node.name: node1
 http.port: 9200
-network.host: 1.1.1.1
+network.host: 0.0.0.0
 http.cors.enabled: true
 http.cors.allow-origin: "*"
 discovery.zen.ping.unicast.hosts: ["1.1.1.1", "2.2.2.2", "3.3.3.3"]

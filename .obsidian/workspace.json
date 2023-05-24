@@ -73,14 +73,14 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "tmp/Travel/June.md",
+                "file": "Develop/Python.md",
                 "mode": "source",
                 "source": false
               }
             }
           }
         ],
-        "currentTab": 2
+        "currentTab": 5
       }
     ],
     "direction": "vertical"
@@ -146,7 +146,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "CNCF/ObservabilityAnalysis/Logging/elasticsearch.md",
+                "file": "Develop/Python.md",
                 "collapseAll": true,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -163,7 +163,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "CNCF/ObservabilityAnalysis/Logging/elasticsearch.md",
+                "file": "Develop/Python.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -186,7 +186,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "CNCF/ObservabilityAnalysis/Logging/elasticsearch.md"
+                "file": "Develop/Python.md"
               }
             }
           }
@@ -207,17 +207,17 @@
       "command-palette:打开命令面板": false
     }
   },
-  "active": "b3511abefee86cef",
+  "active": "8a1a0714bbdb0db9",
   "lastOpenFiles": [
-    "CNCF/ObservabilityAnalysis/Logging/logstash.md",
-    "CNCF/ObservabilityAnalysis/Logging/elasticsearch.md",
+    "tmp/Travel/June.md",
     "WorkEnv/ServiceConf/sc-elasticsearch.md",
+    "CNCF/ObservabilityAnalysis/Logging/elasticsearch.md",
+    "WorkEnv/CommonCommand/cc-elasticsearch.md",
+    "WorkEnv/CommonCommand/cc-docker.md",
+    "CNCF/OrchestrationManagement/SchedulingOrchestration/Kubernetes/k8s-yaml/others/k8s-debug.md",
+    "CNCF/ObservabilityAnalysis/Logging/logstash.md",
     "CNCF/AppDefinitionDevelopment/ApplicationDefinitionImageBuild/helm.md",
     "WorkEnv/ServiceConf/sc-nginx.md",
-    "WorkEnv/CommonCommand/cc-elasticsearch.md",
-    "WorkEnv/CommonCommand/cc-containerd.md",
-    "tmp/AC/ac-tmp.md",
-    "WorkEnv/CommonCommand/cc-curl.md",
-    "tmp/AC/Notes/note-202305.md"
+    "WorkEnv/CommonCommand/cc-containerd.md"
   ]
 }

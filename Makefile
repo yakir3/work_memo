@@ -1,26 +1,34 @@
-NAME = yakirinp/work_memo
-VERSION = 1.0
-DOCKER_REGISTRY = hub.docker.com/
+IMAGE_NAME = work_memo
+VERSION = v1
 
-.PHONY: clean build all
-all: build docker-build clean
+PUSH_NAME = yakirinp/$(IMAGE_NAME)
+DOCKER_REGISTRY = hub.docker.com/
+GIT_COMMIT:=$(shell git rev-parse --short HEAD)
+PUSH_FULL_NAME = ${DOCKER_REGISTRY}${PUSH_NAME}:${VERSION}
+
+.PHONY: test clean build all
+all: build docker-image clean
+
+test:
+	echo ${PUSH_FULL_NAME}
 
 clean:
 	@#rm *.o temp tmp
 	@#docker image prune -f
 
 build:
-	@#echo no need to build
+	@echo no need to build
 
-docker-build: docker-image docker-tag docker-push
+docker-image: docker-build docker-tag docker-push
 
-
-.ONESHELL: docker-image docker-tag docker-push
-docker-image:
-	docker build -t ${NAME}:${VERSION} .
+.ONESHELL: docker-build docker-tag docker-push
+docker-build:
+	@docker build -t ${IMAGE_NAME}:${VERSION} -f APP-META/Dockerfile .
+	@#docker build -t ${IMAGE_NAME}-${GIT_COMMIT}:${VERSION} -f APP-META/Dockerfile .
 
 docker-tag:
-	@#docker tag ${NAME}:${VERSION} ${DOCKER_REGISTRY}${PNAME}:${VERSION}
+	@#podman tag ${IMAGE_NAME}:${VERSION} ${PUSH_FULL_NAME}
+	@docker tag ${IMAGE_NAME}:${VERSION} ${PUSH_FULL_NAME}
 
 docker-push:
-	docker push ${NAME}:${VERSION}
+	@docker push ${PUSH_FULL_NAME}
