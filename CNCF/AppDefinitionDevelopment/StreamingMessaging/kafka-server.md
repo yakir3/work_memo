@@ -1,4 +1,4 @@
-## 一、二进制部署方式
+### 一、二进制部署方式
 > 官方包下载j地址：https://kafka.apache.org/downloads
 > kafka3.3 以上版本使用 Kraft 协议替代 zookeeper，可不启动 zookeeper
 #### 1、zookeeper 模式
@@ -13,6 +13,7 @@ mv kafka_2.13-3.3.1 kafka_3.3.1
 cd kafka_3.3.1
 ```
 
+[[sc-kafka|kafka常用配置]]
 修改配置
 ```shell
 # zookeeper 配置
@@ -201,6 +202,7 @@ cd /opt/tc-helm/helm-charts/middleware
 
 # 添加 helm 仓库，下载 kafka chart 包
 helm repo add bitnami https://charts.bitnami.com/bitnami
+helm update
 # 注意：最新的 kafka helm 包无法正常启动且无异常日志，需要用稍旧版本的 chart 包
 helm pull bitnami/kafka --version=20.0.6  --untar
 cd kafka

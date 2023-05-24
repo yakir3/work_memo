@@ -27,6 +27,9 @@ kubectl exec -it pod_name [-c container_name] -- bash/sh
 kubectl debug -it pod_name --image=busybox [--target=container_name]
 
 
+# 强制删除 pod 容器
+kubect delete pod yakir_test --force=true --grace-period=0
+
 
 # 批量查看 Pod 状态
 JSONPATH='{range .items[*]};{@.metadata.name}:{range @.status.conditions[*]}{@.type}={@.status},{end}{end};'  \

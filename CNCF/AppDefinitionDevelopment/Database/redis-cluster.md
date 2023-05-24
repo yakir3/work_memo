@@ -16,8 +16,7 @@ make PREFIX=/usr/local/bin install
 
 ```
 
-[[sc-redis-cluster|redis配置]]
-
+[[sc-redis-cluster|redis常用配置]]
 
 #### 单点配置
 ```shell
@@ -177,11 +176,12 @@ make
 [[cc-helm|helm使用]]
 ```shell
 # 创建中间件 chart 包目录
-mkdir /opt/tc-helm/helm-charts/middleware
-cd /opt/tc-helm/helm-charts/middleware
+mkdir /opt/helm-charts/middleware
+cd /opt/helm-charts/middleware
 
 # 添加 helm 仓库，下载 kafka chart 包
 helm repo add bitnami https://charts.bitnami.com/bitnami
+helm update
 # 一主多从模式
 helm pull bitnami/redis --untar
 # 集群模式
