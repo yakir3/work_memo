@@ -11,11 +11,69 @@ vim config/elasticsearch.yml
 # daemon run
 ./bin/elasticsearch -d 
 
-# 4.set password and verify
+# 4.install plugin
+./bin/elasticsearch-plugin install https://github.com/medcl/elasticsearch-analysis-ik/releases/download/v8.5.1/elasticsearch-analysis-ik-8.5.1.zip
+
+# 5.set password and verify
 ./bin/elasticsearch-setup-passwords interactive
 curl 127.0.0.1:9200 -u 'elastic:es123123'
+
+# 6.boot
+cat > /usr/lib/systemd/system/elasticsearch.service << "EOF"
+[Unit]
+Description=Elasticsearch
+Documentation=https://www.elastic.co
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+Type=notify
+NotifyAccess=all
+RuntimeDirectory=elasticsearch
+PrivateTmp=true
+Environment=ES_HOME=/opt/elasticsearch
+Environment=ES_PATH_CONF=/opt/elasticsearch/config
+Environment=PID_DIR=/opt/elasticsearch/logs
+Environment=ES_SD_NOTIFY=true
+EnvironmentFile=-/etc/default/elasticsearch
+WorkingDirectory=/opt/elasticsearch
+User=elasticsearch
+Group=elasticsearch
+ExecStart=/opt/elasticsearch/bin/systemd-entrypoint -p ${PID_DIR}/elasticsearch.pid --quiet
+StandardOutput=journal
+StandardError=inherit
+LimitNOFILE=65535
+LimitNPROC=4096
+LimitAS=infinity
+LimitFSIZE=infinity
+TimeoutStopSec=0
+KillSignal=SIGTERM
+KillMode=process
+SendSIGKILL=no
+SuccessExitStatus=143
+TimeoutStartSec=900
+
+[Install]
+WantedBy=multi-user.target
+EOF
+
+cat > /opt/elasticsearch/bin/systemd-entrypoint << "EOF"
+#!/bin/sh
+if [ -n "$ES_KEYSTORE_PASSPHRASE_FILE" ] ; then
+  exec /opt/elasticsearch/bin/elasticsearch "$@" < "$ES_KEYSTORE_PASSPHRASE_FILE"
+else
+  exec /opt/elasticsearch/bin/elasticsearch "$@"
+fi
+EOF
+
+chmod +x /opt/elasticsearch/bin/systemd-entrypoint   
+systemctl daemon-reload
+systemctl start elasticsearch.service
+systemctl enable elasticsearch.service
 ```
 [[sc-elasticsearch|es常用配置]]
+
+>Elascticsearch 可视化工具 cerebro，[官方地址](https://github.com/lmenezes/cerebro)
 
 ### helm 部署
 ```shell
@@ -27,8 +85,12 @@ helm update
 helm pull elastic/elasticsearch --untar
 cd elasticsearch
 
+# create storageclass
+[[nfs-server]]
+
 # configure and run
 vim values.yaml
+esConfig: {}
 
 helm -n logging install elasticsearch .
 
@@ -42,3 +104,4 @@ helm -n logging install elasticsearch .
 > 参考文档：
 > 1、官方 github 文档 = https://github.com/elastic/elasticsearch
 > 2、官方 k8s 集群部署文档 = https://www.elastic.co/downloads/elastic-cloud-kubernetes
+> 3、Ubuntu Install = https://www.elastic.co/guide/en/elasticsearch/reference/8.7/deb.html
