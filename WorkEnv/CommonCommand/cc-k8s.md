@@ -8,6 +8,10 @@ kubectl config set...
 kubectl config set-context --current --namespace=kube-system
 
 
+# 转发 pod / service 端口
+kubectl -n cattle-system port-forward --address 0.0.0.0 pods/rancher-6bd6ff6b7b-2v6qq 8888:80
+
+
 # Pod 相关操作
 # 从 yaml 文件创建资源
 kubectl apply -f test.yaml

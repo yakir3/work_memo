@@ -17,7 +17,7 @@ Fluentd 和 Fluent Bit 都可以充当聚合器或转发器，它们可以互补
 
 
 ### 二、二进制部署方式
-源码安装
+#### 源码安装
 ```shell
 # source code download
 https://docs.fluentbit.io/manual/installation/getting-started-with-fluent-bit

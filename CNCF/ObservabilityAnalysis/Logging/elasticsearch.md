@@ -70,10 +70,12 @@ chmod +x /opt/elasticsearch/bin/systemd-entrypoint
 systemctl daemon-reload
 systemctl start elasticsearch.service
 systemctl enable elasticsearch.service
+
 ```
 [[sc-elasticsearch|es常用配置]]
 
 >Elascticsearch 可视化工具 cerebro，[官方地址](https://github.com/lmenezes/cerebro)
+
 
 ### helm 部署
 ```shell

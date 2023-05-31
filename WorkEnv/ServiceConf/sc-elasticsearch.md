@@ -27,13 +27,15 @@ network.host: 0.0.0.0
 # 允许跨域
 http.cors.enabled: true
 http.cors.allow-origin: "*"
-# xpack 配置
+# xpack 安全功能配置
 xpack.security.enabled: false
 xpack.security.transport.ssl.enabled: false
 # es7.x 版本以上集群发现
 discovery.seed_hosts: ["1.1.1.1", "2.2.2.2", "3.3.3.3"]
+# 是否锁定内存，建议设置为 true
+bootstrap.memory_lock: true
 # 启动全新的集群时需要此参数，再次重新启动时此参数可免。集群初始化master节点
-cluster.initial_master_nodes: ["node-1", "node-2"]
+cluster.initial_master_nodes: ["node-1", "node-2", "node-3"]
 
 # es7.x 旧版本配置
 # 集群发现
