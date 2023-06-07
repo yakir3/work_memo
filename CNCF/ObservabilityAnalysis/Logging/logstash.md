@@ -39,5 +39,5 @@ helm -n logging install logstash .
 ```
 
 > 参考文档：
-> 1、官方 github 地址 = https://github.com/elastic/logstash
-> 2、官方 helm 安装指引 = https://github.com/elastic/helm-charts/blob/main/logstash/README.md
+> 1. [官方 github 地址](https://github.com/elastic/logstash) 
+> 2. [官方 helm 安装指引](https://github.com/elastic/helm-charts/blob/main/logstash/README.md)

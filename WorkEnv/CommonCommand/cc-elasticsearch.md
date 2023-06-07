@@ -1,10 +1,22 @@
 ```shell
 # 查看所有 restful api
 curl http://es_server:9200/_cat -u "elastic:es123"
-
+# Basic auth 认证头
+-u 'elastic:es123'
 
 # 创建索引
-curl http://es_server:9200/index_name -X PUT
+curl http://es_server:9200/index_name -X PUT -H'content-type: application/json' \
+-d '{
+    "settings": {
+        "index": {
+            "lifecycle": {
+                "name": "yakir_test_policy"
+            },
+            "number_of_shards": "1",
+            "number_of_replicas": "0"
+        }
+    }
+}'
 # 查看 es 所有索引
 curl http://es_server:9200/_cat/indices?pretty
 # 查看索引配置信息
@@ -12,14 +24,13 @@ curl http://es_server:9200/index_name/_settings?pretty
 # 查看索引映射信息
 curl http://es_server:9200/index_name/_mappings
 # 查看所有索引
-curl http://172.30.2.218:9200/_cat/indices |awk '{print $3}' |sort -rn |uniq
+curl http://es_server:9200/_cat/indices |awk '{print $3}' |sort -rn |uniq
 # 查看所有索引分片
-curl http://172.30.2.218:9200/_cat/shards -u "elastic:es123" |awk '{print $1}' |sort -rn |uniq |grep -v "\." > /tmp/index.tmp
+curl http://es_server:9200/_cat/shards -u "elastic:es123" |awk '{print $1}' |sort -rn |uniq |grep -v "\." > /tmp/index.tmp
 # 查看索引模板配置信息
 curl http://es_server:9200/_template/logstash_template
-# 配置索引/索引模板，默认分片、副本数规则、映射等
-curl -X PUT 'http://es_server:9200/_template/logstash_template' -u 'elastic:es123' \ 
--H 'Content-Type: application/json' \
+# 创建索引/索引模板，默认分片、副本数规则、映射等
+curl http://es_server:9200/_template/logstash_template -X PUT -H 'Content-Type: application/json' \
 -d '{
 	"index_patterns": ["logstash-*"],
 	"settings": {
@@ -43,7 +54,62 @@ curl http://es-server:9200/_ilm/policy/policy_name
 # 查看索引生命周期策略信息
 curl http://es_server:9200/index_name/_ilm/explain
 # 新增自定义生命周期策略
-curl http://172.30.2.218:9200/_ilm/policy/logstash_delete_policy -X PUT
+curl http://es_server:9200/_ilm/policy/logstash_delete_policy -X PUT -H'content-type: application/json' \
+-d '{
+    "policy": {
+      "phases": {
+        "hot": {
+          "min_age": "0ms",
+          "actions": {
+            "rollover": {
+              "max_primary_shard_size": "50gb",
+              "max_age": "3d",
+              "max_docs": 10
+            },
+            "set_priority": {
+              "priority": "100"
+            },
+            "alias": {
+              "hot_alias": {}
+            }
+          }
+        },
+        "warm": {
+          "min_age": "1m",
+          "actions": {
+            "shrink": {
+              "number_of_shards": 1
+            },
+            "forcemerge": {
+              "max_num_segments": 1
+            },
+            "allocate": {
+              "number_of_replicas": 0
+            },
+            "set_priority": {
+              "priority": "50"
+            }
+          }
+        },
+        "cold": {
+          "min_age": "3m",
+          "actions": {
+            "set_priority": {
+              "priority": "0"
+            }
+          }
+        },
+        "delete": {
+          "min_age": "5m",
+          "actions": {
+            "delete": {
+              "delete_searchable_snapshot": true
+            }
+          }
+        }
+      }
+    }
+}'
 
 
 # 搜索数据

@@ -293,8 +293,8 @@ kubectl -n middleware exec -it kafka-client -- bash
 
 
 >参考文档：
->1. storaclass 存储类官方说明 = https://kubernetes.io/zh-cn/docs/concepts/storage/storage-classes/
->2. nfs-server 驱动部署方式 = https://blog.51cto.com/smbands/4903841
->3. nfs 驱动 helm 安装 = https://artifacthub.io/packages/helm/nfs-subdir-external-provisioner/nfs-subdir-external-provisioner
->4. kafka kraft 协议介绍 = https://www.infoq.cn/article/j1jm5qehr1jiequby0ot
->5. kafka 官方相关地址 = https://github.com/apache/kafka
+>1. [storaclass 存储类官方说明](https://kubernetes.io/zh-cn/docs/concepts/storage/storage-classes/)
+>2. [nfs-server 驱动部署方式](https://blog.51cto.com/smbands/4903841)
+>3. [nfs 驱动 helm 安装](https://artifacthub.io/packages/helm/nfs-subdir-external-provisioner/nfs-subdir-external-provisioner)
+>4. [kafka kraft 协议介绍](https://www.infoq.cn/article/j1jm5qehr1jiequby0ot)
+>5. [kafka 官方相关地址](https://github.com/apache/kafka)

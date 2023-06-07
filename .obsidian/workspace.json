@@ -20,12 +20,12 @@
             }
           },
           {
-            "id": "1caa69c1d9f1d03d",
+            "id": "31b780169945e8e4",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "CNCF/Provisioning/ContainerRegistry/harbor.md",
+                "file": "CNCF/OrchestrationManagement/CoordinationServiceDiscovery/coredns.md",
                 "mode": "source",
                 "source": false
               }
@@ -134,7 +134,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "CNCF/Provisioning/ContainerRegistry/harbor.md",
+                "file": "CNCF/OrchestrationManagement/CoordinationServiceDiscovery/coredns.md",
                 "collapseAll": true,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -151,7 +151,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "CNCF/Provisioning/ContainerRegistry/harbor.md",
+                "file": "CNCF/OrchestrationManagement/CoordinationServiceDiscovery/coredns.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -174,7 +174,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "CNCF/Provisioning/ContainerRegistry/harbor.md"
+                "file": "CNCF/OrchestrationManagement/CoordinationServiceDiscovery/coredns.md"
               }
             }
           }
@@ -195,17 +195,17 @@
       "command-palette:打开命令面板": false
     }
   },
-  "active": "1caa69c1d9f1d03d",
+  "active": "31b780169945e8e4",
   "lastOpenFiles": [
-    "CNCF/ObservabilityAnalysis/Tracing/jaeger.md",
+    "CNCF/OrchestrationManagement/CoordinationServiceDiscovery/etcd.md",
     "WorkEnv/CommonCommand/cc-elasticsearch.md",
-    "tmp/AC/ac-tmp.md",
-    "WorkEnv/CommonCommand/cc-helm.md",
-    "Develop/Python.md",
-    "tmp/AC/Notes/note-202306.md",
-    "CNCF/Provisioning/SecurityCompliance/cert-manager.md",
-    "CNCF/Provisioning/SecurityCompliance/cert-manager..md",
+    "CNCF/AppDefinitionDevelopment/Database/redis-cluster.md",
+    "CNCF/ObservabilityAnalysis/Logging/elasticsearch.md",
+    "CNCF/ObservabilityAnalysis/Logging/logstash.md",
     "CNCF/ObservabilityAnalysis/Monitoring/grafana.md",
-    "CNCF/ObservabilityAnalysis/Monitoring/prometheus.md"
+    "tmp/AC/ac-tmp.md",
+    "tmp/AC/Notes/note-202306.md",
+    "CNCF/AppDefinitionDevelopment/ContinuousIntegrationDelivery/jenkins.md",
+    "CNCF/Provisioning/AutomationConfigration/openstack.md"
   ]
 }

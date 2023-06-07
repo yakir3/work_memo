@@ -12,8 +12,7 @@ Fluent Bit 在设计时就考虑了高性能和低资源消耗。
 
 
 #### Fluent Bit & Fluentd 区别
-https://hulining.gitbook.io/fluentbit/about/fluentd-and-fluent-bit
-Fluentd 和 Fluent Bit 都可以充当聚合器或转发器，它们可以互补使用或单独用作为解决方案。
+Fluentd 和 Fluent Bit 都可以充当聚合器或转发器，它们可以互补使用或单独用作为解决方案。[详情](https://hulining.gitbook.io/fluentbit/about/fluentd-and-fluent-bit)
 
 
 ### 二、二进制部署方式
@@ -422,6 +421,6 @@ output {
 
 
 >参考文档：
->1、fluent-bit 官方文档 = https://hulining.gitbook.io/fluentbit/pipeline/filters/kubernetes
->2、项目官方 github 地址 = https://github.com/fluent/fluent-bit
+>1. [fluent-bit 官方文档](https://hulining.gitbook.io/fluentbit/pipeline/filters/kubernetes)
+>2. [项目官方 github 地址](https://github.com/fluent/fluent-bit)
  

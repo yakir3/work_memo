@@ -1,34 +1,45 @@
-IMAGE_NAME = work_memo
-VERSION = v1
+SHELL:=/bin/bash
+BUILDPATH=$(CURDIR)
 
-PUSH_NAME = yakirinp/$(IMAGE_NAME)
-DOCKER_REGISTRY = hub.docker.com/
+# parameters
 GIT_COMMIT:=$(shell git rev-parse --short HEAD)
-PUSH_FULL_NAME = ${DOCKER_REGISTRY}${PUSH_NAME}:${VERSION}
+PROJECT_NAME=work_memo
+VERSION?=v1
 
-.PHONY: test clean build all
-all: build docker-image clean
+LOCAL_IMAGE_NAME=${PROJECT_NAME}:${VERSION}
+DOCKERHUB_REGISTRY_NAME = hub.docker.com/yakirinp/${PROJECT_NAME}:${VERSION}
+
+# docker parameters
+DOCKER_CMD=$(shell which docker)
+PODMAN_CMD=$(shell which podman)
+DOCKER_BUILD=$(PODMAN_CMD) build
+DOCKER_PULL=$(PODMAN_CMD) pull
+DOCKER_PUSH=$(PODMAN_CMD) push
+DOCKER_PRUNE=$(PODMAN_CMD) image prune -f
+DOCKER_TAG=$(PODMAN_CMD) tag
+DOCKER_COMPOSE_CMD=$(shell which docker-compose)
+
+.PHONY: test docker clean all
+all: build docker clean
+
+docker: docker-build docker-tag docker-push
 
 test:
-	echo ${PUSH_FULL_NAME}
+	echo ${LOCAL_IMAGE_NAME}
+	echo ${DOCKERHUB_REGISTRY_NAME}
 
 clean:
-	@#rm *.o temp tmp
-	@#docker image prune -f
+	$(DOCKER_PRUNE)
 
 build:
-	@echo no need to build
+	echo no need to build
 
-docker-image: docker-build docker-tag docker-push
-
-.ONESHELL: docker-build docker-tag docker-push
+.ONESHELL: ddocker-build docker-tag docker-push
 docker-build:
-	@docker build -t ${IMAGE_NAME}:${VERSION} -f APP-META/Dockerfile .
-	@#docker build -t ${IMAGE_NAME}-${GIT_COMMIT}:${VERSION} -f APP-META/Dockerfile .
+	$(DOCKER_BUILD) -t ${LOCAL_IMAGE_NAME} -f APP-META/Dockerfile .
 
 docker-tag:
-	@#podman tag ${IMAGE_NAME}:${VERSION} ${PUSH_FULL_NAME}
-	@docker tag ${IMAGE_NAME}:${VERSION} ${PUSH_FULL_NAME}
+	$(DOCKER_TAG) ${LOCAL_IMAGE_NAME} ${DOCKERHUB_REGISTRY_NAME}
 
 docker-push:
-	@docker push ${PUSH_FULL_NAME}
+	$(DOCKER_PUSH) ${DOCKERHUB_REGISTRY_NAME}

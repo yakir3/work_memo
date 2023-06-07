@@ -36,5 +36,5 @@ helm -n cert-manager install cert-manager .
 
 
 > 参考文档：
-> 1、官方 github 地址 = https://github.com/cert-manager/cert-manager
-> 2、官方文档 = https://cert-manager.io/docs/
+> 1. [官方 github 地址](https://github.com/cert-manager/cert-manager)
+> 2. [官方文档](https://cert-manager.io/docs/)

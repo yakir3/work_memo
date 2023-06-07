@@ -51,8 +51,67 @@ a18cs / a18cs123
 
 ##### VPN #####
 # v2ray
-docker run -d --name v2ray -v /opt/third_app/v2ray/:/opt/third_app/v2ray/ -p 12306:12306 v2ray/official v2ray \
--config=/opt/third_app/v2ray/config.json
+mkdir /etc/v2ray
+cat > /etc/v2ray/config.json << "EOF"
+{
+  "log": {
+    "access": "/var/log/v2ray/access.log",
+    "error": "/var/log/v2ray/error.log",
+    "loglevel": "warning"
+  },
+  "dns": {},
+  "stats": {},
+  "inbounds": [
+    {
+      "port": 12306,
+      "protocol": "vmess",
+      "settings": {
+        "clients": [
+          {
+            "id": "1a85919c-6ee8-431d-aff4-436a45dc8d2d",
+            "alterId": 32
+          }
+        ]
+      },
+      "tag": "in-0",
+      "streamSettings": {
+        "network": "tcp",
+        "security": "none",
+        "tcpSettings": {}
+      }
+    }
+  ],
+  "outbounds": [
+    {
+      "tag": "direct",
+      "protocol": "freedom",
+      "settings": {}
+    },
+    {
+      "tag": "blocked",
+      "protocol": "blackhole",
+      "settings": {}
+    }
+  ],
+  "routing": {
+    "domainStrategy": "AsIs",
+    "rules": [
+      {
+        "type": "field",
+        "ip": [
+          "geoip:private"
+        ],
+        "outboundTag": "blocked"
+      }
+    ]
+  },
+  "policy": {},
+  "reverse": {},
+  "transport": {}
+}
+EOF
+
+docker run -d --name v2ray -v /etc/v2ray:/etc/v2ray -p 12306:12306 v2ray/official v2ray -config=/etc/v2ray/config.json
 
 
 # ipsec

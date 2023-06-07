@@ -113,7 +113,7 @@ WorkingDirectory=/opt/redis
 Type=forking
 # 根据配置对应修改
 ExecStart=/usr/local/bin/redis-server /opt/redis/conf/redis_7001.conf
-ExecStop=/usr/local/bin/redis-cli -p 7001 -a redis123 shutdown
+#ExecStop=/usr/local/bin/redis-cli -p 7001 -a redis123 shutdown
 ExecReload=/bin/kill -s HUP $MAINPID
 # PIDFile=/opt/redis/logs/redis_7001.pid
 LimitNOFILE=65535
@@ -240,7 +240,7 @@ kubectl -n middleware exec -it redis-client -- bash
 
 
 >参考文档：
->1. 官方文档地址 = https://redis.io/docs/getting-started/
->2. github = https://github.com/redis/redis
->3. redis 集群方案 = https://segmentfault.com/a/1190000022028642
->4. k8s redis-cluster 部署 = https://www.airplane.dev/blog/deploy-redis-cluster-on-kubernetes
+>1. [官方文档地址](https://redis.io/docs/getting-started/)
+>2. [官方 github 地址](https://github.com/redis/redis)
+>3. [redis 集群方案](https://segmentfault.com/a/1190000022028642)
+>4. [k8s redis-cluster 部署](https://www.airplane.dev/blog/deploy-redis-cluster-on-kubernetes)

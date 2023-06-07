@@ -41,5 +41,5 @@ helm -n ingress-nginx install ingress-nginx .
 ```
 
 > 参考文档：
-> 1、官方文档 = https://nginx.org/en/docs/
-> 2、官方 helm 安装指引 = https://docs.nginx.com/nginx-ingress-controller/installation/installation-with-helm/
+> 1、[官方文档](https://nginx.org/en/docs/)
+> 2、[官方 helm 安装指引](https://docs.nginx.com/nginx-ingress-controller/installation/installation-with-helm/)
