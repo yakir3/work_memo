@@ -65,7 +65,13 @@ systemctl enable zookeeper.service
 [[cc-docker|Docker常用命令]]
 ```shell
 # run by docker or docker-compose
-# https://hub.docker.com/_/zookeeper
+docker run -d --rm --name yakir-mysql \
+-e MYSQL_ROOT_PASSWORD=1qaz@WSX \
+-e MYSQL_DATABASE=yakirtest \
+-p 3306:3306 \
+-v /docker-volume/data:/var/lib/mysql \
+-v /docker-volume/log:/var/log/mysql \
+mysql --character-set-server=utf8mb4
 ```
 
 ##### Run On Kubernetes

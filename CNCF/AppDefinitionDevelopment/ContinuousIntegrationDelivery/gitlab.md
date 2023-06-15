@@ -34,7 +34,7 @@ docker run --detach \
   --volume $GITLAB_HOME/logs:/var/log/gitlab \
   --volume $GITLAB_HOME/data:/var/opt/gitlab \
   --shm-size 256m \
-  gitlab/gitlab-ee:latest
+  gitlab/gitlab-ce:latest
 
 # gitlab password
 docker exec -it gitlab grep 'Password:' /etc/gitlab/initial_root_password

@@ -1,7 +1,9 @@
-### 一、二进制部署方式
+#### Deploy by Binaries
 > 官方包下载j地址：https://kafka.apache.org/downloads
 > kafka3.3 以上版本使用 Kraft 协议替代 zookeeper，可不启动 zookeeper
-#### 1、zookeeper 模式
+
+##### Zookeeper Mode
+[[zookeeper|zookeeper-deploy]]
 下载官方包
 ```shell
 # 下载解压
@@ -76,7 +78,6 @@ echo 2 > /opt/kafka_3.3.1/zk2-data/myid
 
 # 启动 zookeeper
 ./bin/zookeeper-server-start.sh -daemon config/zookeeper.properties
-
 # 启动 kafka
 ./bin/kafka-server-start.sh -daemon config/server.properties
 
@@ -91,9 +92,9 @@ Wants=network-online.target
  
 [Service]
 Type=forking
-ExecStart=/opt/kafka_3.3.1/bin/kafka-server-start.sh -daemon /opt/kafka_3.3.1/config/server.properties
+ExecStart=/opt/kafka_3.3.1/bin/kafka-server-start.sh /opt/kafka_3.3.1/config/server.properties
 Restart=on-failure
-LimitNOFILE=265535
+LimitNOFILE=65535
  
 [Install]
 WantedBy=multi-user.target
@@ -103,7 +104,7 @@ systemctl start kafka.service
 systemctl enable kafka.service
 ```
 
-#### 2、kraft 模式
+##### Kraft Mode
 下载官方包
 ```shell
 # 下载解压
@@ -173,7 +174,6 @@ systemctl start kafka.service
 systemctl enable kafka.service
 ```
 
-
 如需自定义 JAVA 环境时在启动脚本添加环境变量
 ```shell
 export JAVA_HOME=/opt/jdkx.xx
@@ -182,7 +182,7 @@ export CLASSPATH=$JAVA_HOME/lib:$JRE_HOME/lib:$CLASSPATH
 export PATH=$JAVA_HOME/bin:$JRE_HOME/bin:$PATH
 ```
 
-#### 3、验证
+##### Verify
 ```shell
 # 创建 topic
 ./bin/kafka-topics.sh --bootstrap-server 127.0.0.1:9092 --create --topic yakir-test
@@ -192,8 +192,8 @@ export PATH=$JAVA_HOME/bin:$JRE_HOME/bin:$PATH
 [[cc-kafka|其他kafka常用命令]]
 
 
-### 二、Kubernetes 部署方式
-#### helm 下载 chart 包
+#### Deploy by Helm
+##### download helm charts
 [[cc-helm|helm使用]]
 ```shell
 # 创建中间件 chart 包目录
@@ -209,7 +209,7 @@ cd kafka
 
 ```
 
-#### 持久化存储部署配置
+##### 持久化存储部署
 kafka 需要使用持久化存储配置，k8s 本身不支持 nfs 做 storageclass ，需要安装第三方 nfs 驱动实现
 
 [[nfs-server|1.nfs-server部署]]
@@ -239,11 +239,10 @@ helm install nfs-subdir-external-provisioner nfs-subdir-external-provisioner/nfs
 
 ```
 
-#### 部署 kafka
+##### deploy kafka
 ```shell
 # Chart.yaml 配置修改，视情况修改
 sed -i 's/^name: .*/name: uat-kafka-xxx/' Chart.yaml
-
 
 # values.yaml 配置修改，必修改项
 vim values.yaml
@@ -272,7 +271,7 @@ helm -n middleware install uat-kafka-xxx .
 
 ```
 
-#### 验证连接
+##### Verify
 ```shell
 # kubectl -n middleware get pod 
 # kubectl -n middleware get service
@@ -289,6 +288,14 @@ kubectl -n middleware run kafka-client --image docker.io/bitnami/kafka:3.4.0-deb
 kubectl -n middleware exec -it kafka-client -- bash
 
 ```
+
+
+#### Run On Docker
+```shell
+# run by docker or docker-compose
+# https://hub.docker.com/r/bitnami/kafka
+```
+
 
 
 

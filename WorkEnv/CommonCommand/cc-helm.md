@@ -36,9 +36,10 @@ helm uninstall [RELEASE_NAME]
 
 
 # 拉取源 chart 包安装
-helm pull ingress-nginx/ingress-nginx --untar 
-cd ingress-nginx && vim Chart.yaml & vim values.yaml
-helm install ingress-nginx .
+helm fetch/pull ingress-nginx/ingress-nginx --untar 
+# 指定版本拉取
+helm fetch --version=x.x.x rancher-stable/rancher --untar
+
 
 ```
 

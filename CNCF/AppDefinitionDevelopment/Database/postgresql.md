@@ -65,7 +65,11 @@ systemctl enable zookeeper.service
 [[cc-docker|Docker常用命令]]
 ```shell
 # run by docker or docker-compose
-# https://hub.docker.com/_/zookeeper
+docker run -d --rm --name yakir-postgres \
+-e POSTGRES_PASSWORD=123qwe \
+-e POSTGRES_DB=yakir_pg_test \
+-p 5432:5432 postgres
+POSTGRES_USER
 ```
 
 ##### Run On Kubernetes

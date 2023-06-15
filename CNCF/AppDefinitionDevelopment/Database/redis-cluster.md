@@ -1,7 +1,7 @@
-### 一、二进制部署方式
+#### Deploy by Binaries
 > 官方包下载地址：http://download.redis.io/redis-stable/
 
-#### 下载编译
+##### Download and Compile
 ```shell
 # 下载源码
 wget https://download.redis.io/redis-stable.tar.gz
@@ -18,7 +18,7 @@ make PREFIX=/usr/local/bin install
 
 [[sc-redis-cluster|redis常用配置]]
 
-#### 单点配置
+##### Single Mode
 ```shell
 # 复制配置文件
 cp redis.conf /etc/redis.conf
@@ -30,7 +30,7 @@ nohup /usr/local/bin/redis-server /etc/redis.conf
 ```
 
 
-#### 集群配置
+##### Cluster Mode
 初始化配置与启动
 ```shell
 # 创建目录
@@ -93,7 +93,7 @@ redis-cli --cluster-replicas 0 --cluster create \
 ```
 
 
-#### 开机自启
+##### Run and Boot
 ```shell
 # redis 配置文件方式，打开配置即使用守护进程启动
 daemonize yes
@@ -132,7 +132,7 @@ systemctl enable redis.service
 ```
 
 
-#### 验证
+##### Verify
 ```shell
 # client 端连接命令与参数
 # /usr/local/bin/redis-cli [-h host] [-p port] [-a password] [-c]
@@ -161,7 +161,7 @@ CLUSTER INFO
 ```
 
 
-#### 部署遇到的问题
+##### troubleshooting
 ```shell
 ../deps/jemalloc/lib/libjemalloc.a: No such file or directory
 # 解决：
@@ -171,8 +171,8 @@ make
 ```
 
 
-### 二、Kubernetes 方式
-#### helm 下载 chart 包
+#### Deploy by Helm
+##### download helm charts
 [[cc-helm|helm使用]]
 ```shell
 # 创建中间件 chart 包目录
@@ -191,7 +191,7 @@ cd redis-cluster
 ```
 
 
-#### 部署 redis-cluster
+##### deploy redis-cluster
 ```shell
 # Chart.yaml 配置修改，视情况修改
 sed -i 's/^name: .*/name: uat-redis-xxx/' Chart.yaml
@@ -216,7 +216,7 @@ helm -n middleware install uat-redis-cluster .
 
 ```
 
-#### 验证
+##### Verify
 ```shell
 # 查看 redis 密码
 kubectl -n middleware get secret uat-redis-cluster -o jsonpath="{.data.redis-password}" | base64 -d
@@ -235,6 +235,17 @@ kafka.servers = uat-redis-cluster-0.redis-cluster-headless.middleware.svc:6379,u
 # 启动 client 容器测试
 kubectl -n middleware run redis-client --image docker.io/bitnami/redis-cluster --command -- sleep infinity
 kubectl -n middleware exec -it redis-client -- bash
+```
+
+
+#### Run On Docker
+```shell
+# Standlone
+docker run --rm --name yakir-redis -e REDIS_PASSWORD=123 -p 6379:6379 -v /docker-volume/data:/data -d redis
+
+
+# Cluster
+docker run --rm --name redis-cluster -e ALLOW_EMPTY_PASSWORD=yes -d bitnami/redis-cluster
 ```
 
 
