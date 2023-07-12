@@ -1,4 +1,4 @@
-### Docker
+### Docker & Podman
 ```shell
 # common parameters
 -d, --detach    Run container in background and print container ID
@@ -17,6 +17,10 @@ docker history db6effbaf70b --format {{.CreatedBy}} --no-trunc=true |sed "s#/bin
 
 # 编译自定义镜像
 docker build -t yakir/uatproxy -f APP-META/Dockerfile .
+
+
+# running mysql
+podman run --name mysql -e MYSQL_ROOT_PASSWORD=1qaz@WSX -e MYSQL_DATABASE=devops_tools -p 3307:3306 -d mysql --character-set-server=utf8mb4
 
 
 # knowledge-base

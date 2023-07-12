@@ -55,7 +55,79 @@ mount -t nfs 1.1.1.1:/a18_data /tmp/nfs_test
 ```
 
 
-#### 二、K8S 集群 PV 重建切换
+#### 二、K8S NFS 供应插件
+##### NFS CSI Driver
+```shell
+# create csi driver 
+curl -skSL https://raw.githubusercontent.com/kubernetes-csi/csi-driver-nfs/master/deploy/install-driver.sh | bash -s master --
+
+# verify csi-driver
+kubectl -n kube-system get pod |grep csi-nfs
+csi-nfs-controller-78b54d4cc4-d6clt 
+csi-nfs-node-8z4fm
+...
+
+kubectl get csidrivers
+nfs.csi.k8s.io 
+
+# create storageclass resource
+cat > csi-nfs-client.yaml << "EOF"
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: csi-nfs-client
+provisioner: nfs.csi.k8s.io
+parameters:
+  server: 1.1.1.1
+  share: /opt/csi_nfs
+reclaimPolicy: Delete
+volumeBindingMode: Immediate
+mountOptions:
+  - nfsvers=4.1
+EOF
+kubectl apply -f csi-nfs-client.yaml
+
+# create pvc pod verify
+...
+
+```
+
+
+##### nfs-subdir-external-provisioner
+```shell
+# add helm repo
+helm repo add nfs-subdir-external-provisioner https://kubernetes-sigs.github.io/nfs-subdir-external-provisioner/
+helm repo update
+
+helm fetch nfs-subdir-external-provisioner/nfs-subdir-external-provisioner --untar
+cd nfs-subdir-external-provisioner
+
+# config
+vim values.yaml
+nfs:
+  server: 1.1.1.1
+  path: /middleware
+
+storageClass:
+  # 动态存储类名称
+  name: nfs-client
+
+# deploy
+helm install nfs-subdir-external-provisioner nfs-subdir-external-provisioner/nfs-subdir-external-provisioner --namespace namespace
+
+
+# create storageclasses and pod 
+
+```
+
+
+##### nfs-ganesha-server-and-external-provisioner
+```shell
+# https://github.com/kubernetes-sigs/nfs-ganesha-server-and-external-provisioner
+```
+
+
+>K8S 集群 PV 重建切换
 ```shell
 # 删除原 pv 资源
 kubectl delete pv qc-nfs-pv
@@ -88,4 +160,6 @@ mount |grep nfs
 
 
 >参考文档：
->1. https://cshihong.github.io/2018/10/16/NFS%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA%E4%B8%8E%E9%85%8D%E7%BD%AE/
+>1. [NFS 服务端部署](https://cshihong.github.io/2018/10/16/NFS%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA%E4%B8%8E%E9%85%8D%E7%BD%AE/)
+>2. [NFS CSI Driver 官方地址](https://github.com/kubernetes-csi/csi-driver-nfs/blob/master/docs/install-csi-driver-master.md)
+>3. [NFS 使用介绍](http://www.lishuai.fun/2021/08/12/k8s-nfs-pv/#/%E5%AD%98%E5%82%A8%E7%B1%BB%E4%BD%BF%E7%94%A8%EF%BC%88%E5%8A%A8%E6%80%81%E9%85%8D%E7%BD%AE)

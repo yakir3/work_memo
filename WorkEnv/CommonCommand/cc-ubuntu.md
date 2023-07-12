@@ -16,8 +16,9 @@ apt install apt-file
 apt-file update
 apt-file search dig |grep bin
 
-# 搜索命令属于哪个软件包
+# 搜索命令或库文件属于哪个软件包
 dpkg -S /usr/bin/lsb_release
+dpkg -S /lib/libmultipath.so
 # 查看 apt 已安装的软件包所有相关文件
 dpkg -L lsb-release
 

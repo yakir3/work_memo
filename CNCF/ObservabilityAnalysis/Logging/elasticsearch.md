@@ -88,11 +88,15 @@ helm pull elastic/elasticsearch --untar
 cd elasticsearch
 
 # create storageclass
+# nfs-server or others
 [[nfs-server]]
 
 # configure and run
 vim values.yaml
 esConfig: {}
+volumeClaimTemplate:
+  storageClassName: "elk-nfs-client"
+...
 
 helm -n logging install elasticsearch .
 

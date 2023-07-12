@@ -19,6 +19,8 @@ curl http://es_server:9200/index_name -X PUT -H'content-type: application/json' 
 }'
 # 查看 es 所有索引
 curl http://es_server:9200/_cat/indices?pretty
+# 查看 es 所有分片
+curl http://es_server:9200/_cat/shards
 # 查看索引配置信息
 curl http://es_server:9200/index_name/_settings?pretty
 # 查看索引映射信息

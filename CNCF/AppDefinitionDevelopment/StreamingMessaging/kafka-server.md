@@ -215,29 +215,8 @@ kafka 需要使用持久化存储配置，k8s 本身不支持 nfs 做 storagecla
 [[nfs-server|1.nfs-server部署]]
 
 2.安装 nfs 第三方驱动插件
-```shell
-# 手动部署方式：需要手动创建 storageclasses、serviceaccout、role、rolebinds、clusterrole、clusterrolebinds、deployment 资源，比较繁琐，建议使用 helm 方式部署
+[[nfs-server#nfs-subdir-external-provisioner|deploy provisioner]]
 
-# helm 部署方式
-## 添加更新 helm 源仓库
-helm repo add nfs-subdir-external-provisioner https://kubernetes-sigs.github.io/nfs-subdir-external-provisioner/
-helm repo update
-helm pull nfs-subdir-external-provisioner/nfs-subdir-external-provisioner --untar
-
-## 修改关键配置
-vim values.yaml
-nfs:
-  server: 1.1.1.1
-  path: /middleware
-
-storageClass:
-  # 动态存储类名称
-  name: nfs-client
-
-## 安装 
-helm install nfs-subdir-external-provisioner nfs-subdir-external-provisioner/nfs-subdir-external-provisioner --namespace namespace
-
-```
 
 ##### deploy kafka
 ```shell
