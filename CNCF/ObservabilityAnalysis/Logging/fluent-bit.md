@@ -1,5 +1,5 @@
-### 一、组件说明
-#### 介绍
+#### Introduction
+##### 介绍
 **Fluent Bit** 是一个开源的多平台日志处理器工具，它旨在成为用于日志处理和分发的通用利器。
 如今，系统中信息源数量正在不断增加。处理大规模数据非常复杂，收集和汇总各种数据需要一种专门的工具，该工具可以解决如下问题:
 - 不同的数据源
@@ -11,12 +11,11 @@
 Fluent Bit 在设计时就考虑了高性能和低资源消耗。
 
 
-#### Fluent Bit & Fluentd 区别
+##### Fluent Bit & Fluentd 区别
 Fluentd 和 Fluent Bit 都可以充当聚合器或转发器，它们可以互补使用或单独用作为解决方案。[详情](https://hulining.gitbook.io/fluentbit/about/fluentd-and-fluent-bit)
 
 
-### 二、二进制部署方式
-#### 源码安装
+#### Deploy by Binaries
 ```shell
 # source code download
 https://docs.fluentbit.io/manual/installation/getting-started-with-fluent-bit
@@ -46,8 +45,8 @@ systemctl enable td-agent-bit.service
 ```
 
 
-### 三、Kubernetes 部署方式
-#### 相关概念
+#### Deploy by Kubernetes
+##### 相关概念
 Kubernetes 管理 nodes 集群，因此我们的日志代理工具需要在每个节点上运行以从每个 POD 收集日志，因此Fluent Bit 被部署为 DaemonSet(在集群的每个 node 上运行的 POD)。
 当 Fluent Bit 运行时，它将读取，解析和过滤每个 POD 的日志，并将使用以下信息(元数据)丰富每条数据:
 - Pod Name
@@ -57,10 +56,11 @@ Kubernetes 管理 nodes 集群，因此我们的日志代理工具需要在每�
 - Labels
 - Annotations
 
-#### 部署
+##### 日志输出方式
 当前集群环境容器日志都为 console 输出，分为两部分：
 + 输出到 Elasticsearch，用于 CMDB / Kibana 前台搜索日志
-+ 输出到 http 接口，接口由 logstash 服务提供并获取日志，用于持久化日志上传谷歌云存储桶进行备份
+~~+ 输出到 http 接口，接口由 logstash 服务提供并获取日志，用于持久化日志上传谷歌云存储桶进行备份~~
++ 输出到 forward 接口，接口由 fluentd 服务提供并持久化日志，本地存储15天，归档日志到谷歌云 Cloud Storage 存储桶备份
 
 ##### helm 下载 charts 包
 [[cc-helm|helm常用命令]]
@@ -70,15 +70,16 @@ mkdir /opt/helm-charts/logging
 cd /opt/helm-charts/logging
 
 # 添加 helm 仓库，下载 fluent-bit charts 包
-helm repo add https://fluent.github.io/helm-charts
+helm repo add fluent https://fluent.github.io/helm-charts
 helm update
 helm pull fluent/fluent-bit --untar
 cd fluent-bit
 ```
 
 
-##### 修改配置
+##### 配置启动
 ```shell
+# config
 cat > values.yaml << "EOF"
 config:
   service: |
@@ -186,6 +187,12 @@ config:
         Suppress_Type_Name On
         Retry_Limit False
     [OUTPUT]
+        Name forward
+        Match kube.*
+        Host 172.30.2.54
+        Port 24224
+        Compress gzip
+    [OUTPUT]
         Name http
         Match kube.*
         Host 172.30.2.54
@@ -228,6 +235,10 @@ config:
            return 1, timestamp, record
         end
 logLevel: info
+EOF
+
+# start 
+helm -n logging install fluent-bit-uat .
 ```
 
 

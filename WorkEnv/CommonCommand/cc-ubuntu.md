@@ -21,7 +21,10 @@ dpkg -S /usr/bin/lsb_release
 dpkg -S /lib/libmultipath.so
 # 查看 apt 已安装的软件包所有相关文件
 dpkg -L lsb-release
-
+# 手动安装、卸载 deb 包
+dpkg -r mysql-common
+dpkg -P mysql-common
+dpkg -i elasticsearch-8.8.2-amd64.deb
 
 
 ```

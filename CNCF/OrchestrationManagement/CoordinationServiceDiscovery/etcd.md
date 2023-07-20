@@ -90,11 +90,11 @@ gcr.io/etcd-development/etcd:v3.4.26 \
 --log-outputs stderr
 
 # verify
-docker exec etcd-gcr-v3.4.26  /usr/local/bin/etcd --version
-docker exec etcd-gcr-v3.4.26  /usr/local/bin/etcdctl version
-docker exec etcd-gcr-v3.4.26  /usr/local/bin/etcdctl endpoint health
-docker exec etcd-gcr-v3.4.26  /usr/local/bin/etcdctl put foo bar
-docker exec etcd-gcr-v3.4.26  /usr/local/bin/etcdctl get foo
+docker exec etcd-gcr-v3.4.26 /usr/local/bin/etcd --version
+docker exec etcd-gcr-v3.4.26 /usr/local/bin/etcdctl version
+docker exec etcd-gcr-v3.4.26 /usr/local/bin/etcdctl endpoint health
+docker exec etcd-gcr-v3.4.26 /usr/local/bin/etcdctl put foo bar
+docker exec etcd-gcr-v3.4.26 /usr/local/bin/etcdctl get foo
 ```
 
 ##### Run On Kubernetes

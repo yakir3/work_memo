@@ -8,36 +8,36 @@
         "type": "tabs",
         "children": [
           {
-            "id": "8d1529eb71580538",
+            "id": "4d435c36a3fa3d4a",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "WorkEnv/CommonCommand/cc-ubuntu.md",
+                "file": "WorkEnv/CommonCommand/cc-database.md",
                 "mode": "source",
                 "source": false
               }
             }
           },
           {
-            "id": "08dc20c8e9f747f3",
+            "id": "9e5e9986076e67ff",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "WorkEnv/ServiceConf/sc-nginx.md",
+                "file": "WorkEnv/ServiceConf/sc-mysqld.md",
                 "mode": "source",
                 "source": false
               }
             }
           },
           {
-            "id": "dce8c79ee3d9aae8",
+            "id": "f4d49b97511f57f0",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "CNCF/OrchestrationManagement/ServiceProxy/nginx.md",
+                "file": "CNCF/AppDefinitionDevelopment/Database/postgresql.md",
                 "mode": "source",
                 "source": false
               }
@@ -68,7 +68,7 @@
             }
           }
         ],
-        "currentTab": 1
+        "currentTab": 2
       }
     ],
     "direction": "vertical"
@@ -134,7 +134,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "WorkEnv/ServiceConf/sc-nginx.md",
+                "file": "CNCF/AppDefinitionDevelopment/Database/postgresql.md",
                 "collapseAll": true,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -151,7 +151,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "WorkEnv/ServiceConf/sc-nginx.md",
+                "file": "CNCF/AppDefinitionDevelopment/Database/postgresql.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -174,7 +174,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "WorkEnv/ServiceConf/sc-nginx.md"
+                "file": "CNCF/AppDefinitionDevelopment/Database/postgresql.md"
               }
             }
           }
@@ -195,17 +195,17 @@
       "command-palette:打开命令面板": false
     }
   },
-  "active": "08dc20c8e9f747f3",
+  "active": "f4d49b97511f57f0",
   "lastOpenFiles": [
-    "CNCF/OrchestrationManagement/ServiceProxy/nginx.md",
-    "WorkEnv/ServiceConf/sc-nginx.md",
-    "WorkEnv/CommonCommand/cc-ubuntu.md",
+    "CNCF/AppDefinitionDevelopment/Database/mysql.md",
+    "WorkEnv/ServiceConf/sc-mysqld.md",
     "tmp/AC/ac-tmp.md",
-    "WorkEnv/CommonCommand/cc-elasticsearch.md",
+    "WorkEnv/CommonCommand/cc-database.md",
     "tmp/AC/Notes/note-202307.md",
+    "CNCF/AppDefinitionDevelopment/Database/postgresql.md",
     "CNCF/Runtime/CloudNativeStorage/nfs-server.md",
-    "CNCF/AppDefinitionDevelopment/StreamingMessaging/kafka-server.md",
-    "WorkEnv/CommonCommand/cc-kafka.md",
-    "CNCF/ObservabilityAnalysis/Logging/logstash.md"
+    "WorkEnv/CommonCommand/cc-ubuntu.md",
+    "CNCF/ObservabilityAnalysis/Logging/fluentd.md",
+    "WorkEnv/ServiceConf/sc-fluentd.md"
   ]
 }

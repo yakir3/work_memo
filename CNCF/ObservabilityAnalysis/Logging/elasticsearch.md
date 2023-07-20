@@ -1,8 +1,17 @@
-### 二进制部署
+#### Deploy by Binaries
+##### Download and Compile
 ```shell
 # 1.download and decompression
-https://www.elastic.co/downloads/elasticsearch
+# https://www.elastic.co/downloads/elasticsearch
+cd /opt
+wget https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-8.7.1-linux-x86_64.tar.gz
+tar -xf elasticsearch-8.7.1-linux-x86_64.tar.gz && rm -rf elasticsearch-8.7.1-linux-x86_64.tar.gz
+cd elasticsearch-8.7.1
+```
 
+##### Config and Boot
+[[sc-elasticsearch|Elasticsearch Config]]
+```shell
 # 2.configure
 vim config/elasticsearch.yml
 
@@ -17,7 +26,9 @@ vim config/elasticsearch.yml
 # 5.set password and verify
 ./bin/elasticsearch-setup-passwords interactive
 curl 127.0.0.1:9200 -u 'elastic:es123123'
+```
 
+```shell
 # 6.boot
 cat > /usr/lib/systemd/system/elasticsearch.service << "EOF"
 [Unit]
@@ -70,14 +81,13 @@ chmod +x /opt/elasticsearch/bin/systemd-entrypoint
 systemctl daemon-reload
 systemctl start elasticsearch.service
 systemctl enable elasticsearch.service
-
 ```
-[[sc-elasticsearch|es常用配置]]
 
 >Elascticsearch 可视化工具 cerebro，[官方地址](https://github.com/lmenezes/cerebro)
 
 
-### helm 部署
+#### Deploy by Container
+##### Run by Helm
 ```shell
 # add and update repo
 helm repo add elastic https://helm.elastic.co
@@ -103,7 +113,7 @@ helm -n logging install elasticsearch .
 ```
 
 
-### 官方 ECK operator 部署方式
+#### Deploy by ECK Operator
 详见参考文档
 
 

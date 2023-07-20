@@ -28,7 +28,7 @@ network.host: 0.0.0.0
 http.cors.enabled: true
 http.cors.allow-origin: "*"
 # xpack 安全功能配置
-xpack.security.enabled: false
+xpack.security.enabled: true
 xpack.security.transport.ssl.enabled: false
 # es7.x 版本以上集群发现
 discovery.seed_hosts: ["1.1.1.1", "2.2.2.2", "3.3.3.3"]

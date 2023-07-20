@@ -2,108 +2,103 @@
 ...
 
 
-#### Deployment
-##### Run On Binaries
+#### Deploy by Binaries
+##### Download and Compile
 ```shell
-# download source
-wget https://dlcdn.apache.org/zookeeper/zookeeper-3.7.1/apache-zookeeper-3.7.1-bin.tar.gz
-mv apache-zookeeper-3.7.1-bin zookeeper-3.7.1 && cd zookeeper-3.7.1
+# download source with boost lib
+wget https://dev.mysql.com/get/Downloads/MySQL-8.0/mysql-boost-8.0.34.tar.gz
+groupadd mysql
+useradd -r -g mysql -s /bin/false mysql
+tar xf mysql-boost-8.0.34.tar.gz && rm -f mysql-8.0.34
 
+# compile 
+mkdir /opt/mysql
+mkdir bld && cd bld
+cmake .. -DCMAKE_INSTALL_PREFIX=/opt/mysql -DMYSQL_DATADIR=/opt/mysql/data -DWITH_BOOST=/root/mysql-8.0.34/boost/ -DSYSCONFDIR=/opt/mysql/sysconfig
+make -j `grep processor /proc/cpuinfo | wc -l`
+make install
 
-# create data and logs dir
-mkdir -p /opt/zookeeper-3.7.1/data
-mkdir -p /opt/zookeeper-3.7.1/logs
-cat > /opt/zookeeper-3.7.1/conf/zoo.cfg << "EOF"
-tickTime=2000
-initLimit=10
-syncLimit=5
-dataDir=/opt/zookeeper-3.7.1/data
-dataLogDir=/opt/zookeeper-3.7.1/logs
-clientPort=2181
-# cluster mode: service communication and election
-# server.0=1.1.1.1:2888:3888
-# server.1=1.1.1.2:2888:3888
-# server.2=1.1.1.3:2888:3888
-maxClientCnxns=300
-admin.enableServer=false
+# postinstallation
+cd /opt/mysql
+mkdir /opt/mysql/temp /opt/mysql/logs /opt/mysql/sysconfig && chmod 777 /opt/mysql/temp
+chown mysql:mysql /opt/mysql -R
+./bin/mysqld --initialize --user=mysql --basedir=/opt/mysql --datadir=/opt/mysql/data
+
+# config and startup
+cat > /opt/mysql/sysconfig/my.cnf << "EOF"
+...
 EOF
+./bin/mysqld_safe --user=mysql &
 
-# create version_id file if cluster mode
-# echo 0 > /opt/zookeeper-3.7.1/data/myid
-# echo 1 > /opt/zookeeper-3.7.1/data/myid
-# echo 2 > /opt/zookeeper-3.7.1/data/myid
+# reset root password
+./bin/mysql -uroot -p
+ALTER USER 'root'@'localhost' IDENTIFIED BY '123qwe';
 
-# run
-# systemd
-cat > /etc/systemd/system/zookeeper.service << "EOF"
-[Unit]
-Description=Zookeeper Server
-Documentation=https://zookeeper.apache.org/
-After=network.target
-Wants=network-online.target
+```
 
-[Service]
-Type=forking
-# Environment=JAVA_HOME=/opt/jdk11
-ExecStart=/opt/zookeeper-3.7.1/bin/zkServer.sh start
-ExecStop=/opt/zookeeper-3.7.1/bin/zkServer.sh stop
-ExecReload=/opt/zookeeper-3.7.1/bin/zkServer.sh restart
-Restart=on-failure
-RestartSec=5s
-LimitNOFILE=65536
+##### Config and Boot
+[[sc-mysqld|Mysqld Config]]
 
-[Install]
-WantedBy=multi-user.target
-EOF
+```shell
+# boot 
+cp support-files/mysql.server /etc/init.d/mysql
 
 systemctl daemon-reload
-systemctl start zookeeper.service
-systemctl enable zookeeper.service
+systemctl start mysql.service
+systemctl enable mysql.service
 ```
 
-##### Run On Docker
-[[cc-docker|Docker常用命令]]
+##### Verify
 ```shell
-# run by docker or docker-compose
-docker run -d --rm --name yakir-mysql \
--e MYSQL_ROOT_PASSWORD=1qaz@WSX \
--e MYSQL_DATABASE=yakirtest \
--p 3306:3306 \
--v /docker-volume/data:/var/lib/mysql \
--v /docker-volume/log:/var/log/mysql \
-mysql --character-set-server=utf8mb4
+# syntax check
+./bin/mysql -V
+Ver 8.0.34 for Linux on x86_64 (Source distribution)
 ```
 
-##### Run On Kubernetes
-[[cc-k8s|deploy by kubernetes manifest]]
+##### Troubleshooting
 ```shell
-# 
+# every remake need to execute
+make clean && rm CMakeCache.txt
+
+# problem 1
+# CMake Error at cmake/readline.cmake:92 (MESSAGE):
+# Curses library not found.  Please install appropriate package,
+apt install libncurses5-dev
+
+# problem 2
+# CMake Warning at cmake/pkg-config.cmake:29 (MESSAGE):
+# Cannot find pkg-config.  You need to install the required package:
+apt install pkg-config
+
 ```
 
-[[cc-helm|deploy by helm]]
+
+#### Deploy by Container
+##### Run by Resource
 ```shell
-# Add and update repo
+#
+```
+
+##### Run by Helm
+```shell
+# add and update repo
 helm repo add bitnami https://charts.bitnami.com/bitnami
-helm repo update
+helm update
 
-# Get charts package
-helm fetch bitnami/zookeeper --untar 
-cd zookeeper
+# get charts package
+helm fetch bitnami/mysql --untar
+cd mysql
 
-# Configure and run
+# configure and run
 vim values.yaml
-global:
-  storageClass: "nfs-client"
-replicaCount: 3
+...
+helm -n middleware install mysql .
 
-helm -n middleware install zookeeper . --create-namespace 
-
-# verify
-kubectl -n middleware exec -it zookeeper-0 -- zkServer.sh status  
 ```
 
 
-
-> 参考文档:
-> 1. [官方文档](https://zookeeper.apache.org/)
-> 2. [官方 github 地址](https://github.com/apache/zookeeper)
+> 参考文档：
+> 1. [官方文档](https://www.mysql.com/)
+> 2. [GitHub 地址](https://github.com/mysql/mysql-server)
+> 3. [Download](https://dev.mysql.com/downloads/)
+> 4. [apt 安装方式](https://dev.mysql.com/doc/mysql-apt-repo-quick-guide/en/)

@@ -41,20 +41,7 @@ sh startup.sh
 
 [[cc-helm|deploy by helm]]
 ```shell
-# Add and update repo
-helm repo add 
-helm repo update
-
-# Get charts package
-
-
-# Configure and run
-vim values.yaml
-...
-helm -n middleware install nacos . --create-namespace 
-
-# verify
-
+# https://artifacthub.io/packages/helm/ygqygq2/nacos
 ```
 
 
