@@ -7,8 +7,6 @@
 ```shell
 # download source with boost lib
 wget https://dev.mysql.com/get/Downloads/MySQL-8.0/mysql-boost-8.0.34.tar.gz
-groupadd mysql
-useradd -r -g mysql -s /bin/false mysql
 tar xf mysql-boost-8.0.34.tar.gz && rm -f mysql-8.0.34
 
 # compile 
@@ -19,7 +17,8 @@ make -j `grep processor /proc/cpuinfo | wc -l`
 make install
 
 # postinstallation
-cd /opt/mysql
+groupadd mysql
+useradd -r -g mysql -s /bin/false mysql
 mkdir /opt/mysql/temp /opt/mysql/logs /opt/mysql/sysconfig && chmod 777 /opt/mysql/temp
 chown mysql:mysql /opt/mysql -R
 ./bin/mysqld --initialize --user=mysql --basedir=/opt/mysql --datadir=/opt/mysql/data

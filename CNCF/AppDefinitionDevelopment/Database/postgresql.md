@@ -5,74 +5,73 @@
 #### Deploy by Binaries
 ##### Download and Compile
 ```shell
-# download source with boost lib
-wget https://dev.mysql.com/get/Downloads/MySQL-8.0/mysql-boost-8.0.34.tar.gz
-groupadd mysql
-useradd -r -g mysql -s /bin/false mysql
-tar xf mysql-boost-8.0.34.tar.gz && rm -f mysql-8.0.34
+# download source
+wget https://ftp.postgresql.org/pub/source/v15.1/postgresql-15.1.tar.gz
+tar xf postgresql-15.1.tar.gz && rm -f postgresql-15.1.tar.gz 
+cd postgresql-15.1/
 
 # compile 
-mkdir /opt/mysql
-mkdir bld && cd bld
-cmake .. -DCMAKE_INSTALL_PREFIX=/opt/mysql -DMYSQL_DATADIR=/opt/mysql/data -DWITH_BOOST=/root/mysql-8.0.34/boost/ -DSYSCONFDIR=/opt/mysql/sysconfig
+mkdri bld && cd bld
+../configure --prefix=/opt/pgsql --with-systemd
 make -j `grep processor /proc/cpuinfo | wc -l`
 make install
 
 # postinstallation
-cd /opt/mysql
-# mkdir mysql-files && chmod 750 mysql-files
-chown mysql:mysql /opt/mysql -R
-./bin/mysqld --initialize --user=mysql --basedir=/opt/mysql --datadir=/opt/mysql/data
-# ./bin/mysql_ssl_rsa_setup
+groupadd postgres
+useradd -r -g postgres -s /bin/false postgres
+mkdir /opt/pgsql/data /opt/pgsql/logs
+chown postgres:postgres /opt/pgsql -R
 
-# startup
-./bin/mysqld_safe --user=mysql &
-# reset root password
-./bin/mysql -uroot -p
-
-# my.cnf config
-mkdir /opt/mysql/sysconfig
-cat > /opt/mysql/sysconfig/my.cnf << "EOF"
-...
-EOF
+# startup 
+/opt/pgsql/bin/pg_ctl -D /opt/pgsql/data initdb
+/opt/pgsql/bin/pg_ctl -D /opt/pgsql/data -l /opt/pgsql/logs/pgsql.log start
 
 ```
 
 ##### Config and Boot
-[[sc-mysqld|Mysqld Config]]
+[[sc-mysqld|Postgresql Config]]
 
 ```shell
 # boot 
-cp support-files/mysql.server /etc/init.d/mysql
+cat > /etc/systemd/system/postgresql.service << "EOF"
+[Unit]
+Description=PostgreSQL database server
+Documentation=man:postgres(1)
+
+[Service]
+Type=notify
+User=postgres
+ExecStart=/opt/pgsql/bin/postgres -D /opt/pgsql/data
+ExecReload=/bin/kill -HUP $MAINPID
+KillMode=mixed
+KillSignal=SIGINT
+TimeoutSec=0
+
+[Install]
+WantedBy=multi-user.target
+EOF
 
 systemctl daemon-reload
-systemctl start mysql.service
-systemctl enable mysql.service
+systemctl start postgresql.service
+systemctl enable postgresql.service
 ```
 
 ##### Verify
 ```shell
 # syntax check
-./bin/mysql -V
-Ver 8.0.34 for Linux on x86_64 (Source distribution)
+/opt/pgsql/bin/postgres --version
+postgres (PostgreSQL) 15.1
 ```
 
 ##### Troubleshooting
 ```shell
-# every remake need to execute
-make clean && rm CMakeCache.txt
-
 # problem 1
-# CMake Error at cmake/readline.cmake:92 (MESSAGE):
-# Curses library not found.  Please install appropriate package,
-apt install libncurses5-dev
+# configure: error: readline library not found
+apt install libreadline-dev
 
 # problem 2
-# CMake Warning at cmake/pkg-config.cmake:29 (MESSAGE):
-# Cannot find pkg-config.  You need to install the required package:
-apt install pkg-config
-
-# problem 3
+# configure: error: header file <systemd/sd-daemon.h> is required for systemd support 
+apt install libsystemd-dev
 
 
 ```
@@ -91,19 +90,19 @@ helm repo add bitnami https://charts.bitnami.com/bitnami
 helm update
 
 # get charts package
-helm fetch bitnami/mysql --untar
-cd mysql
+helm fetch bitnami/postgresql --untar
+cd postgresql
 
 # configure and run
 vim values.yaml
 ...
-helm -n middleware install mysql .
+helm -n middleware install postgresql .
 
 ```
 
 
 > 参考文档：
-> 1. [官方文档](https://www.mysql.com/)
-> 2. [GitHub 地址](https://github.com/mysql/mysql-server)
-> 3. [Download](https://dev.mysql.com/downloads/)
-> 4. [apt 安装方式](https://dev.mysql.com/doc/mysql-apt-repo-quick-guide/en/)
+> 1. [官方文档](https://www.postgresql.org/)
+> 2. [GitHub 地址](https://github.com/postgres/postgres)
+> 3. [apt 安装方式](https://www.postgresql.org/download/linux/ubuntu/)
+> 4. [PgsqlConfig Generate](https://pgtune.leopard.in.ua/)

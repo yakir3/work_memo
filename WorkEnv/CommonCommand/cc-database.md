@@ -20,21 +20,30 @@ FLUSH PRIVILEGES;
 
 ### postgres
 ```shell
-# 登录
-psql -U user
+# login
+psql -U user [-d database]
 
-# 创建用户及授权
-CREATE USER dbtest WITH PASSWORD 'dbtest';
-GRANT ALL PRIVILEGES ON DATABASE dbtest TO dbtest;
-GRANT ALL PRIVILEGES ON all tables in schema public TO dbtest;
+# create user,database and grant privileges
+CREATE USER yakirtest WITH PASSWORD 'yakirtest';
+CREATE DATABASE yakirtest OWNER yakirtest;
+GRANT ALL PRIVILEGES ON DATABASE yakirtest TO yakirtest;
+GRANT ALL PRIVILEGES ON all tables in schema public TO yakirtest;
 
-# 查看所有库
+# select all database
 \l
 
-# 切换数据库
+# switch database
 \c database
 
-# 查看表
+# select custom table and table schema
 \d
+\d table;
+
+# select all scheme
+select * from information_schema.schemata;
+
+# select all tables
+select * from pg_tables;
+
 
 ```

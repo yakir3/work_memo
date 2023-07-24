@@ -1,5 +1,20 @@
 ```shell
-# 位置变量
+# add share lib search
+# option 1 
+LD_LIBRARY_PATH=/opt/pgsql/lib
+export LD_LIBRARY_PATH
+# option 2
+ldconfig 
+
+
+# add env and man path
+PATH=/usr/local/pgsql/bin:$PATH
+export PATH
+MANPATH=/usr/local/pgsql/share/man:$MANPATH
+export MANPATH
+
+
+# position 
 $# 表示参数的个数
 ${[*]}  ${[@]} 相同，遍历数组
 $@ 表示参数列表
@@ -18,4 +33,5 @@ echo 1 > /proc/sys/vm/drop_caches
 echo 0 > /proc/sys/vm/drop_caches
 # 释放所有缓存
 echo 3 > /proc/sys/vm/drop_caches
+
 ```

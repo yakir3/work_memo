@@ -60,3 +60,4 @@ helm -n logging install fluentd .
 > 2. [GitHub 地址](https://github.com/fluent/fluentd)
 > 3. [下载地址](https://api-docs.treasuredata.com/en/tools/cli/quickstart/)
 > 4. [helm 安装指引](https://artifacthub.io/packages/helm/bitnami/fluentd)
+> 5. [fluentd-beat plugin](https://github.com/repeatedly/fluent-plugin-beats)
