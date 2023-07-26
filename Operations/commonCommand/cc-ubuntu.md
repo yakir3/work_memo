@@ -1,4 +1,5 @@
-### apt 软件包操作相关
+
+### apt 
 ```shell
 # 更新软件仓库
 apt update

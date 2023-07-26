@@ -1,2 +1,2 @@
-### work_memo
-for work mem
+### work-memo
+for work record
