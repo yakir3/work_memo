@@ -1,4 +1,9 @@
-##### iptables
+#### iptables
+##### introduction
+
+![[iptables.png]]
+
+##### command
 ```shell
 # --list-rules 以命令的形式查看所有规则
 iptables -S
@@ -44,7 +49,7 @@ iptables -X
 ```
 
 
-##### others
+#### others
 ```shell
 # add share lib search
 # option1 for tmp 

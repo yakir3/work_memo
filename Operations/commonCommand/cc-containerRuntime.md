@@ -1,4 +1,20 @@
-### Docker & Podman
+#### Docker & Podman
+##### introduction
+
+![[docker-fsdfsolnn.webp]]
+
+![[docker-fsdsdf.webp]]
+
+![[docker-fdsfcv.webp]]
+
+![[docker-fsdfsobgb.webp]]
+
+![[docker-fsdfsoasdaw.webp]]
+
+![[docker-fsdfdfsckl.webp]]
+
+
+##### command
 ```shell
 # common parameters
 -d, --detach    Run container in background and print container ID
@@ -9,6 +25,10 @@
 --restart               Restart policy to apply when a container exits ("always"|"no"|"on-failure"|"unless-stopped")
 --rm                    Remove container (and pod if created) after exit
 -v, --volume stringArray   Bind mount a volume into the container.
+
+
+# select container ip
+docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' yakir-test
 
 
 # 反查镜像 Dockerfile 内容
@@ -34,7 +54,7 @@ docker run -d --name mrdoc_mysql -e MYSQL_ROOT_PASSWORD=knowledge_base123 -e MYS
 > 阿里云 ACR 仓库加速地址 = taa4w07u.mirror.aliyuncs.com
 
 
-### Containerd
+#### Containerd
 ```shell
 # default run by systemd
 systemctl start containerd.service
@@ -56,3 +76,55 @@ crictl images
 
 ```
 
+#### kubectl
+```shell
+# select cluster config
+kubectl config current-context
+kubectl config get-clusters
+kubectl config get-contexts
+kubectl config get-users
+kubectl config view
+
+# add or set cluster config
+kubectl config set PROPERTY_NAME PROPERTY_VALUE
+
+# add cluster config
+kubectl config set-cluster NAME [--server=server] [--certificate-authority=path/to/certficate/authority] [--insecure-skip-tls-verify=true]
+kubectl config set-context NAME [--cluster=cluster_nickname] [--user=user_nickname] [--namespace=namespace]
+kubectl config set-credentials NAME [--client-certificate=path/to/certfile] [--client-key=path/to/keyfile] [--token=bearer_token] [--username=basic_user] [--password=basic_password]
+
+# use and set context
+kubectl config use-context CONTEXT_NAME
+kubectl config set-context NAME [--cluster=cluster_nickname] [--user=user_nickname] [--namespace=namespace]
+
+
+# forward pod/service port
+kubectl -n argocd port-forward --address=0.0.0.0 pods/argocd-server-cd747d9d7-k7k4z 9999:8080
+kubectl -n argocd port-forward --address=0.0.0.0 services/argocd-server 9999:80
+
+
+# create or delete by yaml
+kubectl apply -f test.yaml
+kubectl delete -f test.yaml
+kubectl apply -k dir/
+
+# quick operations
+kubectl run --rm pod_name --image=busybox -it 
+kubectl delete pod_name
+kubectl exec -it pod_name [-c container_name] -- bash/sh
+# force delete
+kubect delete pod yakir_test --force=true --grace-period=0
+# logs
+kubectl logs -f --tail 10 pod_name
+# quick debug
+kubectl debug -it pod_name --image=busybox [--target=container_name]
+
+# select resource info
+kubectl get pod pod_name
+kubectl describe service service_name
+
+# batch select pod state
+JSONPATH='{range .items[*]};{@.metadata.name}:{range @.status.conditions[*]}{@.type}={@.status},{end}{end};'
+kubectl get pods -l k8s-app=fluentbit-gke -n kube-system -o jsonpath="$JSONPATH" | tr ";" "\n"
+
+```
