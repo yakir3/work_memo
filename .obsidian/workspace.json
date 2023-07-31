@@ -20,12 +20,24 @@
             }
           },
           {
-            "id": "cc448cc0176b57d7",
+            "id": "e866cb9a614509d8",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "CNCF/Provisioning/KeyManagement/vault.md",
+                "file": "CNCF/Runtime/CloudNativeStorage/minio.md",
+                "mode": "source",
+                "source": false
+              }
+            }
+          },
+          {
+            "id": "f225ec5d512f18c5",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "CNCF/ObservabilityAnalysis/Monitoring/prometheus.md",
                 "mode": "source",
                 "source": false
               }
@@ -122,7 +134,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "CNCF/Provisioning/KeyManagement/vault.md",
+                "file": "CNCF/Runtime/CloudNativeStorage/minio.md",
                 "collapseAll": true,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -139,7 +151,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "CNCF/Provisioning/KeyManagement/vault.md",
+                "file": "CNCF/Runtime/CloudNativeStorage/minio.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -162,12 +174,12 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "CNCF/Provisioning/KeyManagement/vault.md"
+                "file": "CNCF/Runtime/CloudNativeStorage/minio.md"
               }
             }
           }
         ],
-        "currentTab": 1
+        "currentTab": 3
       }
     ],
     "direction": "horizontal",
@@ -183,17 +195,17 @@
       "command-palette:打开命令面板": false
     }
   },
-  "active": "cc448cc0176b57d7",
+  "active": "e866cb9a614509d8",
   "lastOpenFiles": [
+    "CNCF/ObservabilityAnalysis/Monitoring/prometheus.md",
+    "CNCF/Runtime/CloudNativeStorage/minio.md",
     "Operations/commonCommand/cc-containerRuntime.md",
+    "tmp/Notes/note-202308.md",
+    "tmp/ac-tmp.md",
     "CNCF/Provisioning/KeyManagement/vault.md",
-    "Operations/commonCommand/cc-system.md",
-    "iptables 1.png.md",
-    "Operations/commonCommand/attachements/iptables.png",
-    "Operations/commonCommand/attachements/iptables 1.png",
+    "CNCF/Provisioning/KeyManagement/attachements/62e9c9b33e697ZTF.gif",
+    "CNCF/OrchestrationManagement/SchedulingOrchestration/Kubernetes/kubernetes.md",
     "CNCF/AppDefinitionDevelopment/ContinuousIntegrationDelivery/argo.md",
-    "WorkEnv/Others/JiraWorkflow-Upgrade.md",
-    "Operations/commonCommand/cc-k8s.md",
-    "tmp/ac-tmp.md"
+    "Operations/commonCommand/cc-ubuntu.md"
   ]
 }

@@ -113,12 +113,12 @@ docker exec -it mongo mongosh
 ##### Run by Helm
 ```shell
 # add and update repo
-helm repo add bitnami https://charts.bitnami.com/bitnami
+helm repo add minio https://helm.min.io/
 helm update
 
 # get charts package
-helm fetch bitnami/mongodb --untar
-cd mongodb
+helm fetch minio/minio --untar
+cd minio
 
 # configure and run
 vim values.yaml
