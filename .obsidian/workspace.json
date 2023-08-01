@@ -20,18 +20,6 @@
             }
           },
           {
-            "id": "e866cb9a614509d8",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "CNCF/Runtime/CloudNativeStorage/minio.md",
-                "mode": "source",
-                "source": false
-              }
-            }
-          },
-          {
             "id": "f225ec5d512f18c5",
             "type": "leaf",
             "state": {
@@ -67,8 +55,7 @@
               }
             }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "vertical"
@@ -134,7 +121,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "CNCF/Runtime/CloudNativeStorage/minio.md",
+                "file": "Operations/commonCommand/cc-containerRuntime.md",
                 "collapseAll": true,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -151,7 +138,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "CNCF/Runtime/CloudNativeStorage/minio.md",
+                "file": "Operations/commonCommand/cc-containerRuntime.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -174,7 +161,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "CNCF/Runtime/CloudNativeStorage/minio.md"
+                "file": "Operations/commonCommand/cc-containerRuntime.md"
               }
             }
           }
@@ -195,13 +182,13 @@
       "command-palette:打开命令面板": false
     }
   },
-  "active": "e866cb9a614509d8",
+  "active": "741b50fa1d8754bc",
   "lastOpenFiles": [
     "CNCF/ObservabilityAnalysis/Monitoring/prometheus.md",
-    "CNCF/Runtime/CloudNativeStorage/minio.md",
     "Operations/commonCommand/cc-containerRuntime.md",
-    "tmp/Notes/note-202308.md",
+    "CNCF/Runtime/CloudNativeStorage/minio.md",
     "tmp/ac-tmp.md",
+    "tmp/Notes/note-202308.md",
     "CNCF/Provisioning/KeyManagement/vault.md",
     "CNCF/Provisioning/KeyManagement/attachements/62e9c9b33e697ZTF.gif",
     "CNCF/OrchestrationManagement/SchedulingOrchestration/Kubernetes/kubernetes.md",

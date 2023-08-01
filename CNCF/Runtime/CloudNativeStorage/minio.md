@@ -3,111 +3,109 @@
 
 
 #### Deploy by Binaries
-##### Download and Compile
+##### Download and Install Server
 ```shell
-# dependencies
-apt install python3-pip
-apt install python-dev-is-python3 libssl-dev
-apt install build-essential
-
 # download source
-git clone -b r6.0.1 https://github.com/mongodb/mongo.git
-cd mongo
-
-# compile 
-python3 -m pip install -r etc/pip/compile-requirements.txt
-python3 buildscripts/scons.py DESTDIR=/opt/mongo install-all
+wget https://dl.min.io/server/minio/release/linux-amd64/minio
+chmod +x minio
+mkdir -p /opt/minio/data /opt/minio/bin
+mv minio /opt/minio/bin/
 
 # postinstallation
-# groupadd mongodb
-# useradd -r -g mongodb -s /bin/false mongodb
-mkdir /opt/mongodb/data /opt/mongodb/logs
-# chown mongodb:mongodb /opt/mongodb -R
+# groupadd minio-user
+# useradd -r -g minio-user -s /bin/false minio-user
+# chown minio-user:minio-user /opt/minio -R
 
 # startup 
-/opt/mongodb/bin/mongod --dbpath /opt/mongodb --logpath /opt/mongodb/logs/mongod.log --fork #--config /opt/mongodb/mongod.conf --bind_ip 0.0.0.0
+export PATH=$PATH:/opt/minio/bin
+minio server /opt/minio/data
+# start cluster mode
+# need add new disk driver for /opt/minio/data
+minio server --console-address :9001 http://1.1.1.1/opt/minio/data http://2.2.2.2/opt/minio/data http://3.3.3.3/opt/minio/data
 
 ```
 
 ##### Config and Boot
-[[sc-mongodb|MongoDB Config]]
-
 ```shell
-# boot 
-cat > /etc/systemd/system/mongod.service << "EOF"
+# config 
+cat > /etc/default/minio << "EOF"
+# set this for MinIO to reload entries with 'mc admin service restart'
+MINIO_CONFIG_ENV_FILE=/etc/default/minio
+
+# single
+MINIO_ROOT_USER=minioadmin
+MINIO_ROOT_PASSWORD=minioadmin123
+MINIO_OPTS="-console-address :9001"
+MINIO_VOLUMES="/opt/minio/data"
+# distributed
+#MINIO_ROOT_USER=minioadmin
+#MINIO_ROOT_PASSWORD=minioadmin123
+#MINIO_OPTS="-console-address :9001"
+#MINIO_VOLUMES="http://minio{1...4}.example.net:9000/mnt/disk{1...4}/minio"
+EOF
+
+# boot
+cat > /etc/systemd/system/minio.service << "EOF"
 [Unit]
-Description=MongoDB Database Server
-Documentation=https://docs.mongodb.org/manual
-After=network-online.target
+Description=MinIO
+Documentation=https://min.io/docs/minio/linux/index.html
 Wants=network-online.target
+After=network-online.target
+AssertFileIsExecutable=/opt/minio/bin/minio
 
 [Service]
-User=mongodb
-Group=mongodb
-EnvironmentFile=-/etc/default/mongod
-Environment="MONGODB_CONFIG_OVERRIDE_NOFORK=1"
-ExecStart=/usr/bin/mongod --config /etc/mongod.conf
-RuntimeDirectory=mongodb
-# file size
-LimitFSIZE=infinity
-# cpu time
-LimitCPU=infinity
-# virtual memory size
-LimitAS=infinity
-# open files
-LimitNOFILE=64000
-# processes/threads
-LimitNPROC=64000
-# locked memory
-LimitMEMLOCK=infinity
-# total threads (user+kernel)
+WorkingDirectory=/opt/minio
+User=minio-user
+Group=minio-user
+ProtectProc=invisible
+EnvironmentFile=-/etc/default/minio
+ExecStartPre=/bin/bash -c "if [ -z \"${MINIO_VOLUMES}\" ]; then echo \"Variable MINIO_VOLUMES not set in /etc/default/minio\"; exit 1; fi"
+ExecStart=/usr/local/bin/minio server $MINIO_OPTS $MINIO_VOLUMES
+# Type=notify
+Restart=always
+LimitNOFILE=65536
 TasksMax=infinity
-TasksAccounting=false
+SendSIGKILL=no
 
 [Install]
 WantedBy=multi-user.target
 EOF
 
 systemctl daemon-reload
-systemctl start mongod.service
-systemctl enable mongod.service
+systemctl start minio.service
+systemctl enable minio.service
 ```
 
 ##### Verify
 ```shell
-# syntax check
+# download and install minio client
+curl https://dl.min.io/client/mc/release/linux-amd64/mc -o mc
+chmod +x mc
+mv mc /opt/minio/bin
 
+# test
+export PATH=$PATH:/opt/minio/bin
+mc alias set myminio http://172.22.3.33:9000 minioadmin minioadmin123
+
+mc admin info myminio
+mc mb myminio/mybucket
+mc cp /tmp/1.txt myminio/mybucket/
+mc cat myminio/mybucket/1.txt
 ```
 
 ##### Troubleshooting
 ```shell
 # problem 1
-# Cannot find system library 'lzma' required for use with libunwind
-apt install liblzma-dev
-
-# problem 2
-# Checking for curl_global_init(0) in C library curl... no
-# Could not find <curl/curl.h> and curl lib
-apt install libcurl4-openssl-dev
-
+# 
 ```
 
 
 #### Deploy by Container
 ##### Run by Docker
 ```shell
-# WARNING: MongoDB 5.0+ requires a CPU with AVX support, and your current system does not appear to have that!
-cat /proc/cpuinfo |grep flags |grep avx
-docker pull mongo:4.4.23
+# 
+docker run -p 9000:9000 -p 9001:9001 quay.io/minio/minio server /data --console-address ":9001"
 
-# pull image
-docker pull mongodb/mongodb-community-server
-
-# run
-docker run --name mongo -d mongodb/mongodb-community-server:latest
-
-# test
-docker exec -it mongo mongosh
 ```
 
 ##### Run by Helm
@@ -123,12 +121,11 @@ cd minio
 # configure and run
 vim values.yaml
 ...
-helm -n middleware install mongodb .
+helm -n runtime install minio .
 
 ```
 
 
 > 参考文档：
-> 1. [官方文档](https://www.mongodb.com/docs/manual/administration/install-on-linux/)
-> 2. [GitHub 地址](https://github.com/mongodb/mongo)
-> 3. [apt 安装方式](https://www.postgresql.org/download/linux/ubuntu/)
+> 1. [Minio 官方文档](https://min.io/docs/minio/kubernetes/upstream/)
+> 2. [Minio GitHub](https://github.com/minio/minio)
