@@ -123,6 +123,11 @@ vim values.yaml
 ...
 helm -n runtime install minio .
 
+# access and test
+kubectl -n argo get secrets minio -ojsonpath='{.data.accesskey}' |base64 -d
+kubectl -n argo get secrets minio -ojsonpath='{.data.secretkey}' |base64 -d
+mc alias set minio_name http://pod_ip:9000 accesskey secretkey 
+mc admin info minio_name
 ```
 
 

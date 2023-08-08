@@ -49,6 +49,15 @@ iptables -X
 ```
 
 
+#### journalctl
+```shell
+# tailf and unit log
+journalctl -u prometheus.service -f
+
+```
+
+
+
 #### others
 ```shell
 # add share lib search

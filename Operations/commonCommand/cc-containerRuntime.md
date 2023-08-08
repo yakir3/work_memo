@@ -42,7 +42,8 @@ docker history db6effbaf70b --format {{.CreatedBy}} --no-trunc=true |sed "s#/bin
 docker build -t yakir/uatproxy -f APP-META/Dockerfile .
 
 
-# running mysql
+# qucick running server
+# mysql-server
 podman run --name mysql -e MYSQL_ROOT_PASSWORD=1qaz@WSX -e MYSQL_DATABASE=devops_tools -p 3307:3306 -d mysql --character-set-server=utf8mb4
 
 
@@ -87,15 +88,12 @@ kubectl config get-clusters
 kubectl config get-contexts
 kubectl config get-users
 kubectl config view
-
 # add or set cluster config
 kubectl config set PROPERTY_NAME PROPERTY_VALUE
-
 # add cluster config
 kubectl config set-cluster NAME [--server=server] [--certificate-authority=path/to/certficate/authority] [--insecure-skip-tls-verify=true]
 kubectl config set-context NAME [--cluster=cluster_nickname] [--user=user_nickname] [--namespace=namespace]
 kubectl config set-credentials NAME [--client-certificate=path/to/certfile] [--client-key=path/to/keyfile] [--token=bearer_token] [--username=basic_user] [--password=basic_password]
-
 # use and set context
 kubectl config use-context CONTEXT_NAME
 kubectl config set-context NAME [--cluster=cluster_nickname] [--user=user_nickname] [--namespace=namespace]
@@ -106,10 +104,10 @@ kubectl -n argocd port-forward --address=0.0.0.0 pods/argocd-server-cd747d9d7-k7
 kubectl -n argocd port-forward --address=0.0.0.0 services/argocd-server 9999:80
 
 
-# create or delete by yaml
-kubectl apply -f test.yaml
-kubectl delete -f test.yaml
-kubectl apply -k dir/
+# describe info
+kubectl describe clusterrolebindings |grep argo -A 6
+kubectl -n argo describe clusterrole argo-cluster-role
+
 
 # quick operations
 kubectl run --rm pod_name --image=busybox -it 
@@ -122,9 +120,18 @@ kubectl logs -f --tail 10 pod_name
 # quick debug
 kubectl debug -it pod_name --image=busybox [--target=container_name]
 
+
 # select resource info
 kubectl get pod pod_name
 kubectl describe service service_name
+
+
+# quick running client images
+kubectl run -it busybox --image=busybox --restart=Never --rm -- sh
+# mysql-client
+kubectl run mysql_client --rm -it --restart=Never --image bitnami/mysql -- /bin/bash
+# redis-client
+
 
 # batch select pod state
 JSONPATH='{range .items[*]};{@.metadata.name}:{range @.status.conditions[*]}{@.type}={@.status},{end}{end};'
