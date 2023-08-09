@@ -13,7 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Operations/commonCommand/cc-ubuntu.md",
+                "file": "Operations/commonCommand/cc-helm.md",
                 "mode": "source",
                 "source": false
               }
@@ -80,7 +80,7 @@
             }
           }
         ],
-        "currentTab": 1
+        "currentTab": 5
       }
     ],
     "direction": "vertical"
@@ -146,7 +146,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "CNCF/ObservabilityAnalysis/Monitoring/prometheus.md",
+                "file": "tmp/ac-tmp.md",
                 "collapseAll": true,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -163,7 +163,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "CNCF/ObservabilityAnalysis/Monitoring/prometheus.md",
+                "file": "tmp/ac-tmp.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -186,7 +186,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "CNCF/ObservabilityAnalysis/Monitoring/prometheus.md"
+                "file": "tmp/ac-tmp.md"
               }
             }
           }
@@ -207,17 +207,17 @@
       "command-palette:打开命令面板": false
     }
   },
-  "active": "f225ec5d512f18c5",
+  "active": "d379d91d7fb579c8",
   "lastOpenFiles": [
-    "tmp/ac-tmp.md",
-    "Operations/commonCommand/cc-ubuntu.md",
-    "Operations/commonCommand/cc-system.md",
-    "Operations/commonCommand/cc-containerRuntime.md",
-    "CNCF/Runtime/ContainerRuntime/containerd.md",
-    "CNCF/ObservabilityAnalysis/Monitoring/prometheus.md",
-    "CNCF/ObservabilityAnalysis/Monitoring/grafana.md",
-    "Operations/serviceConf/sc-monitoring.md",
-    "CNCF/AppDefinitionDevelopment/Database/mysql.md",
-    "CNCF/AppDefinitionDevelopment/Database/mongodb.md"
+    "WorkEnv/attachements/Pasted image 20230320172745.png",
+    "WorkEnv/Others/JiraWorkflow-Upgrade.md",
+    "WorkEnv/attachements/Pasted image 20230317170610.png",
+    "WorkEnv/attachements/Pasted image 20230413143904.png",
+    "WorkEnv/attachements/Pasted image 20230321093710.png",
+    "WorkEnv/attachements/Pasted image 20230321093338.png",
+    "WorkEnv/attachements/Pasted image 20230321092711.png",
+    "WorkEnv/attachements/Pasted image 20230321090812.png",
+    "WorkEnv/attachements/Pasted image 20230321084438.png",
+    "WorkEnv/attachements/Pasted image 20230321084354.png"
   ]
 }

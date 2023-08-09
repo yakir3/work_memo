@@ -18,7 +18,10 @@ venv.bak/
 /site
 .idea/
 
+# OSX
+.DS_Store
+.AppleDouble
+.LSOverride
 
 # Yakir
-*.png
 tmp/

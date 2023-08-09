@@ -113,7 +113,7 @@ storageClass:
   name: nfs-client
 
 # deploy
-helm install nfs-subdir-external-provisioner nfs-subdir-external-provisioner/nfs-subdir-external-provisioner --namespace namespace
+helm install nfs-subdir-external-provisioner . --namespace kube-system
 
 
 # create storageclasses and pod 

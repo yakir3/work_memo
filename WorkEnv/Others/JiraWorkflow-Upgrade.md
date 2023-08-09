@@ -300,7 +300,7 @@ vim ./jira/atlassian/dbconfig.xml
 ```
 ##### 系统配置
 + baseUrl：修改为与前台访问地址一致
-	![[Pasted image 20230320172745.png]]
+![[Pasted image 20230809165349.png]]
 + 添加电子邮件
 	![[Pasted image 20230320172954.png]]
 + 添加 webhook：问题类型选择已新建与已更新，JQL 过滤工作流的事件

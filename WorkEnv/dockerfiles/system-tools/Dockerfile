@@ -1,4 +1,4 @@
-FROM ubuntu:rolling
+FROM ubuntu:devel
 MAINTAINER Yakir
 
 RUN apt update && apt install -y \
@@ -6,7 +6,9 @@ RUN apt update && apt install -y \
     glances \
     iftop \
     iotop \
+    lsof \
     nload \
+    procps \
     sysstat \
     --no-install-recommends \
     && rm -rf /var/lib/apt/lists/*
