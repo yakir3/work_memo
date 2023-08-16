@@ -8,12 +8,12 @@
         "type": "tabs",
         "children": [
           {
-            "id": "741b50fa1d8754bc",
+            "id": "debd137eac85fe85",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Operations/commonCommand/cc-helm.md",
+                "file": "Operations/commonCommand/cc-system.md",
                 "mode": "source",
                 "source": false
               }
@@ -79,8 +79,7 @@
               }
             }
           }
-        ],
-        "currentTab": 5
+        ]
       }
     ],
     "direction": "vertical"
@@ -146,7 +145,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "tmp/ac-tmp.md",
+                "file": "Operations/commonCommand/cc-system.md",
                 "collapseAll": true,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -163,7 +162,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "tmp/ac-tmp.md",
+                "file": "Operations/commonCommand/cc-system.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -186,7 +185,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "tmp/ac-tmp.md"
+                "file": "Operations/commonCommand/cc-system.md"
               }
             }
           }
@@ -207,17 +206,17 @@
       "command-palette:打开命令面板": false
     }
   },
-  "active": "d379d91d7fb579c8",
+  "active": "debd137eac85fe85",
   "lastOpenFiles": [
-    "WorkEnv/attachements/Pasted image 20230320172745.png",
-    "WorkEnv/Others/JiraWorkflow-Upgrade.md",
-    "WorkEnv/attachements/Pasted image 20230317170610.png",
-    "WorkEnv/attachements/Pasted image 20230413143904.png",
-    "WorkEnv/attachements/Pasted image 20230321093710.png",
-    "WorkEnv/attachements/Pasted image 20230321093338.png",
-    "WorkEnv/attachements/Pasted image 20230321092711.png",
-    "WorkEnv/attachements/Pasted image 20230321090812.png",
-    "WorkEnv/attachements/Pasted image 20230321084438.png",
-    "WorkEnv/attachements/Pasted image 20230321084354.png"
+    "Operations/commonCommand/cc-ubuntu.md",
+    "Operations/commonCommand/cc-curl.md",
+    "Operations/commonCommand/cc-networkTools.md",
+    "tmp/ac-tmp.md",
+    "Operations/serviceConf/sc-monitoring.md",
+    "tmp/Notes/note-202308.md",
+    "CNCF/ObservabilityAnalysis/Monitoring/grafana.md",
+    "CNCF/ObservabilityAnalysis/Monitoring/prometheus.md",
+    "Operations/commonCommand/cc-containerRuntime.md",
+    "Operations/commonCommand/cc-helm.md"
   ]
 }

@@ -1,3 +1,6 @@
+service:
+  app_name: public-rex-gateway-v4
+
 favorite:
   drink: coffee
   food: pizza

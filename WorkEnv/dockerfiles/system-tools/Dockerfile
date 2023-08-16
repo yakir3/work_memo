@@ -1,3 +1,7 @@
+# command to run system-tools
+# docker run -it --rm --name test -d yakirinp/system-tools 
+#
+
 FROM ubuntu:devel
 MAINTAINER Yakir
 

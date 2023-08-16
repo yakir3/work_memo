@@ -1,77 +1,70 @@
-SHELL:=/bin/bash
-#BUILDPATH=$(CURDIR)
+# main variable
+MAINTAINER = yakir
+SHELL := /bin/bash
+#GIT_COMMIT := $(shell git rev-parse --short HEAD)
 
-# parameters
-GIT_COMMIT:=$(shell git rev-parse --short HEAD)
-#PROJECT_NAME=network-tools
-PROJECT_NAME=system-tools
-VERSION?=v1
-MAINTAINER=yakirinp
+# container variable
+CONTAINER_CMD := $(shell command -v docker || command -v podman)
+ifneq ($(CONTAINER_CMD),)
+	CONTAINER_CMD := $(CONTAINER_CMD)
+else
+	CONTAINER_CMD := ""
+endif
+CONTAINER_BUILD=$(CONTAINER_CMD) build --rm --force-rm -t
+CONTAINER_PRUNE=$(CONTAINER_CMD) image prune --force
+CONTAINER_RMI=$(CONTAINER_CMD) rmi ${LOCAL_IMAGE_NAME} && $(CONTAINER_CMD) rmi ${CONTAINERHUB_IMAGE_NAME}
+CONTAINER_TAG=$(CONTAINER_CMD) tag
+CONTAINER_PUSH=$(CONTAINER_CMD) push
 
-# local image
-LOCAL_IMAGE_NAME=${PROJECT_NAME}:${VERSION}
-# hub.docker.com image
-DOCKERHUB_IMAGE_NAME = ${MAINTAINER}/${PROJECT_NAME}:${VERSION}
 
-# docker parameters
-DOCKER_CMD=$(shell which docker)
-PODMAN_CMD=$(shell which podman)
-DOCKER_BUILD=$(DOCKER_CMD) build
-DOCKER_PRUNE=$(DOCKER_CMD) image prune -f
-DOCKER_RMI=$(DOCKER_CMD) rmi ${LOCAL_IMAGE_NAME} && $(DOCKER_CMD) rmi ${DOCKERHUB_IMAGE_NAME}
-DOCKER_TAG=$(DOCKER_CMD) tag
-DOCKER_PUSH=$(DOCKER_CMD) push
+.PHONY: precondition
+precondition:
+	@echo "##### preconditon check step start #####"
+	@$(CURDIR)/pre.sh "$(CONTAINER_CMD)"
+	@echo "##### preconditon check step end #####"
 
 .PHONY: build
-build: ## Builds all the dockerfiles in the repository.
+build: precondition ## Builds all the dockerfiles in the repository.
+	@echo "##### build all image step start #####"
 	@$(CURDIR)/build-all.sh
+	@echo "##### build all image step end #####"
 
-.PHONY: latest-versions
-latest-versions: ## Checks all the latest versions of the Dockerfile contents.
-	@$(CURDIR)/latest-versions.sh
 
-check_defined = \
-				$(strip $(foreach 1,$1, \
+check_defined = $(strip $(foreach 1,$1, \
 				$(call __check_defined,$1,$(strip $(value 2)))))
-__check_defined = \
-				  $(if $(value $1),, \
+__check_defined = $(if $(value $1),, \
 				  $(error Undefined $1$(if $2, ($2))$(if $(value @), \
-				  required by target `$@')))
+				  required by target '$@')))
 
 .PHONY: run
-run: ## Run a Dockerfile from the command at the top of the file (ex. DIR=telnet).
+run: precondition ## Run a Dockerfile from the command at the top of the file (ex. DIR=curl).
+	@echo "##### run a container step start #####"
 	@:$(call check_defined, DIR, directory of the Dockefile)
-	@$(CURDIR)/run.sh "$(DIR)"
+	@$(CURDIR)/run.sh $(DIR)
+	@echo "##### run a container step end #####"
 
-REGISTRY := r.j3ss.co
+REGISTRY := docker.io/yakirinp
+VERSION := latest
 .PHONY: image
-image: ## Build a Dockerfile (ex. DIR=telnet).
+image: precondition ## Build a Dockerfile (ex. DIR=telnet).
+	@echo "##### build a image step start #####"
 	@:$(call check_defined, DIR, directory of the Dockefile)
-	docker build --rm --force-rm -t $(REGISTRY)/$(subst /,:,$(patsubst %/,%,$(DIR))) ./$(DIR)
+	$(CONTAINER_BUILD) $(REGISTRY)/$(subst /,:,$(patsubst %/,%,$(DIR))):$(VERSION) ./$(DIR)
+	@echo "##### build a image end #####"
+
+.PHONY: clean
+clean:
+	@echo "##### clean step start #####"
+	@echo "clean image etc.."
+	@echo "##### clean step end #####"
 
 .PHONY: test
-test: dockerfiles shellcheck ## Runs the tests on the repository.
-
-.PHONY: dockerfiles
-dockerfiles: ## Tests the changes to the Dockerfiles build.
+test: ## Run the tests
 	@$(CURDIR)/test.sh
 
-# if this session isn't interactive, then we don't want to allocate a
-# TTY, which would fail, but if it is interactive, we do want to attach
-# so that the user can send e.g. ^C through.
-INTERACTIVE := $(shell [ -t 0 ] && echo 1 || echo 0)
-ifeq ($(INTERACTIVE), 1)
-	DOCKER_FLAGS += -t
-endif
-
-.PHONY: shellcheck
-shellcheck: ## Runs the shellcheck tests on the scripts.
-	docker run --rm -i $(DOCKER_FLAGS) \
-		--name df-shellcheck \
-		-v $(CURDIR):/usr/src:ro \
-		--workdir /usr/src \
-		r.j3ss.co/shellcheck ./shellcheck.sh
+.PHONY: all
+all: precondition test ## Build all and push
 
 .PHONY: help
 help:
-	@grep -E '^[a-zA-Z_-]+:.*?## .*$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $1, $2}'
+	@grep -E "^[a-zA-Z_-]+:.*?## .*$$" $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS=":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'

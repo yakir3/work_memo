@@ -1,3 +1,14 @@
+##### ab && wrk
+```shell
+# apt install apache2-utils
+ab -n 1000 -c 100 http://www.baidu.com
+
+# http://github.com/wg/wrk.git
+wrk -t 100 -c 10000 -d 30 --latency http://www.google.com/
+
+```
+
+
 ##### tcpdump
 ```shell
 # Listen on interface

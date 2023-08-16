@@ -75,12 +75,9 @@ PATH=/usr/local/pgsql/bin:$PATH
 export PATH
 MANPATH=/usr/local/pgsql/share/man:$MANPATH
 export MANPATH
-
-
-# position 
-$#               # args len
-${[*]}  ${[@]}   # foreach list
-$@      $*       # args list, 区别: 当它们被双引号(" ")包含时，"$*" 会将所有的参数作为一个整体，以"$1 $2 … $n"的形式输出所有参数；"$@" 会将各个参数分开，以"$1" "$2" … "$n" 的形式输出所有参数
+# option2 for persistent
+echo "PATH=/usr/local/pgsql/bin:$PATH" >> ~/.bashrc
+source ~/.bashrc
 
 
 # free vm memory
@@ -91,5 +88,24 @@ $@      $*       # args list, 区别: 当它们被双引号(" ")包含时，"$*"
 # 释放完内存后将值改为0让系统重新自动分配内存
 echo 0 > /proc/sys/vm/drop_caches
 
+
+# position 
+$#               # args len
+${[*]}  ${[@]}   # foreach list
+$*   # args list, when use "", all parameter as one world
+$@   # args list
+
+
+# truncate string
+variable="Hello World"
+echo "${variable#He}"   # output: llo World
+echo "${variable%ld}"   # output: Hello Wor
+echo "${variable:3:5}"  # output: lo Wo
+echo "${variable#*o}"   # output: rld
+echo "${#variable}"     # length
+variable="path/to/some/file.txt"
+result="${variable##*/}"   # longest match from start, get: file.txt
+variable="path/to/some/file.txt"
+result="${variable%%/*}"   # longest match from end, get: path
 ```
 
