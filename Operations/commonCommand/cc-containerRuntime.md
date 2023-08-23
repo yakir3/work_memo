@@ -118,7 +118,7 @@ kubect delete pod yakir_test --force=true --grace-period=0
 # logs
 kubectl logs -f --tail 10 pod_name
 # quick debug
-kubectl debug -it pod_name --image=busybox [--target=container_name]
+kubectl debug -it pod_name --image=busybox [--target=container_name] -- /bin/bash
 
 
 # select resource info

@@ -91,10 +91,17 @@ groups:
 
 
 #### Alertmanager
+##### main config
 /opt/prometheus/alertmanager/alertmanager.yml
 ```shell
 global:
   resolve_timeout: 5m
+  smtp_smarthost: 'smtp.163.com:465'
+  smtp_from: 'xxx@163.com'
+  smtp_auth_username: 'xxx@163.com'
+  smtp_auth_password: 'xxxxxx'
+  smtp_hello: '163.com'
+  smtp_require_tls: false
 route:
   group_by: ['cluster', 'alertname']
   group_wait: 30s
@@ -109,10 +116,35 @@ route:
 receivers:
   - name: 'default-receiver'
     webhook_configs:
-      - url: 'http://127.0.0.1:5001/'
+    - url: 'http://127.0.0.1:5001/'
+  - name: 'database-pager'
+    email_configs:
+    - to: 'xxx@gmail.com'
+      send_resolved: true
 templates:
-  - /etc/alertmanager/config/*.tmpl
+  - /opt/prometheus/alertmanager/*.tmpl
 
+```
+
+##### template config
+/opt/prometheus/alertmanager/email.tmpl
+```jinja2
+{{ define "email.html" }}
+	{{ range .Alerts }}
+<pre>
+	========start==========
+   告警程序: prometheus_alert_email 
+   告警级别: {{ .Labels.severity }} 级别 
+   告警类型: {{ .Labels.alertname }} 
+   故障主机: {{ .Labels.instance }} 
+   告警主题: {{ .Annotations.summary }}
+   告警详情: {{ .Annotations.description }}
+   处理方法: {{ .Annotations.console }}
+   触发时间: {{ .StartsAt.Format "2006-01-02 15:04:05" }}
+   ========end==========
+</pre>
+	{{ end }}
+{{ end }}
 ```
 
 
@@ -120,5 +152,18 @@ templates:
 /etc/grafana/grafana.ini
 ```shell
 ...
+[smtp]
+enabled = true
+host = 1.1.1.1
+user = ""
+password = ""
+skip_verify = true
+from_address = ""
+[alerting]
+enabled = true
+execute_alerts = true
+[rendering]
+server_url = http://grafana-image-renderer:8081/render
+callback_url = http://grafana/
 
 ```

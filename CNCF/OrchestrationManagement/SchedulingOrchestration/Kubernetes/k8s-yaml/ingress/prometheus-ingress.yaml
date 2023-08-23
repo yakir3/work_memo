@@ -1,20 +1,20 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: prometheus-ingress
+  name: prometheus-server
   namespace: monitoring
   annotations:
     nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
 spec:
   ingressClassName: nginx
   rules:
-  - host: yakir-prometheus.xxx.com
+  - host: prometheus.yakir.com
     http:
       paths:
       - backend:
           service:
-            name: prometheus-k8s
+            name: prometheus-server
             port:
-              number: 9090
+              number: 80
         path: /
         pathType: Prefix

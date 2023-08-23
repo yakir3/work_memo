@@ -13,7 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Operations/commonCommand/cc-system.md",
+                "file": "Operations/commonCommand/cc-containerRuntime.md",
                 "mode": "source",
                 "source": false
               }
@@ -26,30 +26,6 @@
               "type": "markdown",
               "state": {
                 "file": "CNCF/ObservabilityAnalysis/Monitoring/prometheus.md",
-                "mode": "source",
-                "source": false
-              }
-            }
-          },
-          {
-            "id": "6f48fd99a50ebb3d",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "CNCF/ObservabilityAnalysis/Monitoring/grafana.md",
-                "mode": "source",
-                "source": false
-              }
-            }
-          },
-          {
-            "id": "54b2b9a898fe56e6",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "Operations/serviceConf/sc-monitoring.md",
                 "mode": "source",
                 "source": false
               }
@@ -79,7 +55,8 @@
               }
             }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -145,7 +122,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Operations/commonCommand/cc-system.md",
+                "file": "CNCF/ObservabilityAnalysis/Monitoring/prometheus.md",
                 "collapseAll": true,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -162,7 +139,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "Operations/commonCommand/cc-system.md",
+                "file": "CNCF/ObservabilityAnalysis/Monitoring/prometheus.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -185,7 +162,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Operations/commonCommand/cc-system.md"
+                "file": "CNCF/ObservabilityAnalysis/Monitoring/prometheus.md"
               }
             }
           }
@@ -206,17 +183,17 @@
       "command-palette:打开命令面板": false
     }
   },
-  "active": "debd137eac85fe85",
+  "active": "f225ec5d512f18c5",
   "lastOpenFiles": [
-    "Operations/commonCommand/cc-ubuntu.md",
-    "Operations/commonCommand/cc-curl.md",
-    "Operations/commonCommand/cc-networkTools.md",
     "tmp/ac-tmp.md",
-    "Operations/serviceConf/sc-monitoring.md",
-    "tmp/Notes/note-202308.md",
-    "CNCF/ObservabilityAnalysis/Monitoring/grafana.md",
     "CNCF/ObservabilityAnalysis/Monitoring/prometheus.md",
-    "Operations/commonCommand/cc-containerRuntime.md",
-    "Operations/commonCommand/cc-helm.md"
+    "tmp/Notes/note-202308.md",
+    "Operations/serviceConf/sc-monitoring.md",
+    "CNCF/ObservabilityAnalysis/Monitoring/grafana.md",
+    "CNCF/ObservabilityAnalysis/Monitoring/attachements/Pasted image 20230821114429.png",
+    "CNCF/ObservabilityAnalysis/Monitoring/attachements/Pasted image 20230821114504.png",
+    "CNCF/ObservabilityAnalysis/Monitoring/attachements/Pasted image 20230821114732.png",
+    "CNCF/ObservabilityAnalysis/Monitoring/attachements/Pasted image 20230821115559.png",
+    "CNCF/ObservabilityAnalysis/Monitoring/attachements/Pasted image 20230821115717.png"
   ]
 }

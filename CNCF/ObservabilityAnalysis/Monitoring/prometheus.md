@@ -97,8 +97,9 @@ cd prometheus
 
 # configure and run
 vim values.yaml
-...
+# enable kube-state-metrics
 helm -n monitoring install prometheus .
+
 
 # access and test
 
@@ -111,17 +112,39 @@ helm -n monitoring install prometheus .
 ##### [console template](https://prometheus.io/docs/visualization/consoles/)
 
 
+#### node_exporter && blackbox_exporter
+##### Download and Install
+```shell
+# baniry
+cd /opt/prometheus
+wget https://github.com/prometheus/blackbox_exporter/releases/download/v0.24.0/blackbox_exporter-0.24.0.linux-amd64.tar.gz
+wget https://github.com/prometheus/node_exporter/releases/download/v1.6.1/node_exporter-1.6.1.linux-amd64.tar.gz
+tar xf blackbox_exporter-0.24.0.linux-amd64.tar.gz && rm -f blackbox_exporter-0.24.0.linux-amd64.tar.gz 
+tar xf node_exporter-1.6.1.linux-amd64.tar.gz && rm -f node_exporter-1.6.1.linux-amd64.tar.gz
+./blackbox_exporter-0.24.0.linux-amd64/blackbox_exporter
+./node_exporter-1.6.1.linux-amd64/node_exporter
+
+# helm
+# node_exporter: include prometheus chart package
+# black_exporter
+helm fetch --untar prometheus-community/prometheus-blackbox-exporter
+```
+
+
 #### AlertManager
 ##### Download and Install
 ```shell
+# baniry
 cd /opt/prometheus
 wget https://github.com/prometheus/alertmanager/releases/download/v0.25.0/alertmanager-0.25.0.linux-amd64.tar.gz
 tar xf alertmanager-0.25.0.linux-amd64.tar.gz && rm -f alertmanager-0.25.0.linux-amd64.tar.gz
 mv alertmanager-0.25.0.linux-amd64 alertmanager
 
+# helm
+# include prometheus chart package
 ```
 
-##### [[|Alert Config]]
+##### [[sc-monitoring#Alertmanager|Alert Config]]
 ```shell
 cat > /opt/prometheus/alertmanager/alertmanager.yml << "EOF"
 ...

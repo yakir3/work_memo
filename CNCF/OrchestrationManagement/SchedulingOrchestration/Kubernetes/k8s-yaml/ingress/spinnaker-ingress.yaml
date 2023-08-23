@@ -4,20 +4,15 @@ metadata:
   name: spinnaker-ingress
   namespace: default
 spec:
+  ingressClassName: nginx
   rules:
-  - host: yakir-spinnaker.yakir.com
+  - host: spinnaker.yakir.com
     http:
       paths:
       - backend:
           service:
-            name: spinnaker-xxx
+            name: spinnaker-server
             port:
               number: 8080
         path: /
         pathType: Prefix
-status:
-  loadBalancer:
-    ingress:
-    - ip: 172.20.205.105
-    - ip: 172.20.205.106
-    - ip: 172.20.205.98
