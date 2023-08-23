@@ -1,45 +1,44 @@
-SHELL:=/bin/bash
-BUILDPATH=$(CURDIR)
+# main variable
+MAINTAINER = yakir
+SHELL := /bin/bash
+#GIT_COMMIT := $(shell git rev-parse --short HEAD)
 
-# parameters
-GIT_COMMIT:=$(shell git rev-parse --short HEAD)
-PROJECT_NAME=work_memo
-VERSION?=v1
+# container variable
+CONTAINER_CMD := $(shell command -v docker || command -v podman)
+ifneq ($(CONTAINER_CMD),)
+	CONTAINER_CMD := $(CONTAINER_CMD)
+else
+	CONTAINER_CMD := ""
+endif
+CONTAINER_BUILD=$(CONTAINER_CMD) build --rm --force-rm -t
+CONTAINER_PRUNE=$(CONTAINER_CMD) image prune --force
+CONTAINER_RMI=$(CONTAINER_CMD) rmi ${LOCAL_IMAGE_NAME} && $(CONTAINER_CMD) rmi ${CONTAINERHUB_IMAGE_NAME}
+CONTAINER_TAG=$(CONTAINER_CMD) tag
+CONTAINER_PUSH=$(CONTAINER_CMD) push
 
-LOCAL_IMAGE_NAME=${PROJECT_NAME}:${VERSION}
-DOCKERHUB_REGISTRY_NAME = hub.docker.com/yakirinp/${PROJECT_NAME}:${VERSION}
+REGISTRY := docker.io/yakirinp/work_memo
+VERSION ?= v1
+.PHONY: image
+image: ## Build a image and push (APP-META/Dockerfile)
+	@echo "##### build a image step start #####"
+	$(CONTAINER_BUILD) $(REGISTRY):$(VERSION) -f APP-META/Dockerfile .
+	$(CONTAINER_PUSH) $(REGISTRY):$(VERSION)
+	@echo "##### build a image end #####"
 
-# docker parameters
-DOCKER_CMD=$(shell which docker)
-PODMAN_CMD=$(shell which podman)
-DOCKER_BUILD=$(PODMAN_CMD) build
-DOCKER_PULL=$(PODMAN_CMD) pull
-DOCKER_PUSH=$(PODMAN_CMD) push
-DOCKER_PRUNE=$(PODMAN_CMD) image prune -f
-DOCKER_TAG=$(PODMAN_CMD) tag
-DOCKER_COMPOSE_CMD=$(shell which docker-compose)
-
-.PHONY: test docker clean all
-all: build docker clean
-
-docker: docker-build docker-tag docker-push
-
-test:
-	echo ${LOCAL_IMAGE_NAME}
-	echo ${DOCKERHUB_REGISTRY_NAME}
-
+.PHONY: clean
 clean:
-	$(DOCKER_PRUNE)
+	@echo "##### clean step start #####"
+	@echo "clean image etc.."
+	@echo "##### clean step end #####"
 
-build:
-	echo no need to build
+.PHONY: test
+test: ## Run the tests
+	@#$(CURDIR)/test.sh
+	@echo "test..."
 
-.ONESHELL: ddocker-build docker-tag docker-push
-docker-build:
-	$(DOCKER_BUILD) -t ${LOCAL_IMAGE_NAME} -f APP-META/Dockerfile .
+.PHONY: all
+all: precondition test clean ## Build all and push
 
-docker-tag:
-	$(DOCKER_TAG) ${LOCAL_IMAGE_NAME} ${DOCKERHUB_REGISTRY_NAME}
-
-docker-push:
-	$(DOCKER_PUSH) ${DOCKERHUB_REGISTRY_NAME}
+.PHONY: help
+help:
+	@grep -E "^[a-zA-Z_-]+:.*?## .*$$" $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS=":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'

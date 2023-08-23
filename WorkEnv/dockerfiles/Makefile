@@ -63,7 +63,7 @@ test: ## Run the tests
 	@$(CURDIR)/test.sh
 
 .PHONY: all
-all: precondition test ## Build all and push
+all: precondition test clean ## Build all and push
 
 .PHONY: help
 help:
