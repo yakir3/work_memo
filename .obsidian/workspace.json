@@ -8,6 +8,18 @@
         "type": "tabs",
         "children": [
           {
+            "id": "5ea9b79627f53767",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Operations/kernel.md",
+                "mode": "source",
+                "source": false
+              }
+            }
+          },
+          {
             "id": "debd137eac85fe85",
             "type": "leaf",
             "state": {
@@ -25,7 +37,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "CNCF/ObservabilityAnalysis/Monitoring/prometheus.md",
+                "file": "CNCF/AppDefinitionDevelopment/Database/mysql.md",
                 "mode": "source",
                 "source": false
               }
@@ -56,7 +68,7 @@
             }
           }
         ],
-        "currentTab": 1
+        "currentTab": 4
       }
     ],
     "direction": "vertical"
@@ -122,7 +134,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "CNCF/ObservabilityAnalysis/Monitoring/prometheus.md",
+                "file": "tmp/ac-tmp.md",
                 "collapseAll": true,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -139,7 +151,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "CNCF/ObservabilityAnalysis/Monitoring/prometheus.md",
+                "file": "tmp/ac-tmp.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -162,7 +174,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "CNCF/ObservabilityAnalysis/Monitoring/prometheus.md"
+                "file": "tmp/ac-tmp.md"
               }
             }
           }
@@ -183,17 +195,17 @@
       "command-palette:打开命令面板": false
     }
   },
-  "active": "f225ec5d512f18c5",
+  "active": "d379d91d7fb579c8",
   "lastOpenFiles": [
+    "Operations/netWork/tcp.md",
     "tmp/ac-tmp.md",
-    "CNCF/ObservabilityAnalysis/Monitoring/prometheus.md",
+    "Operations/kernel.md",
+    "Operations/commonCommand/cc-containerRuntime.md",
+    "CNCF/AppDefinitionDevelopment/Database/mysql.md",
     "tmp/Notes/note-202308.md",
-    "Operations/serviceConf/sc-monitoring.md",
-    "CNCF/ObservabilityAnalysis/Monitoring/grafana.md",
-    "CNCF/ObservabilityAnalysis/Monitoring/attachements/Pasted image 20230821114429.png",
-    "CNCF/ObservabilityAnalysis/Monitoring/attachements/Pasted image 20230821114504.png",
-    "CNCF/ObservabilityAnalysis/Monitoring/attachements/Pasted image 20230821114732.png",
-    "CNCF/ObservabilityAnalysis/Monitoring/attachements/Pasted image 20230821115559.png",
-    "CNCF/ObservabilityAnalysis/Monitoring/attachements/Pasted image 20230821115717.png"
+    "Operations/commonCommand/cc-elasticsearch.md",
+    "CNCF/AppDefinitionDevelopment/ApplicationDefinitionImageBuild/helm.md",
+    "CNCF/AppDefinitionDevelopment/ApplicationDefinitionImageBuild/helm/README.md",
+    "Operations/commonCommand/cc-networkTools.md"
   ]
 }

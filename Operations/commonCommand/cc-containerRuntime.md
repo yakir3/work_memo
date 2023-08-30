@@ -88,12 +88,15 @@ kubectl config get-clusters
 kubectl config get-contexts
 kubectl config get-users
 kubectl config view
+
 # add or set cluster config
 kubectl config set PROPERTY_NAME PROPERTY_VALUE
+
 # add cluster config
 kubectl config set-cluster NAME [--server=server] [--certificate-authority=path/to/certficate/authority] [--insecure-skip-tls-verify=true]
 kubectl config set-context NAME [--cluster=cluster_nickname] [--user=user_nickname] [--namespace=namespace]
 kubectl config set-credentials NAME [--client-certificate=path/to/certfile] [--client-key=path/to/keyfile] [--token=bearer_token] [--username=basic_user] [--password=basic_password]
+
 # use and set context
 kubectl config use-context CONTEXT_NAME
 kubectl config set-context NAME [--cluster=cluster_nickname] [--user=user_nickname] [--namespace=namespace]

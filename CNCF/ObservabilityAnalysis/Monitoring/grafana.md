@@ -175,10 +175,10 @@ curl "https://api.telegram.org/bot<token>/sendMessage?chat_id=<chat_id>&text=<ms
 =========={{ $alert.Status }}==========
 告警名称: {{ $alert.Labels.alertname }}
 告警级别: {{ $alert.Labels.severity }}
-告警详情: {{ $alert.Annotations.description}};{{$alert.Annotations.summary}}
+告警详情: {{ $alert.Annotations.summary }};{{ $alert.Annotations.description }}
 故障时间: {{ ($alert.StartsAt.Add 28800e9).Format "2006-01-02 15:04:05" }}
 实例信息: {{ $alert.Labels.instance }}
-当前数值: {{ $alert.Annotations.values}}
+当前数值: {{ $alert.values.alarmvalue}}
 静默告警: {{ .SilenceURL }}
 告警大盘: {{ .DashboardURL }}
 ============END============
@@ -190,11 +190,11 @@ curl "https://api.telegram.org/bot<token>/sendMessage?chat_id=<chat_id>&text=<ms
 =========={{ $alert.Status }}==========
 告警名称: {{ $alert.Labels.alertname }}
 告警级别: {{ $alert.Labels.severity }}
-告警详情: {{ $alert.Annotations.description}};{{$alert.Annotations.summary}}
+告警详情: {{ $alert.Annotations.summary }};{{ $alert.Annotations.description }}
 故障时间: {{ ($alert.StartsAt.Add 28800e9).Format "2006-01-02 15:04:05" }}
 恢复时间: {{ ($alert.EndsAt.Add 28800e9).Format "2006-01-02 15:04:05" }}
 实例信息: {{ $alert.Labels.instance }}
-当前数值: {{ $alert.Annotations.values}}
+当前数值: {{ $alert.values.alarmvalue }}
 静默告警: {{ .SilenceURL }}
 告警大盘: {{ .DashboardURL }}
 ============END============
