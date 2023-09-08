@@ -17,13 +17,26 @@ wrk -t 100 -c 10000 -d 30 --latency http://www.google.com/
 ```
 
 
-#### arp
+#### arp && arping
 ```shell
 # install
 apt install net-tools
+apt install arping
 
-#
-arp
+# select arp table
+arp -ne 
+-e                       display (all) hosts in default (Linux) style
+-n, --numeric            don\'t resolve names
+
+# arping
+arping 192.168.1.100
+-c count
+-i interface
+-s MAC
+-S IP
+# get packets
+tcpdump -ttttnvvvS -i ens160 arp 
+
 ```
 
 
@@ -39,9 +52,40 @@ hping3 -S -p 8877 --flood 127.0.0.1
 ```
 
 
-#### iproute2
-##### ip
+#### iftop
 ```shell
+#
+iftop -nN -i ens4 -o 10s
+
+按h切换是否显示帮助;
+按n切换显示本机的IP或主机名;
+按s切换是否显示本机的host信息;
+按d切换是否显示远端目标主机的host信息;
+按t切换显示格式为2行/1行/只显示发送流量/只显示接收流量;
+按N切换显示端口号或端口服务名称;
+按S切换是否显示本机的端口信息;
+按D切换是否显示远端目标主机的端口信息;
+按p切换是否显示端口信息;
+按P切换暂停/继续显示;
+按b切换是否显示平均流量图形条;
+按B切换计算2秒或10秒或40秒内的平均流量;
+按T切换是否显示每个连接的总流量;
+按l打开屏幕过滤功能，输入要过滤的字符，比如ip,按回车后，屏幕就只显示这个IP相关的流量信息;
+按L切换显示画面上边的刻度;刻度不同，流量图形条会有变化;
+按j或按k可以向上或向下滚动屏幕显示的连接记录;
+按1或2或3可以根据右侧显示的三列流量数据进行排序;
+按<根据左边的本机名或IP排序;
+按>根据远端目标主机的主机名或IP排序;
+按o切换是否固定只显示当前的连接;
+
+
+```
+
+
+#### ip
+```shell
+# apt install iproute2
+
 # select route table
 ip route ls
 # select info
@@ -92,13 +136,28 @@ ip netns exec net0 ping -c 3 10.0.1.3
 
 
 ```
-##### ss
+
+
+#### netstat && ss
 ```shell
+# netstat = apt install net-tools 
+# count all tcp state number
+netstat -tna | awk '/tcp/ {++S[$NF]} END {for(a in S) print a, S[a]}'
+
+
+#####
+#####
+# ss = apt install iproute2
+# count all tcp state number
+ss -na | awk '/tcp/ {++S[$2]} END {for(a in S) print a, S[a]}'
+
 # select all tcp connect
 ss -tnap
 
 # force kill tcp connect
 ss -K dst 1.1.1.1 dport = 57156
+
+
 
 ```
 

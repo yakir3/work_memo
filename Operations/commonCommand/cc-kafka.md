@@ -14,6 +14,8 @@
 #详情
 --group test --descibe
 
+# 查看消费者组
+
 
 # 生产者
 ./kafka-console-producer.sh --bootstrap-server yakir-kafka-headless:9092 --topic yakirtopic
@@ -26,10 +28,18 @@
 
 # 调整 topic 分区数
 ./kafka-topics.sh --bootstrap-server yakir-kafka-headless:9092 --alter --topic yakirtopic --partitions 3
-# 调整 topic 副本数
-./kafka-reassign-partitions.sh --bootstrap-server yakir-kafka-headless:9092 --reassignment-json-file yakir.json --execute
+# 通过 json 文件方式打散 leader 分区以及调整 topic 副本数
+echo -e '{\n    "version": 1,' > yakirtopic.json
+echo '    "partitions": [' >> yakirtopic.json
+for i in {1..3};do 
+var=$(printf "1\n2\n3" |shuf |tr '\n' ',')
+var=${var::-1}
+echo -e '        {"topic": "yakirtopic", "partition": '${i}', "replicas": ['${var}']},' >> yakirtopic.json
+done
+echo -e '    ]\n}' >> yakirtopic.json
+./kafka-reassign-partitions.sh --bootstrap-server 172.23.1.3:9092 --reassignment-json-file yakirtopic.json --execute
 # 验证调整结果
-./kafka-reassign-partitions.sh --bootstrap-server yakir-kafka-headless:9092 --reassignment-json-file yakir.json --verify
+./kafka-reassign-partitions.sh --bootstrap-server yakir-kafka-headless:9092 --reassignment-json-file yakirtopic.json --verify
 
 # 指定分区 副本数创建 topic
 ./kafka-topics.sh --bootstrap-server yakir-kafka-headless:9092 --create --replication-factor 1 --partitions 1 --topic yakir-test-topic

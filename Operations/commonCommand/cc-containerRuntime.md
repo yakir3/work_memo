@@ -102,6 +102,12 @@ kubectl config use-context CONTEXT_NAME
 kubectl config set-context NAME [--cluster=cluster_nickname] [--user=user_nickname] [--namespace=namespace]
 
 
+# evicted pod
+kubectl cordon <node-name>
+kubectl drain <node-name> --ignore-daemonsets
+kubectl uncordon <node-name>
+
+
 # forward pod/service port
 kubectl -n argocd port-forward --address=0.0.0.0 pods/argocd-server-cd747d9d7-k7k4z 9999:8080
 kubectl -n argocd port-forward --address=0.0.0.0 services/argocd-server 9999:80
@@ -134,6 +140,13 @@ kubectl run -it busybox --image=busybox --restart=Never --rm -- sh
 # mysql-client
 kubectl run mysql_client --rm -it --restart=Never --image bitnami/mysql -- /bin/bash
 # redis-client
+
+
+# create secrets
+kubectl -n islot create secret tls my-tls --cert=./tls.crt --key=./tls.key
+# upgrade secrets
+kubectl create secret tls my-tls --save-config --dry-run=client --cert=./tls.crt --key=./tls.key -oyaml | kubectl apply -f -
+kubectl create secret generic my-secret --save-config --dry-run=client --from-file=./tls.crt --from-file=./tls.key -oyaml | kubectl apply -f -
 
 
 # batch select pod state

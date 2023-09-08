@@ -38,8 +38,7 @@ Wants=network-online.target
 After=network-online.target
 
 [Service]
-Type=notify
-NotifyAccess=all
+Type=simple
 RuntimeDirectory=elasticsearch
 PrivateTmp=true
 Environment=ES_HOME=/opt/elasticsearch
@@ -62,7 +61,9 @@ KillSignal=SIGTERM
 KillMode=process
 SendSIGKILL=no
 SuccessExitStatus=143
-TimeoutStartSec=900
+TimeoutStartSec=60
+Restart=always
+RestartSec=3s
 
 [Install]
 WantedBy=multi-user.target

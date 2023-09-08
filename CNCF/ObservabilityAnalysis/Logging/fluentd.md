@@ -13,6 +13,9 @@
 [[sc-fluentd|Fluentd Config]]
 
 ```shell
+# important
+chown td-agent.td-agent /opt/fluentd-output/filepath
+
 # boot 
 systemctl daemon-reload
 systemctl start td-agent.service

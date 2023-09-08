@@ -8,6 +8,8 @@
 # 详细输出请求信息
 -v
 
+# 代理请求
+-x, --proxy [protocol://]host[:port]
 
 # 测试服务端支持的 TLS 版本
 curl https://google.com -kv --tlsv1 --tls-max 1.0
