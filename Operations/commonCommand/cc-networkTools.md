@@ -181,6 +181,7 @@ echo -e "POST /post HTTP/1.1\r\nHost: httpbin.org\r\nContent-Type: application/x
 # install
 apt install tcpdump
 
+
 # Listen on interface
 -i interface
 # Don't convert address
@@ -204,17 +205,26 @@ apt install tcpdump
 # Write the raw packages to file
 -w file
 
+
+# rotate every 100M and reserved 20
+tcpdump -i eth0 port 8880 -w cvm.pcap -C 100 -W 20
+# rotate every 120s and suffix
+tcpdump -i eth0 port 31780 -w node-%Y-%m%d-%H%M-%S.pcap -G 120
+
 # protocol
 tcpdump [ip|tcmp|tcp|udp]
 tcpdump 'tcp[tcpflags] & (tcp-syn|tcp-fin) != 0'
 
-# source ip and dest ip 
+# source ip or dest ip 
 tcpdump src 1.1.1.1 or dst 1.1.1.1 
 
 # port 
 tcpdump not port 80
 
+# fileter timeout packet
+tcpdump -r test.pcap 'tcp[tcpflags] & (tcp-rst) != 0' -nttt
 
+# example
 tcpdump -i eth0 -nStttvvv src 1.1.1.1 or dst 1.1.1.1 and port 80
 
 ```

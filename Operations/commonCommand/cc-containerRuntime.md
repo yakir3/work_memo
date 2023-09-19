@@ -118,16 +118,20 @@ kubectl describe clusterrolebindings |grep argo -A 6
 kubectl -n argo describe clusterrole argo-cluster-role
 
 
-# quick operations
+# run and exec pod
 kubectl run --rm pod_name --image=busybox -it 
-kubectl delete pod_name
 kubectl exec -it pod_name [-c container_name] -- bash/sh
 # force delete
-kubect delete pod yakir_test --force=true --grace-period=0
+kubectl delete pod pod_name
+kubect delete pod pod_name --force=true --grace-period=0
 # logs
 kubectl logs -f --tail 10 pod_name
+
+
 # quick debug
-kubectl debug -it pod_name --image=busybox [--target=container_name] -- /bin/bash
+kubectl debug -it pod/pod_name --image=busybox [--target=container_name] -- /bin/sh
+kubectl debug -it node/node_name --image=ubuntu -- /bin/bash
+kubectl delete pod node-debuger-xxx
 
 
 # select resource info
@@ -152,5 +156,8 @@ kubectl create secret generic my-secret --save-config --dry-run=client --from-fi
 # batch select pod state
 JSONPATH='{range .items[*]};{@.metadata.name}:{range @.status.conditions[*]}{@.type}={@.status},{end}{end};'
 kubectl get pods -l k8s-app=fluentbit-gke -n kube-system -o jsonpath="$JSONPATH" | tr ";" "\n"
+# batch get nodes ip
+kubectl get nodes -o jsonpath='{.items[*].status.addresses[?(@.type=="InternalIP")].address}' |xargs -n1
+
 
 ```

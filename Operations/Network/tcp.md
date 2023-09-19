@@ -164,7 +164,7 @@ Wireshark中，可以使用 tcp.analysis.zero_window 来过滤包，然后使用
 	- 进入快速恢复算法——Fast Recovery
 
 4）快速恢复
-1. cwnd = sshthresh + 3 * MSS（3的意思是确认有3个数据包被收到了）
+1. cwnd = sshthresh + 3 \* MSS（3的意思是确认有3个数据包被收到了）
 2. 重传 Duplicated ACKs 指定的数据包
 3. 如果再收到 duplicated Acks，那么 cwnd = cwnd +1
 4. 如果收到了新的Ack，那么，cwnd = sshthresh ，然后就进入了拥塞避免的算法了。
