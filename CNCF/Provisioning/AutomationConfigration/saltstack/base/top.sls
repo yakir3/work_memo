@@ -19,7 +19,14 @@ base:
     - nagios.server
 
 dev:
+  '*':
+    - core
   'webserver*dev*':
     - webserver
-  'db*dev*':
-    - db
+
+prod:
+  '*':
+    - core
+  'webserver*prod*':
+    - webserver
+

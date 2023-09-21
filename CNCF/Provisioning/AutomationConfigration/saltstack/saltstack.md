@@ -249,12 +249,14 @@ salt -G 'ip_interfaces:ens160:172.22.3.*' test.ping
 # in master
 # option1 (save to minion /etc/salt/grains)
 salt minion01 grains.setval roles "['web','app1','dev']"
-# option2 (save to minion /var/cache/salt/minion)
+# option2 (save to minion /var/cache/salt/minion/extmods/grains)
 mkdir /srv/salt/base/_grains
 tee > /srv/salt/base/_grains/mem.py << "EOF"
-#!/usr/bin/env python
-grains={}
-return grains['custom_mem']=10
+def my_grains():
+    grains = {}
+    grains['my_bool'] = True
+    grains['my_str'] = 'str_test'
+    return grains
 EOF
 salt minion01 saltutil.sync_grains
 
@@ -275,6 +277,7 @@ salt minion01 saltutil.sync_grains
 
 # test
 salt minion01 grains.item roles project
+salt minion01 grains.item my_bool my_str
 salt -G 'roles:app1' test.ping
 
 

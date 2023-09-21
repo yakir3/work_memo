@@ -2,10 +2,8 @@
 ```shell
 # 更新软件仓库
 apt update
-
 # 查看所有已有仓库源
 apt policy
-
 # 查看 apt 所有已安装的软件包
 apt list --installed
 
@@ -16,9 +14,12 @@ apt install apt-file
 apt-file update
 apt-file search dig |grep bin
 
+
 # 搜索命令或库文件属于哪个软件包
 dpkg -S /usr/bin/lsb_release
 dpkg -S /lib/libmultipath.so
+# list packages concisely == apt list --installed
+dpkg -l 
 # 查看 apt 已安装的软件包所有相关文件
 dpkg -L lsb-release
 # 手动安装、卸载 deb 包

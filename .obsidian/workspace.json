@@ -55,8 +55,7 @@
               }
             }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "vertical"
@@ -122,7 +121,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "CNCF/Provisioning/AutomationConfigration/saltstack/saltstack.md",
+                "file": "Operations/commonCommand/cc-automation.md",
                 "collapseAll": true,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -139,7 +138,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "CNCF/Provisioning/AutomationConfigration/saltstack/saltstack.md",
+                "file": "Operations/commonCommand/cc-automation.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -162,7 +161,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "CNCF/Provisioning/AutomationConfigration/saltstack/saltstack.md"
+                "file": "Operations/commonCommand/cc-automation.md"
               }
             }
           }
@@ -183,17 +182,17 @@
       "command-palette:打开命令面板": false
     }
   },
-  "active": "7f1fb91d7e2a9d81",
+  "active": "5fc16bf9233aed21",
   "lastOpenFiles": [
-    "Operations/serviceConf/sc-saltstack.md",
+    "Operations/commonCommand/cc-ubuntu.md",
     "CNCF/Provisioning/AutomationConfigration/saltstack/saltstack.md",
-    "Operations/commonCommand/cc-automation.md",
-    "CNCF/Provisioning/AutomationConfigration/saltstack.md",
     "tmp/ac-tmp.md",
-    "CNCF/ObservabilityAnalysis/Monitoring/prometheus.md",
-    "CNCF/Runtime/CloudNativeStorage/nfs-server.md",
+    "tmp/Notes/note-202309.md",
     "Operations/system/others.md",
-    "Operations/system/iptables.md",
-    "Operations/system/cc-system.md"
+    "Operations/commonCommand/cc-automation.md",
+    "Operations/serviceConf/sc-saltstack.md",
+    "Operations/commonCommand/cc-curl.md",
+    "CNCF/Provisioning/AutomationConfigration/saltstack.md",
+    "CNCF/ObservabilityAnalysis/Monitoring/prometheus.md"
   ]
 }
