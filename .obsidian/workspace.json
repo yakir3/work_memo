@@ -25,19 +25,19 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "CNCF/Provisioning/AutomationConfigration/saltstack/saltstack.md",
+                "file": "CNCF/Provisioning/AutomationConfigration/ansible/ansible.md",
                 "mode": "source",
                 "source": false
               }
             }
           },
           {
-            "id": "d8c2433311fc66ea",
+            "id": "6fdc729ff441976f",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "tmp/Notes/note-202309.md",
+                "file": "tmp/Notes/note-202310.md",
                 "mode": "source",
                 "source": false
               }
@@ -55,7 +55,8 @@
               }
             }
           }
-        ]
+        ],
+        "currentTab": 3
       }
     ],
     "direction": "vertical"
@@ -121,7 +122,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Operations/commonCommand/cc-automation.md",
+                "file": "tmp/ac-tmp.md",
                 "collapseAll": true,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -138,7 +139,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "Operations/commonCommand/cc-automation.md",
+                "file": "tmp/ac-tmp.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -161,7 +162,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Operations/commonCommand/cc-automation.md"
+                "file": "tmp/ac-tmp.md"
               }
             }
           }
@@ -182,17 +183,17 @@
       "command-palette:打开命令面板": false
     }
   },
-  "active": "5fc16bf9233aed21",
+  "active": "d379d91d7fb579c8",
   "lastOpenFiles": [
-    "Operations/commonCommand/cc-ubuntu.md",
-    "CNCF/Provisioning/AutomationConfigration/saltstack/saltstack.md",
+    "CNCF/Provisioning/AutomationConfigration/ansible/ansible.md",
+    "Operations/commonCommand/cc-automation.md",
     "tmp/ac-tmp.md",
     "tmp/Notes/note-202309.md",
-    "Operations/system/others.md",
-    "Operations/commonCommand/cc-automation.md",
-    "Operations/serviceConf/sc-saltstack.md",
-    "Operations/commonCommand/cc-curl.md",
-    "CNCF/Provisioning/AutomationConfigration/saltstack.md",
-    "CNCF/ObservabilityAnalysis/Monitoring/prometheus.md"
+    "tmp/Notes/note-202310.md",
+    "CNCF/Provisioning/AutomationConfigration/saltstack/saltstack.md",
+    "CNCF/ObservabilityAnalysis/Monitoring/prometheus.md",
+    "CNCF/AppDefinitionDevelopment/Database/mysql.md",
+    "tmp/Restaurant/📍The Le Petit Chef at The Peak📍.md",
+    "tmp/Restaurant/The Le Petit Chef at The Peak📍.md"
   ]
 }

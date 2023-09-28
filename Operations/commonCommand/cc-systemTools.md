@@ -1,3 +1,13 @@
+#### systemd
+```shell
+# journalctl
+# tailf and unit log
+journalctl -u prometheus.service -f
+
+```
+
+
+#### systemtap
 ```shell
 # install
 apt install systemtap
@@ -43,10 +53,25 @@ probe signal.send{
 EOF
 stap -v sg.stp
 
+```
+
+
+#### trap
+```shell
+# 捕获 ctrl+c 信号，执行对应命令，只生效于当前环境
+trap "exit" SIGINT
+trap "echo 'Received SIGINT signal'" SIGINT
+
+# 忽略信号
+trap "" SIGINT
+
+# 恢复默认信号处理方式
+trap - SIGINT
 
 
 ```
 
 
-> 1. [Official Doc](https://sourceware.org/systemtap/documentation.html)
-> 2. [Ubuntu Install](https://wiki.ubuntu.com/Kernel/Systemtap#Systemtap_Installation)
+
+> 1. [Official systemtap Doc](https://sourceware.org/systemtap/documentation.html)
+> 2. [Ubuntu Install systemtap](https://wiki.ubuntu.com/Kernel/Systemtap#Systemtap_Installation)

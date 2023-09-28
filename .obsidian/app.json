@@ -4,5 +4,6 @@
   "vimMode": true,
   "legacyEditor": false,
   "attachmentFolderPath": "./attachements",
-  "alwaysUpdateLinks": true
+  "alwaysUpdateLinks": true,
+  "showUnsupportedFiles": true
 }

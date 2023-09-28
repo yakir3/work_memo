@@ -1,17 +1,5 @@
-#### Ubuntu package
-
-```shell
-# Ubuntu package
-apt install zsh git svn openjdk-11-jdk containerd.io telnet wget curl make cmake 
-
-# apt source
-#docker source
-echo "deb [signed-by=/usr/share/keyrings/cloud.google.gpg] https://packages.cloud.google.com/apt cloud-sdk main" |tee /etc/apt/sources.list.d/google-cloud-sdk.list
-echo "deb [arch=amd64 signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu   focal stable" |tee /etc/apt/sources.list.d/docker.list 
-```
-
-#### Homebrew & zsh & oh-my-zsh
-
+#### Common Init
+##### Homebrew & zsh & oh-my-zsh
 ```shell
 # Homebrew
 #官方地址 = https://brew.sh/  
@@ -36,7 +24,8 @@ plugins=(
 )
 
 source $ZSH/oh-my-zsh.sh
-source <(kubectl completion zsh)
+#source <(kubectl completion zsh)
+#source <(helm completion bash)
 EOF
 
 # change shell
@@ -50,12 +39,12 @@ cd fonts && ./install.sh
 # iterm2-color
 # https://iterm2colorschemes.com/
 
-##### 允许安装任何来源软件
+# 允许 Mac 安装任何来源软件
 sudo spctl --master-disable
+
 ```
 
-#### VIM
-
+##### VIM
 ```shell
 # bundle
 git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
@@ -78,20 +67,21 @@ filetype plugin indent on
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 Plugin 'VundleVim/Vundle.vim'       "vundle插件
-Plugin 'vim-syntastic/syntastic'    "语法检查
-Plugin 'exvim/ex-colorschemes'
+Plugin 'vim-syntastic/syntastic'    "语法检查插件
+Plugin 'exvim/ex-colorschemes'      "颜色主题
 call vundle#end()
 EOF
 
-# vim
+# vim plugin install
 :PluginInstall
 
-# cmd
-mkdir ~/.vim/colors && cp ~/.vim/bundle/ex-colorschemes/colors/molokai.vim ~/.vim/colors/
+# change colorscheme
+mkdir ~/.vim/colors
+cp ~/.vim/bundle/ex-colorschemes/colors/molokai.vim ~/.vim/colors/
+
 ```
 
-#### K3S
-
+##### K3S
 ```shell
 # kernel module
 nf_conntrack
@@ -125,3 +115,54 @@ mkdir ~/.kube
 cp /etc/rancher/k3s/k3s.yaml ~/.kube/config
 
 ```
+
+
+#### Fedora Init
+```shell
+# install packages
+dnf install zsh git svn telnet wget curl make cmake
+dnf install containerd
+
+# yum repos resource(/etc/yum.repos.d/)
+dnf install fedora-workstation-repositories
+dnf config-manager --set-enabled google-chrome
+dnf update
+dnf install google-chrome-stable
+
+
+# install extensions 
+dnf install gnome-shell-extension-user-theme
+gnome-extensions enable user-theme@gnome-shell-extensions.gcampax.github.com
+# list
+# https://extensions.gnome.org/
+gnome-extensions list
+dash-to-dock@micxgx.gmail.com
+Hide_Activities@shay.shayel.org
+
+# install theme tools
+dnf install gnome-shell-theme-yaru
+dnf install gnome-tweak-tool
+
+# search 
+dnf search gtk | grep theme
+dnf search shell-theme
+dnf search icon-theme
+dnf search cursor-theme
+
+```
+
+
+#### Ubuntu Init
+```shell
+# install package
+apt install zsh git svn telnet wget curl make cmake
+apt install openjdk-11-jdk 
+apt install containerd.io
+
+
+# apt repos resource(/etc/apt/sources.list)
+echo "deb [signed-by=/usr/share/keyrings/cloud.google.gpg] https://packages.cloud.google.com/apt cloud-sdk main" |tee /etc/apt/sources.list.d/google-cloud-sdk.list
+echo "deb [arch=amd64 signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu  focal stable" |tee /etc/apt/sources.list.d/docker.list 
+
+```
+

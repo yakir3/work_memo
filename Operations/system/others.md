@@ -36,6 +36,10 @@ $*   # args list, when use "", all parameter as one world
 $@   # args list
 
 
+```
+
+#### truncate string
+```shell
 # truncate string
 variable="Hello World"
 echo "${variable#He}"   # output: llo World
@@ -47,13 +51,6 @@ variable="path/to/some/file.txt"
 result="${variable##*/}"   # longest match from start, get: file.txt
 variable="path/to/some/file.txt"
 result="${variable%%/*}"   # longest match from end, get: path
-```
-
-
-#### systemd
-```shell
-# journalctl
-# tailf and unit log
-journalctl -u prometheus.service -f
 
 ```
+

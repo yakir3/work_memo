@@ -1,23 +1,4 @@
-#### Docker & Podman
-##### introduction
-
-![[docker-dsfasxcv.jpg]]
-
-![[docker-fsdfsolnn.webp]]
-
-![[docker-fsdsdf.webp]]
-
-![[docker-fdsfcv.webp]]
-
-![[docker-fsdfsobgb.webp]]
-
-![[docker-fsdfdfsckl.webp]]
-
-
-![[docker-fsdfsoasdaw.webp]]
-
-
-##### command
+#### docker & podman
 ```shell
 # common parameters
 -d, --detach    Run container in background and print container ID
@@ -52,13 +33,27 @@ mkdir -p /opt/MrDoc/config /opt/MrDoc/data/mysql
 docker run -d --name mrdoc -p 10086:10086 -v /opt/MrDoc:/app/MrDoc --net=bridge zmister/mrdoc:v4
 docker run -d --name mrdoc_mysql -e MYSQL_ROOT_PASSWORD=knowledge_base123 -e MYSQL_DATABASE=knowledge_base -v /opt/MrDoc/data/mysql/:/var/lib/mysql mysql --character-set-server=utf8mb4
 
+
+
+# Dockerfile
+# exec 形式，直接启动程序进程，pid=1
+ENTRYPOINT ["node", "app.js"]
+# shell 形式，fork 一个 shell 子进程，shell 子进程启动程序
+ENTRYPOINT "node" "app.js"
+
+
+# Pod resources map: 
+spec.contianers[n].command = ENTRYPOINT
+spec.contianers[n].args = CMD
+
+
 ```
 
 
 > 阿里云 ACR 仓库加速地址 = taa4w07u.mirror.aliyuncs.com
 
 
-#### Containerd
+#### containerd
 ```shell
 # default run by systemd
 systemctl start containerd.service
@@ -81,6 +76,51 @@ crictl images
 ```
 
 #### kubectl
+##### common
+```shell
+# run and exec pod
+kubectl run --rm pod_name --image=busybox -it 
+kubectl exec -it pod_name [-c container_name] -- bash/sh
+# force delete
+kubectl delete pod pod_name
+kubect delete pod pod_name --force=true --grace-period=0
+# logs
+kubectl logs -f --tail 10 pod_name
+
+
+# forward pod/service port
+kubectl -n argocd port-forward --address=0.0.0.0 pods/argocd-server-cd747d9d7-k7k4z 9999:8080
+kubectl -n argocd port-forward --address=0.0.0.0 services/argocd-server 9999:80
+
+
+# select and describe resource info
+kubectl get pod pod_name
+kubectl describe service service_name
+
+
+# evicted pod
+kubectl cordon <node-name>
+kubectl drain <node-name> --ignore-daemonsets
+kubectl uncordon <node-name>
+
+
+# batch select pod state
+JSONPATH='{range .items[*]};{@.metadata.name}:{range @.status.conditions[*]}{@.type}={@.status},{end}{end};'
+kubectl get pods -l k8s-app=fluentbit-gke -n kube-system -o jsonpath="$JSONPATH" | tr ";" "\n"
+# batch get nodes ip
+kubectl get nodes -o jsonpath='{.items[*].status.addresses[?(@.type=="InternalIP")].address}' |xargs -n1
+
+
+kubectl get deployments,statefulset -o=custom-columns=\
+Name:.metadata.name,\
+ContainerPort:.spec.template.spec.containers[*].ports[*].containerPort
+
+
+-o=jsonpath={.status.containerStatuses[*].state.terminated.exitCode}'
+
+```
+
+##### config
 ```shell
 # select cluster config
 kubectl config current-context
@@ -101,42 +141,37 @@ kubectl config set-credentials NAME [--client-certificate=path/to/certfile] [--c
 kubectl config use-context CONTEXT_NAME
 kubectl config set-context NAME [--cluster=cluster_nickname] [--user=user_nickname] [--namespace=namespace]
 
-
-# evicted pod
-kubectl cordon <node-name>
-kubectl drain <node-name> --ignore-daemonsets
-kubectl uncordon <node-name>
+```
 
 
-# forward pod/service port
-kubectl -n argocd port-forward --address=0.0.0.0 pods/argocd-server-cd747d9d7-k7k4z 9999:8080
-kubectl -n argocd port-forward --address=0.0.0.0 services/argocd-server 9999:80
+##### configmap && secret
+```shell
+#
 
 
-# describe info
-kubectl describe clusterrolebindings |grep argo -A 6
-kubectl -n argo describe clusterrole argo-cluster-role
+# create and upgrade tls secrets
+kubectl create secret tls my-tls --cert=./tls.crt --key=./tls.key
+kubectl create secret tls my-tls --save-config \
+--dry-run=client \
+--cert=./tls.crt \
+--key=./tls.key \
+-oyaml | kubectl apply -f -
 
+kubectl create secret generic my-secret --save-config \
+--dry-run=client \
+--from-file=./tls.crt \
+--from-file=./tls.key \
+-oyaml | kubectl apply -f -
+```
 
-# run and exec pod
-kubectl run --rm pod_name --image=busybox -it 
-kubectl exec -it pod_name [-c container_name] -- bash/sh
-# force delete
-kubectl delete pod pod_name
-kubect delete pod pod_name --force=true --grace-period=0
-# logs
-kubectl logs -f --tail 10 pod_name
-
-
-# quick debug
+##### debug
+```shell
+# debug pod
 kubectl debug -it pod/pod_name --image=busybox [--target=container_name] -- /bin/sh
+
+# debug node
 kubectl debug -it node/node_name --image=ubuntu -- /bin/bash
 kubectl delete pod node-debuger-xxx
-
-
-# select resource info
-kubectl get pod pod_name
-kubectl describe service service_name
 
 
 # quick running client images
@@ -144,20 +179,5 @@ kubectl run -it busybox --image=busybox --restart=Never --rm -- sh
 # mysql-client
 kubectl run mysql_client --rm -it --restart=Never --image bitnami/mysql -- /bin/bash
 # redis-client
-
-
-# create secrets
-kubectl -n islot create secret tls my-tls --cert=./tls.crt --key=./tls.key
-# upgrade secrets
-kubectl create secret tls my-tls --save-config --dry-run=client --cert=./tls.crt --key=./tls.key -oyaml | kubectl apply -f -
-kubectl create secret generic my-secret --save-config --dry-run=client --from-file=./tls.crt --from-file=./tls.key -oyaml | kubectl apply -f -
-
-
-# batch select pod state
-JSONPATH='{range .items[*]};{@.metadata.name}:{range @.status.conditions[*]}{@.type}={@.status},{end}{end};'
-kubectl get pods -l k8s-app=fluentbit-gke -n kube-system -o jsonpath="$JSONPATH" | tr ";" "\n"
-# batch get nodes ip
-kubectl get nodes -o jsonpath='{.items[*].status.addresses[?(@.type=="InternalIP")].address}' |xargs -n1
-
 
 ```

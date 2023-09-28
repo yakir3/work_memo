@@ -1,4 +1,4 @@
-- hosts: ubuntu
+- hosts: template
   remote_user: root
   vars_prompt:
     - name: "root_password"
@@ -23,3 +23,4 @@
     - { role: ulimit }
     - { role: sysctl }
     - { role: audit }
+    - {role: template, when: "ansible_os_family == 'RedHat'", key1: v1, key2: v2}

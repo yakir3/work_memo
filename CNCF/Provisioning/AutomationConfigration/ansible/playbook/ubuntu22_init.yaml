@@ -3,7 +3,7 @@
 #用法 : ansible-playbook ubuntu20_init.yml -i 1.1.1.1,2.2.2.2,
 #用法 : 修改 /etc/ansible/hosts [ubuntu20]中的主机列表  ansible-playbook ubuntu20_init.yml
 #- hosts: 1.1.1.1
-- hosts: ubuntu20
+- hosts: ubuntu22
   remote_user: root
   #become: yes
   #become_method: su
@@ -41,4 +41,4 @@
     - { role: filebeat, env: '{{ hostname_prefix }}' }
     - zabbix-client
     - salt-minion
-    - { role: chgRootPass,password: '{{ root_password }}' }
+    - { role: chgRootPass, password: '{{ root_password }}' }

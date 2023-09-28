@@ -1,21 +1,28 @@
-[test]
-#192.168.139.130
-127.0.0.1
-8.129.180.134
+[template]
+localhost
+1.1.1.1 k1="v1" k2="v2"
+8.8.8.8
 
-[test:vars]
+[template:vars]
 ansible_port=22
 ansible_user=root
 ansible_ssh_pass=123456
-#ansible_ssh_private_key_file=/etc/ansible/keys/node_test
+#ansible_ssh_private_key_file=/opt/ansible/keys/node.key
+k3=v3
+k4=v4
 
-[ubuntu20]
-1.1.1.1  hostname_prefix="ali"
+
+[dbservers]
+db[01:10].example.com
+
+[ubuntu22]
+1.1.1.1  hostname_prefix="alibaba"
 2.2.2.2  hostname_prefix="tencent"
 
 [all:vars]
 ansible_user=ubuntu
 ansible_port=22
+ansible_ssh_pass=123456
 ansible_become_method=su
 ansible_become_pass='qwe123'
-ansible_ssh_private_key_file=/etc/ansible/keys/node.key
+ansible_ssh_private_key_file=/opt/ansible/keys/node.key
