@@ -97,9 +97,15 @@ cd prometheus
 
 # configure and run
 vim values.yaml
-# enable kube-state-metrics
-helm -n monitoring install prometheus .
+server:
+  persistentVolume:
+    enabled: true
+    storageClass: "nfs-client"
+kube-state-metrics:
+  enabled: true
 
+# install
+helm -n monitoring install prometheus .
 
 # access and test
 

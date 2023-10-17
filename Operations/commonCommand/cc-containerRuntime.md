@@ -115,8 +115,15 @@ kubectl get deployments,statefulset -o=custom-columns=\
 Name:.metadata.name,\
 ContainerPort:.spec.template.spec.containers[*].ports[*].containerPort
 
+-o=jsonpath='{.status.containerStatuses[*].state.terminated.exitCode}'
 
--o=jsonpath={.status.containerStatuses[*].state.terminated.exitCode}'
+
+# patch resource
+kubectl -n provisioning patch ingress harbor-ingress-notary --type='json' -p='[{"op": "add", "path": "/spec", "value":"ingressClassName: nginx"}]'
+
+kubectl -n cicd patch ingress gitlab-webservice-default --patch '{"spec":{"ingressClassName": "nginx"}}'
+
+
 
 ```
 
@@ -171,6 +178,7 @@ kubectl debug -it pod/pod_name --image=busybox [--target=container_name] -- /bin
 
 # debug node
 kubectl debug -it node/node_name --image=ubuntu -- /bin/bash
+ls /host/var/log/xxx
 kubectl delete pod node-debuger-xxx
 
 

@@ -107,6 +107,12 @@ cd grafana
 
 # configure and run
 vim values.yaml
+persistence:
+  enabled: true
+  storageClassName: "xxx-nfs"
+imageRenderer:
+  enabled: true
+...
 helm -n monitorning install grafana .
 ```
 
@@ -116,7 +122,6 @@ helm -n monitorning install grafana .
 ```shell
 # Node Exporter Full
 1860
-
 
 ```
 
@@ -134,6 +139,15 @@ helm -n monitorning install grafana .
 # 
 ```
 
+##### Middleware
+```shell
+# kafka
+7589
+
+# redis
+11835
+
+```
 
 #### Alert
 ##### telegra_bot
@@ -226,3 +240,4 @@ curl "https://api.telegram.org/bot<token>/sendMessage?chat_id=<chat_id>&text=<ms
 >3. [Grafana CN Doc](https://www.qikqiak.com/k8s-book/docs/56.Grafana%E7%9A%84%E5%AE%89%E8%A3%85%E4%BD%BF%E7%94%A8.html)
 >4. [Grafana Alert](https://grafana.com/docs/grafana/latest/alerting/fundamentals/)
 >5. [Telegram Api SDK](https://github.com/python-telegram-bot/python-telegram-bot/wiki/Introduction-to-the-API)
+>6. [redis-exporter](https://github.com/oliver006/redis_exporter)

@@ -174,7 +174,7 @@ helm repo add ingress-nginx https://kubernetes.github.io/ingress-nginx
 helm update
 
 # get charts package
-helm pull ingress-nginx/ingress-nginx --untar
+helm fetch ingress-nginx/ingress-nginx --untar
 cd ingress-nginx
 
 # configure and run
@@ -188,6 +188,7 @@ helm -n ingress-nginx install ingress-nginx .
 
 > 参考文档：
 > 1. [官方文档](https://nginx.org/en/docs/)
-> 2. [官方 helm 安装指引](https://docs.nginx.com/nginx-ingress-controller/installation/installation-with-helm/)
-> 3. [Openrestry Github](https://github.com/openresty)
-> 4. [Luajit Download](https://luajit.org/download.html)
+> 2. [Openrestry Github](https://github.com/openresty)
+> 3. [Luajit Download](https://luajit.org/download.html)
+> 4. [ingress-nginx controller](https://kubernetes.github.io/ingress-nginx/deploy/)
+> 5. [nginx-ingress controller](https://docs.nginx.com/nginx-ingress-controller/installation/installation-with-helm/)

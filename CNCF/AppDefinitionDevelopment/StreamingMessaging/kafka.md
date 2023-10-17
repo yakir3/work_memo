@@ -196,16 +196,30 @@ export PATH=$JAVA_HOME/bin:$JRE_HOME/bin:$PATH
 ##### download helm charts
 [[cc-helm|helm使用]]
 ```shell
-# 创建中间件 chart 包目录
-mkdir /opt/tc-helm/helm-charts/middleware
-cd /opt/tc-helm/helm-charts/middleware
-
-# 添加 helm 仓库，下载 kafka chart 包
+# add and update repo
 helm repo add bitnami https://charts.bitnami.com/bitnami
 helm update
-# 注意：最新的 kafka helm 包无法正常启动且无异常日志，需要用稍旧版本的 chart 包
-helm pull bitnami/kafka --version=20.0.6  --untar
+
+# get charts package
+helm fetch bitnami/kafka --version=20.0.6  --untar
 cd kafka
+
+# configure and run
+vim values.yaml
+global:
+  storageClass: xxx
+config: |-
+  ...
+heapOpts: -Xmx1024m -Xms1024m
+defaultReplicationFactor: 3
+offsetsTopicReplicationFactor: 3
+transactionStateLogReplicationFactor: 3
+transactionStateLogMinIsr: 2
+numPartitions: 3
+...
+
+# install
+helm -n middleware install kafka .
 
 ```
 
