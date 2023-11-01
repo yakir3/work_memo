@@ -25,7 +25,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "CNCF/ObservabilityAnalysis/Monitoring/grafana.md",
+                "file": "CNCF/OrchestrationManagement/ServiceProxy/nginx.md",
                 "mode": "source",
                 "source": false
               }
@@ -44,12 +44,12 @@
             }
           },
           {
-            "id": "6fdc729ff441976f",
+            "id": "cd84114f95d0e228",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "tmp/Notes/note-202310.md",
+                "file": "tmp/Notes/note-202311.md",
                 "mode": "source",
                 "source": false
               }
@@ -67,8 +67,7 @@
               }
             }
           }
-        ],
-        "currentTab": 4
+        ]
       }
     ],
     "direction": "vertical"
@@ -134,7 +133,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "tmp/ac-tmp.md",
+                "file": "Operations/commonCommand/cc-containerRuntime.md",
                 "collapseAll": true,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -151,7 +150,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "tmp/ac-tmp.md",
+                "file": "Operations/commonCommand/cc-containerRuntime.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -174,7 +173,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "tmp/ac-tmp.md"
+                "file": "Operations/commonCommand/cc-containerRuntime.md"
               }
             }
           }
@@ -195,17 +194,17 @@
       "command-palette:打开命令面板": false
     }
   },
-  "active": "d379d91d7fb579c8",
+  "active": "5fc16bf9233aed21",
   "lastOpenFiles": [
-    "tmp/Notes/note-202310.md",
+    "Operations/commonCommand/cc-networkTools.md",
+    "CNCF/OrchestrationManagement/ServiceProxy/nginx.md",
     "tmp/ac-tmp.md",
-    "CNCF/ObservabilityAnalysis/Monitoring/grafana.md",
-    "Operations/commonCommand/cc-containerRuntime.md",
-    "Operations/commonCommand/cc-kafka.md",
+    "CNCF/Provisioning/AutomationConfigration/saltstack/saltstack.md",
+    "tmp/Notes/note-202311.md",
     "WorkEnv/Others/project-experience.md",
-    "CNCF/ObservabilityAnalysis/Monitoring/prometheus.md",
-    "CNCF/AppDefinitionDevelopment/StreamingMessaging/kafka.md",
-    "Operations/commonCommand/cc-redis.md",
-    "CNCF/Runtime/CloudNativeStorage/nfs-server.md"
+    "tmp/Notes/note-202310.md",
+    "CNCF/ObservabilityAnalysis/Monitoring/grafana.md",
+    "Operations/serviceConf/sc-kafka.md",
+    "Operations/commonCommand/cc-containerRuntime.md"
   ]
 }

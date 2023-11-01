@@ -124,7 +124,6 @@ kubectl -n provisioning patch ingress harbor-ingress-notary --type='json' -p='[{
 kubectl -n cicd patch ingress gitlab-webservice-default --patch '{"spec":{"ingressClassName": "nginx"}}'
 
 
-
 ```
 
 ##### config
