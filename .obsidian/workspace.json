@@ -67,7 +67,8 @@
               }
             }
           }
-        ]
+        ],
+        "currentTab": 4
       }
     ],
     "direction": "vertical"
@@ -133,7 +134,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Operations/commonCommand/cc-containerRuntime.md",
+                "file": "tmp/ac-tmp.md",
                 "collapseAll": true,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -150,7 +151,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "Operations/commonCommand/cc-containerRuntime.md",
+                "file": "tmp/ac-tmp.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -173,7 +174,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Operations/commonCommand/cc-containerRuntime.md"
+                "file": "tmp/ac-tmp.md"
               }
             }
           }
@@ -194,17 +195,17 @@
       "command-palette:打开命令面板": false
     }
   },
-  "active": "5fc16bf9233aed21",
+  "active": "d379d91d7fb579c8",
   "lastOpenFiles": [
-    "Operations/commonCommand/cc-networkTools.md",
-    "CNCF/OrchestrationManagement/ServiceProxy/nginx.md",
-    "tmp/ac-tmp.md",
-    "CNCF/Provisioning/AutomationConfigration/saltstack/saltstack.md",
     "tmp/Notes/note-202311.md",
+    "tmp/ac-tmp.md",
+    "tmp.md",
+    "CNCF/OrchestrationManagement/ServiceProxy/nginx.md",
+    "Operations/commonCommand/cc-containerRuntime.md",
+    "Operations/commonCommand/cc-networkTools.md",
+    "CNCF/Provisioning/AutomationConfigration/saltstack/saltstack.md",
     "WorkEnv/Others/project-experience.md",
     "tmp/Notes/note-202310.md",
-    "CNCF/ObservabilityAnalysis/Monitoring/grafana.md",
-    "Operations/serviceConf/sc-kafka.md",
-    "Operations/commonCommand/cc-containerRuntime.md"
+    "CNCF/ObservabilityAnalysis/Monitoring/grafana.md"
   ]
 }
