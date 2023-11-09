@@ -76,86 +76,9 @@ crictl images
 ```
 
 #### kubectl
-##### common
+##### Basic
 ```shell
-# run and exec pod
-kubectl run --rm pod_name --image=busybox -it 
-kubectl exec -it pod_name [-c container_name] -- bash/sh
-# force delete
-kubectl delete pod pod_name
-kubect delete pod pod_name --force=true --grace-period=0
-# logs
-kubectl logs -f --tail 10 pod_name
-
-
-# forward pod/service port
-kubectl -n argocd port-forward --address=0.0.0.0 pods/argocd-server-cd747d9d7-k7k4z 9999:8080
-kubectl -n argocd port-forward --address=0.0.0.0 services/argocd-server 9999:80
-
-
-# select and describe resource info
-kubectl get pod pod_name
-kubectl describe service service_name
-
-
-# evicted pod
-kubectl cordon <node-name>
-kubectl drain <node-name> --ignore-daemonsets
-kubectl uncordon <node-name>
-
-
-# batch select pod state
-JSONPATH='{range .items[*]};{@.metadata.name}:{range @.status.conditions[*]}{@.type}={@.status},{end}{end};'
-kubectl get pods -l k8s-app=fluentbit-gke -n kube-system -o jsonpath="$JSONPATH" | tr ";" "\n"
-# batch get nodes ip
-kubectl get nodes -o jsonpath='{.items[*].status.addresses[?(@.type=="InternalIP")].address}' |xargs -n1
-
-
-kubectl get deployments,statefulset -o=custom-columns=\
-Name:.metadata.name,\
-ContainerPort:.spec.template.spec.containers[*].ports[*].containerPort
-
--o=jsonpath='{.status.containerStatuses[*].state.terminated.exitCode}'
-
-
-# patch resource
-kubectl -n provisioning patch ingress harbor-ingress-notary --type='json' -p='[{"op": "add", "path": "/spec", "value":"ingressClassName: nginx"}]'
-
-kubectl -n cicd patch ingress gitlab-webservice-default --patch '{"spec":{"ingressClassName": "nginx"}}'
-
-
-```
-
-##### config
-```shell
-# select cluster config
-kubectl config current-context
-kubectl config get-clusters
-kubectl config get-contexts
-kubectl config get-users
-kubectl config view
-
-# add or set cluster config
-kubectl config set PROPERTY_NAME PROPERTY_VALUE
-
-# add cluster config
-kubectl config set-cluster NAME [--server=server] [--certificate-authority=path/to/certficate/authority] [--insecure-skip-tls-verify=true]
-kubectl config set-context NAME [--cluster=cluster_nickname] [--user=user_nickname] [--namespace=namespace]
-kubectl config set-credentials NAME [--client-certificate=path/to/certfile] [--client-key=path/to/keyfile] [--token=bearer_token] [--username=basic_user] [--password=basic_password]
-
-# use and set context
-kubectl config use-context CONTEXT_NAME
-kubectl config set-context NAME [--cluster=cluster_nickname] [--user=user_nickname] [--namespace=namespace]
-
-```
-
-
-##### configmap && secret
-```shell
-#
-
-
-# create and upgrade tls secrets
+# create
 kubectl create secret tls my-tls --cert=./tls.crt --key=./tls.key
 kubectl create secret tls my-tls --save-config \
 --dry-run=client \
@@ -163,28 +86,167 @@ kubectl create secret tls my-tls --save-config \
 --key=./tls.key \
 -oyaml | kubectl apply -f -
 
-kubectl create secret generic my-secret --save-config \
---dry-run=client \
---from-file=./tls.crt \
---from-file=./tls.key \
--oyaml | kubectl apply -f -
+# expose 
+kubectl expose service/pod nginx --port=8888 --target-port=8080 --name=myname
+
+# run
+kubectl run --rm -it busybox --image=busybox --restart=Never -- sh
+kubectl run --rm -it mysql_client --image bitnami/mysql --restart=Never -- /bin/bash
+
+# explain
+kubectl explain statefulset.spec.updateStrategy.rollingUpdate
+
+# get
+# batch select pod state
+JSONPATH='{range .items[*]};{@.metadata.name}:{range @.status.conditions[*]}{@.type}={@.status},{end}{end};'
+kubectl get pods -o jsonpath="$JSONPATH" | tr ";" "\n"
+# batch get nodes ip
+kubectl get nodes -o jsonpath='{.items[*].status.addresses[?(@.type=="InternalIP")].address}' |xargs -n1
+# select by custome-columns
+kubectl get pod -o=custom-columns=\
+PodName:.metadata.name,\
+NodeName:.spec.nodeName,\
+ContainerPort:.spec.containers[*].ports[*].containerPort
+
+# edit
+kubectl edit (resource_type) (resource_name)
+
+# delete
+kubectl delete pod pod_name
+kubectl delete pod pod_name --force=true --grace-period=0
+
+
 ```
 
-##### debug
-```shell
-# debug pod
-kubectl debug -it pod/pod_name --image=busybox [--target=container_name] -- /bin/sh
 
-# debug node
+##### Deploy
+```shell
+# rollout 
+kubectl rollout (history|pause|restart|resume|status|undo) (resource_type) (resource_name)
+
+# scale
+kubectl scale [--resource-version=version] [--current-replicas=count] --replicas=COUNT (-f x.yaml | deployment mysql)
+
+# autoscale
+kubectl autoscale (-f x.yaml | deployment/mysql) [--min=MINPODS] --max=MAXPODS [--cpu-percent=CPU] [options]
+
+```
+
+
+##### Cluster Management
+```shell
+# top
+kubectl -n namespace_name top pod
+kubectl top node
+
+# schedulable and evicted
+kubectl cordon <node-name>
+kubectl uncordon <node-name>
+kubectl drain <node-name> [--ignore-daemonsets=true] [--delete-emptydir-data=true]
+
+# taint and affnity
+kubectl describe nodes |grep Taints
+kubectl taint NODE NAME KEY_1=VAL_1:TAINT_EFFECT_1 ... KEY_N=VAL_N:TAINT_EFFECT_N [options]
+
+```
+
+
+##### Troubleshooting and Debugging
+```shell
+# describe
+kubectl describe service service_name
+
+# logs
+kubectl get pod --show-labels
+kubectl logs -f --tail 10 pod_name -l app.kubernetes.io/instance=ingress-nginx --max-log-requests=5
+
+# attach and exec 
+kubectl attach -it pod pod_name [-c container_name]
+kubectl exec -it pod_name [-c container_name] -- bash/sh
+
+# forward pod/service port
+kubectl -n argocd port-forward --address=0.0.0.0 pods/argocd-server-cd747d9d7-k7k4z 9999:8080
+kubectl -n argocd port-forward --address=0.0.0.0 services/argocd-server 9999:80
+
+# proxy(apiserver)
+kubectl proxy --address=0.0.0.0
+
+# cp
+kubectl cp pod_name:/path/path /tmp/path
+
+# debug 
+kubectl debug -it pod/pod_name --image=busybox [--target=container_name] -- /bin/sh
+# debug node(need to be deleted pod manually and node persistent in /host/)
 kubectl debug -it node/node_name --image=ubuntu -- /bin/bash
-ls /host/var/log/xxx
 kubectl delete pod node-debuger-xxx
 
+# events
+kubectl events -n namespace_name
 
-# quick running client images
-kubectl run -it busybox --image=busybox --restart=Never --rm -- sh
-# mysql-client
-kubectl run mysql_client --rm -it --restart=Never --image bitnami/mysql -- /bin/bash
-# redis-client
+```
+
+
+##### Advanced
+```shell
+# diff
+kubectl diff -f FILENAME [options]
+
+# apply and replace
+kubectl apply (-f FILENAME | -k DIRECTORY) [options]
+kubectl replace -f FILENAME [options]
+
+# patch
+# option1
+kubectl -n provisioning patch ingress harbor-ingress-notary --type='json' -p='[{"op": "add", "path": "/spec", "value":"ingressClassName: nginx"}]'
+# option2
+kubectl -n cicd patch ingress gitlab-webservice-default --patch '{"spec":{"ingressClassName": "nginx"}}'
+
+# kustomize(need kustomization.yaml)
+kubectl kustomize DIR [flags] [options]
+
+```
+
+
+##### Settings
+```shell
+# label
+kubectl label nodes Node1 node-role.kubernetes.io/control-plane=true
+
+# annotate
+kubectl annotate pods yakir-tools key1=value1
+
+# completion
+source <(kubectl completion bash)
+source <(helm completion bash)
+
+```
+
+
+##### Other
+```shell
+# api resources and versions infomation
+kubectl api-resources
+kubectl api-versions
+
+# config
+# select cluster config
+kubectl config current-context
+kubectl config get-clusters
+kubectl config get-contexts
+kubectl config get-users
+kubectl config view
+# add or set custom config
+kubectl config set PROPERTY_NAME PROPERTY_VALUE
+# add cluster config
+kubectl config set-cluster NAME [--server=server] [--certificate-authority=path/to/certficate/authority] [--insecure-skip-tls-verify=true]
+kubectl config set-context NAME [--cluster=cluster_nickname] [--user=user_nickname] [--namespace=namespace]
+kubectl config set-credentials NAME [--client-certificate=path/to/certfile] [--client-key=path/to/keyfile] [--token=bearer_token] [--username=basic_user] [--password=basic_password]
+# use and set context
+kubectl config use-context CONTEXT_NAME
+kubectl config set-context NAME [--cluster=cluster_nickname] [--user=user_nickname] [--namespace=namespace]
+
+
+# check version
+kubectl version
 
 ```

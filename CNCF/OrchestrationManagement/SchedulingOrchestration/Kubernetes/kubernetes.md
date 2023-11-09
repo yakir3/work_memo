@@ -2,12 +2,35 @@
 
 ![[podcreate-dafvcg.jpg]]
 
-#### Deploy by Binaries
+
+##### Components
+Control plane
++ etcd(cluster parallel)
++ kube-apiserver(parallel loadbalance)
++ kube-controller-manager(single instance)
++ kube-scheduler(single instance)
+
+
+Data plane
++ kubelet
++ kube-proxy
++ container-runtime(docker,containerd,rkt...)
++ kube-dns
+
+
+Options components
++ kube-dashboard
++ ingress-nginx
++ metrics-server
++ cni
+
+
+
+#### Deploy
 ##### 
 
 
-#### Deploy by Rancher
-##### 
+
 
 
 > 参考文档：
