@@ -13,7 +13,7 @@ Archery：pgsql、mysql
 
 
 ##### 开源知识库
-know
+
 
 
 ##### 项目部署、升级
@@ -23,8 +23,6 @@ Nacos
 
 rancher
 k8s app deploy script
-
-k8s middleware deploy(only UAT)：kafka、redis
 
 
 ##### 日志
@@ -48,7 +46,18 @@ skywalking
 sentinel
 
 
+##### 中间件
++ kafka
+KnowStreaming
+kafka-ui
+
++ redis
+redisinsight
+
+
 ##### 安全漏洞
+java jar fix 
+
 docker basic images 
 
 

@@ -50,9 +50,6 @@ spec.contianers[n].args = CMD
 ```
 
 
-> 阿里云 ACR 仓库加速地址 = taa4w07u.mirror.aliyuncs.com
-
-
 #### containerd
 ```shell
 # default run by systemd
@@ -217,7 +214,6 @@ kubectl annotate pods yakir-tools key1=value1
 
 # completion
 source <(kubectl completion bash)
-source <(helm completion bash)
 
 ```
 
@@ -250,3 +246,86 @@ kubectl config set-context NAME [--cluster=cluster_nickname] [--user=user_nickna
 kubectl version
 
 ```
+
+#### helm
+```shell
+# parameter
+-n namespace 
+--create-namespace
+--set hostname=xxx
+
+# completion
+source <(helm completion bash)
+
+# create 
+helm create mychart
+
+# dependency
+helm dependency update
+
+# env
+helm env
+
+# get 
+helm get (all|manifest) chart_name --revision int
+
+# history
+helm -n cattle-system history rancher
+
+# install,upgrade,uninstall
+helm install [RELEASE_NAME] ingress-nginx/ingress-nginx
+helm upgrade [RELEASE_NAME] [CHART] --install
+helm uninstall [RELEASE_NAME]
+
+# lint 
+helm lint /opt/helm-charts/*
+
+# list
+helm list -A
+
+# package
+helm package /opt/helm-charts/*
+
+# pull,fetch and push
+helm fetch --version=x.x.x rancher-stable/rancher --untar
+helm push [chart] [remote] [flags]
+
+# registry
+helm registry [command]
+
+# repo
+helm repo add bitnami https://charts.bitnami.com/bitnami
+helm update
+
+# rollback
+
+# search
+helm search hub ingress-nginx
+helm search repo ingress-nginx 
+--versions           # search repo all charts version
+--max-col-width 150  # search display width
+
+# show 
+helm show values [CHART] [flags]
+
+# status
+helm status RELEASE_NAME [flags]
+
+# template
+helm template [NAME] [CHART] [flags]
+
+# test
+
+# verify
+
+# version
+helm version
+
+```
+
+
+
+> 1. [阿里云 ACR 仓库加速地址](taa4w07u.mirror.aliyuncs.com)
+> 2. [Docker Engine Install](https://docs.docker.com/engine/install/)
+> 3. [Helm Official Documentation](https://helm.sh/docs/)
+> 4. [Kubectl Official Documentation](https://kubernetes.io/docs/reference/kubectl/)

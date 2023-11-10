@@ -32,18 +32,6 @@
             }
           },
           {
-            "id": "c8ff2eaa9111578c",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "CNCF/ObservabilityAnalysis/Monitoring/grafana.md",
-                "mode": "source",
-                "source": false
-              }
-            }
-          },
-          {
             "id": "b56a50a8d5fd5be6",
             "type": "leaf",
             "state": {
@@ -210,14 +198,14 @@
   "active": "65ca4c0f12195c40",
   "lastOpenFiles": [
     "Operations/commonCommand/cc-containerRuntime.md",
+    "CNCF/OrchestrationManagement/SchedulingOrchestration/Kubernetes/kubernetes.md",
+    "Operations/commonCommand/cc-helm.md",
+    "CNCF/ObservabilityAnalysis/Monitoring/grafana.md",
     "tmp/ac-tmp.md",
+    "WorkEnv/Others/project-experience.md",
     "tmp/Notes/note-202311.md",
     "tmp/Notes/note-202310.md",
-    "CNCF/OrchestrationManagement/SchedulingOrchestration/Kubernetes/kubernetes.md",
-    "CNCF/ObservabilityAnalysis/Monitoring/grafana.md",
     "CNCF/ObservabilityAnalysis/Monitoring/prometheus.md",
-    "CNCF/OrchestrationManagement/ServiceProxy/nginx.md",
-    "WorkEnv/Others/project-experience.md",
-    "tmp.md"
+    "CNCF/OrchestrationManagement/ServiceProxy/nginx.md"
   ]
 }

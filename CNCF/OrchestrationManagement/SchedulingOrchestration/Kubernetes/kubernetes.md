@@ -8,7 +8,7 @@ Control plane
 + etcd(cluster parallel)
 + kube-apiserver(parallel loadbalance)
 + kube-controller-manager(single instance)
-+ kube-scheduler(single instance)
++ kube-scheduler(single instance or multiple instances)
 
 
 Data plane
@@ -27,12 +27,11 @@ Options components
 
 
 #### Deploy
-##### 
 
 
 
 
 
 > 参考文档：
-> 1. [官方文档](https://kubernetes.io/)
-> 2. [GitHub 地址](https://github.com/kubernetes/kubernetes)
+> 1. [Kubernetes Official Documentation](https://kubernetes.io/)
+> 2. [Kubernetes GitHub](https://github.com/kubernetes/kubernetes)
