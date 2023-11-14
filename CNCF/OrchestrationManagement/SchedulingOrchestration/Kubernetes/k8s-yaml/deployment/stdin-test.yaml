@@ -23,8 +23,8 @@ spec:
         app: yakir-test
     spec:
       containers:
-      - image: busybox
-        args: ["/bin/sh","-c", 'i=0; while true; do echo "$i: $(date)"; i=$((i+1)); sleep 10; done']
+      - args: ["/bin/sh","-c", 'i=0; while true; do echo "$i: $(date)"; i=$((i+1)); sleep 10; done']
+        image: busybox
         name: counter
         livenessProbe:
           exec:

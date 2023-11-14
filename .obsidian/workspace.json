@@ -56,7 +56,7 @@
             }
           },
           {
-            "id": "d379d91d7fb579c8",
+            "id": "c0d0b20280ef88b2",
             "type": "leaf",
             "state": {
               "type": "markdown",
@@ -68,7 +68,7 @@
             }
           }
         ],
-        "currentTab": 1
+        "currentTab": 4
       }
     ],
     "direction": "vertical"
@@ -134,7 +134,6 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "CNCF/OrchestrationManagement/SchedulingOrchestration/Kubernetes/kubernetes.md",
                 "collapseAll": true,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -151,7 +150,6 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "CNCF/OrchestrationManagement/SchedulingOrchestration/Kubernetes/kubernetes.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -173,9 +171,7 @@
             "type": "leaf",
             "state": {
               "type": "outline",
-              "state": {
-                "file": "CNCF/OrchestrationManagement/SchedulingOrchestration/Kubernetes/kubernetes.md"
-              }
+              "state": {}
             }
           }
         ],
@@ -195,17 +191,17 @@
       "command-palette:打开命令面板": false
     }
   },
-  "active": "65ca4c0f12195c40",
+  "active": "18e8d5f68cd0217d",
   "lastOpenFiles": [
+    "tmp/ac-tmp.md",
     "Operations/commonCommand/cc-containerRuntime.md",
+    "tmp/Notes/note-202311.md",
     "CNCF/OrchestrationManagement/SchedulingOrchestration/Kubernetes/kubernetes.md",
+    "Operations/netWork/CDN.md",
+    "Operations/system/others.md",
+    "Psted image 20231113115049.png.md",
     "Operations/commonCommand/cc-helm.md",
     "CNCF/ObservabilityAnalysis/Monitoring/grafana.md",
-    "tmp/ac-tmp.md",
-    "WorkEnv/Others/project-experience.md",
-    "tmp/Notes/note-202311.md",
-    "tmp/Notes/note-202310.md",
-    "CNCF/ObservabilityAnalysis/Monitoring/prometheus.md",
-    "CNCF/OrchestrationManagement/ServiceProxy/nginx.md"
+    "WorkEnv/Others/project-experience.md"
   ]
 }

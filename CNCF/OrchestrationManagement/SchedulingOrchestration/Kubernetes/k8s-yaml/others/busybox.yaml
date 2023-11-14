@@ -5,10 +5,26 @@ metadata:
   namespace: default
 spec:
   containers:
-  - name: busybox
-    image: busybox
+  #- command:
+  #  - "sleep"
+  #  - "infinity"
+  - args:
+    - bash
+    - -c
+    - /run.sh
     command:
-      - sleep
-      - "36000"
+    - /entrypoint.sh
+    env:
+    - name: TZ
+      value: "Asia/Shanghai"
+    name: busybox
+    image: busybox
     imagePullPolicy: IfNotPresent
   restartPolicy: Always
+  volumes:
+    - name: localtime
+      hostPath:
+        path: /etc/localtime
+    - name: zoneinfo
+      hostPath:
+        path: /usr/share/zoneinfo
