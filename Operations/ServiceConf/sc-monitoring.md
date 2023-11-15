@@ -16,9 +16,9 @@ alerting:
 
 # Rule files
 rule_files:
-  # - /etc/config/rules/*.rules
-  - "alerting.rules"
-  - "recording.rules"
+  # - /etc/config/rules/*.rules.yaml
+  - "alerting.rules.yaml"
+  - "recording.rules.yaml"
 
 scrape_configs:
   - job_name: "prometheus"
@@ -46,7 +46,7 @@ scrape_configs:
 
 
 ##### rule files
-/opt/prometheus/alerting.rules
+/opt/prometheus/alerting.rules.yaml
 ```shell
 # alerting rules file
 groups:
@@ -71,7 +71,7 @@ groups:
       description: "{{ $labels.instance }} has a median request latency above 1s (current value: {{ $value }}s)"
 ```
 
-/opt/prometheus/recording.rules
+/opt/prometheus/recording.rules.yaml
 ```shell
 # recoding rules file
 groups:
@@ -86,8 +86,10 @@ groups:
 
 ```
 
-> // Syntax-checking rules
-> ./promtool check rules alerting.rules.yml recording.rules.yml
+syntax-checking rules
+```shell
+./promtool check rules alerting.rules.yml recording.rules.yaml
+``` 
 
 
 #### Alertmanager

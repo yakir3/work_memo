@@ -98,10 +98,25 @@ cd prometheus
 # configure and run
 vim values.yaml
 server:
+  configPath: /etc/config/prometheus.yml
   persistentVolume:
     enabled: true
+    size: 20Gi
     storageClass: "nfs-client"
+serverFiles:
+  alerting_rules.yml: {}
+  recording_rules.yml:
+    groups:
+    - name: k8s.rules
+      rules:
+      - expr: |-
+          xxx
+        record: xxx_xxx
+alertmanager:
+  enabled: true
 kube-state-metrics:
+  enabled: true
+prometheus-node-exporter:
   enabled: true
 
 # install
