@@ -13,7 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Operations/commonCommand/cc-kafka.md",
+                "file": "Operations/commonCommand/cc-awkgrepsed.md",
                 "mode": "source",
                 "source": false
               }
@@ -25,7 +25,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "CNCF/ObservabilityAnalysis/Monitoring/prometheus.md",
+                "file": "CNCF/OrchestrationManagement/SchedulingOrchestration/Kubernetes/kubernetes.md",
                 "mode": "source",
                 "source": false
               }
@@ -134,7 +134,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "CNCF/ObservabilityAnalysis/Monitoring/prometheus.md",
+                "file": "CNCF/OrchestrationManagement/SchedulingOrchestration/Kubernetes/kubernetes.md",
                 "collapseAll": true,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -151,7 +151,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "CNCF/ObservabilityAnalysis/Monitoring/prometheus.md",
+                "file": "CNCF/OrchestrationManagement/SchedulingOrchestration/Kubernetes/kubernetes.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -174,7 +174,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "CNCF/ObservabilityAnalysis/Monitoring/prometheus.md"
+                "file": "CNCF/OrchestrationManagement/SchedulingOrchestration/Kubernetes/kubernetes.md"
               }
             }
           }
@@ -197,15 +197,15 @@
   },
   "active": "65ca4c0f12195c40",
   "lastOpenFiles": [
-    "Operations/serviceConf/sc-monitoring.md",
     "CNCF/ObservabilityAnalysis/Monitoring/prometheus.md",
-    "CNCF/AppDefinitionDevelopment/StreamingMessaging/kafka.md",
-    "Operations/commonCommand/cc-kafka.md",
-    "CNCF/OrchestrationManagement/SchedulingOrchestration/Kubernetes/kubernetes.md",
     "tmp/ac-tmp.md",
-    "Operations/commonCommand/cc-containerRuntime.md",
     "tmp/Notes/note-202311.md",
     "WorkEnv/Others/project-experience.md",
-    "Psted image 20231113115049.png.md"
+    "tmp/Notes/note-202310.md",
+    "tmp/Notes/note-202309.md",
+    "Operations/commonCommand/cc-awkgrepsed.md",
+    "Operations/commonCommand/cc-kafka.md",
+    "Operations/serviceConf/sc-monitoring.md",
+    "CNCF/AppDefinitionDevelopment/StreamingMessaging/kafka.md"
   ]
 }

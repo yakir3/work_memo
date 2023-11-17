@@ -2,13 +2,14 @@
 
 ![[podcreate-dafvcg.jpg]]
 
+![[Pasted image 20231117144608.png]]
 
 ##### Components
 Control plane
 + etcd(cluster parallel)
 + kube-apiserver(parallel loadbalance)
 + kube-controller-manager(single instance)
-+ kube-scheduler(single instance or multiple instances)
++ kube-scheduler(single instance)
 
 
 Data plane

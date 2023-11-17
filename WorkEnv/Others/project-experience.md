@@ -4,6 +4,15 @@
 
 
 #### 2023
+##### Platform
+AWS
+ cloudfront
+Cloudflare
+GCP  
+ GKE
+ 
+
+
 ##### cicdflow
 Jira
 
