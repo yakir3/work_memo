@@ -28,6 +28,6 @@ jobs:
         name: Build and push
         uses: docker/build-push-action@v3
         with:
-          context: .
+          context: ./APP-META/
           push: true
           tags: yakirinp/work_memo:latest
