@@ -149,6 +149,7 @@ helm -n monitorning install grafana .
 
 ```
 
+
 #### Alert
 ##### telegra_bot
 ```shell
@@ -240,4 +241,3 @@ curl "https://api.telegram.org/bot<token>/sendMessage?chat_id=<chat_id>&text=<ms
 >3. [Grafana CN Doc](https://www.qikqiak.com/k8s-book/docs/56.Grafana%E7%9A%84%E5%AE%89%E8%A3%85%E4%BD%BF%E7%94%A8.html)
 >4. [Grafana Alert](https://grafana.com/docs/grafana/latest/alerting/fundamentals/)
 >5. [Telegram Api SDK](https://github.com/python-telegram-bot/python-telegram-bot/wiki/Introduction-to-the-API)
->6. [redis-exporter](https://github.com/oliver006/redis_exporter)

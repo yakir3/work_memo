@@ -133,25 +133,6 @@ helm -n monitoring install prometheus .
 ##### [console template](https://prometheus.io/docs/visualization/consoles/)
 
 
-#### node_exporter && blackbox_exporter
-##### Download and Install
-```shell
-# baniry
-cd /opt/prometheus
-wget https://github.com/prometheus/blackbox_exporter/releases/download/v0.24.0/blackbox_exporter-0.24.0.linux-amd64.tar.gz
-wget https://github.com/prometheus/node_exporter/releases/download/v1.6.1/node_exporter-1.6.1.linux-amd64.tar.gz
-tar xf blackbox_exporter-0.24.0.linux-amd64.tar.gz && rm -f blackbox_exporter-0.24.0.linux-amd64.tar.gz 
-tar xf node_exporter-1.6.1.linux-amd64.tar.gz && rm -f node_exporter-1.6.1.linux-amd64.tar.gz
-./blackbox_exporter-0.24.0.linux-amd64/blackbox_exporter
-./node_exporter-1.6.1.linux-amd64/node_exporter
-
-# helm
-# node_exporter: include prometheus chart package
-# black_exporter
-helm fetch --untar prometheus-community/prometheus-blackbox-exporter
-```
-
-
 #### AlertManager
 ##### Download and Install
 ```shell
@@ -176,9 +157,51 @@ cd /opt/prometheus/alertmanager/
 ```
 
 
+#### Metrics exporter
+##### node_exporter
+Download and Install
+```shell
+# baniry
+cd /opt/prometheus
+wget https://github.com/prometheus/blackbox_exporter/releases/download/v0.24.0/blackbox_exporter-0.24.0.linux-amd64.tar.gz
+wget https://github.com/prometheus/node_exporter/releases/download/v1.6.1/node_exporter-1.6.1.linux-amd64.tar.gz
+tar xf blackbox_exporter-0.24.0.linux-amd64.tar.gz && rm -f blackbox_exporter-0.24.0.linux-amd64.tar.gz 
+tar xf node_exporter-1.6.1.linux-amd64.tar.gz && rm -f node_exporter-1.6.1.linux-amd64.tar.gz
+./blackbox_exporter-0.24.0.linux-amd64/blackbox_exporter
+./node_exporter-1.6.1.linux-amd64/node_exporter
+
+# helm
+# node_exporter: include prometheus chart package
+# black_exporter
+helm fetch --untar prometheus-community/prometheus-blackbox-exporter
+```
+
+
+##### middleware exporter
+```shell
+# redis_exporter
+# redis cluster
+# 1.modify prometheus.yml 
+# 2.check exporter
+curl 127.0.0.1:9121/scrape?target=redis://1.1.1.1:6379
+
+
+# kafka_exporter
+# kafka cluster
+kafkaServer:
+  - 1.1.1.1:9092
+  - 2.2.2.2:9092
+  - 3.3.3.3:9092
+
+```
+
+
+
 >Reference:
 >1. [Official Prometheus Doc](https://prometheus.io/docs/introduction/overview/)
 >2. [Prometheus Github](https://github.com/prometheus/prometheus)
 >3. [Prometheus Download](https://prometheus.io/download/)
 >4. [中文社区文档](https://icloudnative.io/prometheus/)
 >5. [InfluxDB Doc](https://docs.influxdata.com/influxdb/v1.8/introduction/get-started/)
+>6. [redis-exporter](https://github.com/oliver006/redis_exporter)
+>7. [kafka-exporter](https://github.com/danielqsj/kafka_exporter)
