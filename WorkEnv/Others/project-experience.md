@@ -70,7 +70,27 @@ java jar fix
 docker basic images 
 
 
-
+##### GKE 集群
+1.gke create
+2.manager machine vm init
+3.gcloud iam roles create: artifact、ops-api
+4.cloud loadbalancer: nat
+5.cli: kubectl、helm、google-cloud-cli
+cat >> ~/.bashrc << "EOF"
+source <(kubectl completion bash)
+source <(helm completion bash)
+EOF
+apt install google-cloud-cli 
+apt install google-cloud-cli-gke-gcloud-auth-plugin
+6.gloud auth login and import gke kubeconfig to local
+gcloud auth login --cred-file=xxx.json
+gcloud container clusters get-credentials my-gke --region asia-east2 --project my-gke
+7.import rancher(rancher ingress whitelist)
+8.gke ingress create(internel loadbalancer)
+9.storage and others components
+nfs-subdir-external-provisioner
+redis,kafka
+prometheus,grafana
 
 
 

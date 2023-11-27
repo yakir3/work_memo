@@ -1,3 +1,12 @@
+#### openssl
+```shell
+# 
+openssl x509 -dates -text -noout -in xxx.crt
+
+```
+
+
+
 #### systemd
 ```shell
 # journalctl

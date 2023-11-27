@@ -23,5 +23,8 @@ venv.bak/
 .AppleDouble
 .LSOverride
 
+# Obsidian
+.obsidian/workspace.json
+
 # Yakir
 tmp/
