@@ -16,7 +16,7 @@ docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' yak
 
 
 # 反查镜像 Dockerfile 内容
-docker history db6effbaf70b --format {{.CreatedBy}} --no-trunc=true |sed "s#/bin/sh -c \#(nop) *##g"|sed "s#/bin/sh -c#RUN#g" |tac
+docker history db6effbaf70b --format {{.CreatedBy}} --no-trunc=true |sed "s#/bin/sh -c \#(nop) *##g" |tac
 
 
 # 编译自定义镜像

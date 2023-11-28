@@ -44,21 +44,32 @@
 #### 1）接口应用：devops_tools 
 ##### 应用操作
 ```bash
-# 进入应用目录切换 python 虚拟环境
+# 启动 mysql
+mkdir -p /opt/docker_volume
+docker run --name devops-mysql \
+-e MYSQL_ROOT_PASSWORD=123qwe \
+-e MYSQL_DATABASE=devops_tools \
+-v /opt/docker_volume/devops-mysql/data:/var/lib/mysql \
+-v /opt/docker_volume/devops-mysql/log:/var/log/mysql \
+-p 3306:3306 \
+-d mysql --character-set-server=utf8mb4
+
+# 配置文件调整
+vim devops_tools/settings/dev.py
+vim uwsgi.ini
+
+# 进入应用家目录切换 Python 沙盒环境
 cd /opt/py-project/devops_tools
+python3 -m venv venv
 source venv/bin/activate
-# 应用 mysql 启动重启（保存升级数据）
-# 注意升级流程异常时，需要手动核实 Jira 页面数据与数据库中升级数据是否一致
-docker run --name devops-mysql -e MYSQL_ROOT_PASSWORD=xxxxx -e MYSQL_DATABASE=devops_tools -p 3306:3306 -v /opt/py-project/docker_volume/devops-mysql/data:/var/lib/mysql -v /opt/py-project/docker_volume/devops-mysql/log:/var/log/mysql -d mysql --character-set-server=utf8mb4
-docker restart devops_mysql
-# 应用启动与重启操作
+pip install -r requirements.txt
+# 启动/重启应用
 uwsgi --ini uwsgi.ini
 uwsgi --reload logs/uwsgi.pid
-# 配置文件调整
-vim uwsgi.ini
+
 # 日志信息
 tail -f logs/app.log     # 应用日志输出
-tail -f logs/uwsgi.log   # console 输出（代码升级成功邮件模板打印在这里）
+tail -f logs/uwsgi.log   # console 输出
 
 ```
 
@@ -108,17 +119,17 @@ issue_updated 事件：Jira 工单被更新，触发 webhook 流程
 # 进入应用目录，修改
 cd /opt/Archery-1.9.1/src/docker-compose
 
-# 自定义配置信息
-# 更新应用环境变量，主要更新以下三个配置
+# 修改 Archery 应用环境变量
 vim .env
-DATABASE_URL=xxx
-CACHE_URL=xxx
-CSRF_TRUSTED_ORIGINS=xxx
-# 修改 docker-compose 配置，主要更新 mysql 配置，与环境变量配置保持一致
+
+# 添加应用持久化存储目录
+mkdir -p ./archery/sql_api/
+mkdir -p ./archery/sql/ && cd ./archery/sql/
+mkdir engines migrations templates
+
+# 修改 docker-compose 配置
 vim docker-compose.yml
-    environment:
-      MYSQL_DATABASE: archery
-      MYSQL_ROOT_PASSWORD: xxxx
+
 ```
 
 
@@ -170,8 +181,9 @@ SIGN_UP_ENABLED: OFF   # 关闭注册功能
 
 
 ##### 调整源码显示前台数据
->调整都在容器内修改，进入容器：docker exec -it archery /bin/bash
->修改完重启生效：docker restart archery
+>仅调试：docker exec -it archery /bin/bash
+>修改：使用外部持久化存储挂载覆盖文件的方式，见 docker-compose.yml
+>重启生效：docker restart archery
 
 ```bash
 # 1）数据库新增字段：sql_index（升级序号）与 sql_release_info（SQL版本信息）
@@ -257,35 +269,30 @@ vim sql_api/serializers.py   # 404行
 ```bash
 # 下载源码进入应用目录
 # 源码是破解版 Jira，部署完成首次打开需要在源码 github 上获取注册码
-cd /opt/py-project/
-git checkout https://github.com/lyy289065406/jira-docker && cd jira-docker
+cd /opt/
+git clone https://github.com/lyy289065406/jira-docker && cd jira-docker
 
 # 修改 docker-compose.yml 配置
 vim docker-compose.yml
 services:
   mysql:
     environment:
-      # 新增数据库配置信息
       - MYSQL_ROOT_PASSWORD=xxxxx
       - MYSQL_DATABASE=jira
       - MYSQL_USER=jira
-      - MYSQL_PASSWORD=xxxxx
-    # 注释端口映射，不需要对外映射
-    #ports: 
-    #  - 3307:3306
+      - MYSQL_PASSWORD=123qwe
   jira:
     environment:
-      # 调大 Jira 启动内存
+      # Jira JVM 启动内存
       - JVM_MINIMUM_MEMORY=2g
       - JVM_MAXIMUM_MEMORY=4g
-    # 添加端口映射，Jira 需要对外，通过 nginx 反代进来
     ports:
       - "8090:8080"
 
 # 修改 jira tomcat 配置（解决 nginx 代理 http 访问异常问题）
 vim ./jira/conf/server.xml   # connector 标签中添加配置
         <Connector port="8080"
-                   proxyName="upgrade-jira.ccacuat.com"
+                   proxyName="jira.yakir.com"
                    proxyPort="80"
     />
 
@@ -296,7 +303,7 @@ vim ./jira/atlassian/dbconfig.xml
     <url>jdbc:mysql://jira_db:3306/jira?useUnicode=true&amp;characterEncoding=UTF8&amp;sessionVariables=default_storage_engine=InnoDB</url>
     <driver-class>com.mysql.jdbc.Driver</driver-class>
     <username>jira</username>
-    <password>xxxxx</password>
+    <password>123qwe</password>
 ```
 ##### 系统配置
 + baseUrl：修改为与前台访问地址一致

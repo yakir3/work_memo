@@ -33,6 +33,6 @@ Options components
 
 
 
-> 参考文档：
+>Reference:
 > 1. [Kubernetes Official Documentation](https://kubernetes.io/)
 > 2. [Kubernetes GitHub](https://github.com/kubernetes/kubernetes)

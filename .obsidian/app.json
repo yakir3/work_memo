@@ -5,5 +5,6 @@
   "legacyEditor": false,
   "attachmentFolderPath": "./attachements",
   "alwaysUpdateLinks": true,
-  "showUnsupportedFiles": true
+  "showUnsupportedFiles": true,
+  "newFileLocation": "current"
 }
