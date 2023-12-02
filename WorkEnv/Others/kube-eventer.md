@@ -25,10 +25,9 @@
 
 参考：https://minikube.sigs.k8s.io/docs/start/
 
-#### 2）存储中间件部署（Kafka）
-
+#### 2）存储中间件部署
+##### Kafka
 使用 helm 部署 Kafka
-
 ```shell
 # 添加 helm 仓库
 helm repo add bitnami https://charts.bitnami.com/bitnami
@@ -112,6 +111,9 @@ yakir-kafka-0                         1/1     Running   0              171m
 yakir-kafka-zookeeper-0               1/1     Running   6 (168m ago)   10d
 ```
 
+##### elasticsearch
+[[elasticsearch#Run by Helm|helm 部署]]
+
 #### 3）kube-eventer 部署
 
 + 获取官方 YAML 资源文件进行部署
@@ -146,8 +148,10 @@ spec:
           command:
             - "/kube-eventer"
             - "--source=kubernetes:https://kubernetes.default"
-            # 存储消息中间件配置，根据环境进行配置
-            - --sink=kafka:?brokers=yakir-kafka-headless.default:9092&eventstopic=yakirtopic
+            # kafka
+            - --sink=kafka:?brokers=kafka.middleware:9092&eventstopic=my_kube_events
+            # elasticsearch
+            #- --sink=elasticsearch:http://es.middleware:9200?sniff=false&ver=7&index=my_kube_events
           env:
           # If TZ is assigned, set the TZ value as the time zone
           - name: TZ

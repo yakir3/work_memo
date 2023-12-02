@@ -179,22 +179,124 @@ helm fetch --untar prometheus-community/prometheus-blackbox-exporter
 
 ##### middleware exporter
 ```shell
-# redis_exporter
-# redis cluster
-# 1.modify prometheus.yml 
-# 2.check exporter
-curl 127.0.0.1:9121/scrape?target=redis://1.1.1.1:6379
+### template
+# 1.install exporter
+# 2.modify exporter config and check exporter
+# 3.modify prometheus.yml
+# 4.add grafana dashboard
 
 
-# kafka_exporter
-# kafka cluster
+# custom monitor endpoints
+kubectl -n monitoring get service prometheus-kube-state-metrics -oyaml
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    prometheus.io/scrape: "true"
+    prometheus.io/port: "8080"
+
+# custom prometheus.yaml of endpints
+- job_name: 'kubernetes-service-endpoints'
+  relabel_configs:
+  - source_labels: [__meta_kubernetes_service_annotation_prometheus_io_scrape]
+    separator: ;
+    regex: "true"
+    replacement: $1
+    action: keep
+  - source_labels: [__meta_kubernetes_service_annotation_prometheus_io_path]
+    separator: ;
+    regex: (.+)
+    target_label: __metrics_path__
+    replacement: $1
+    action: replace
+  - source_labels: [__address__, __meta_kubernetes_service_annotation_prometheus_io_port]
+    separator: ;
+    regex: (.+?)(?::\d+)?;(\d+)
+    target_label: __address__
+    replacement: $1:$2
+    action: replace
+  .....
+  kubernetes_sd_configs:
+  - role: endpoints
+    kubeconfig_file: ""
+    follow_redirects: true
+    enable_http2: true
+###
+```
+
+redis-exporter
+```shell
+# helm values
+no need
+
+# prometheus.yaml
+      - job_name: 'redis_exporter_targets'
+        static_configs:
+        - targets:
+          - redis://1.1.1.1:6379
+          - redis://1.1.1.2:6379
+          - redis://1.1.1.3:6379
+        metrics_path: /scrape
+        relabel_configs:
+        - source_labels: [__address__]
+          target_label: __param_target
+        - source_labels: [__param_target]
+          target_label: instance
+        - target_label: __address__
+          replacement: redis-exporter-prometheus-redis-exporter.monitoring:9121
+
+      - job_name: 'redis_exporter'
+        static_configs:
+        - targets:
+          - redis-exporter-prometheus-redis-exporter.monitoring:9121
+
+```
+
+kafka-exporter
+```shell
+# helm values
 kafkaServer:
   - 1.1.1.1:9092
   - 2.2.2.2:9092
   - 3.3.3.3:9092
 
+# prometheus.yaml
+# service or serviceMonitor
+- job_name: serviceMonitor/monitoring/kafka-exporter-svc/0
+  honor_labels: false
+  kubernetes_sd_configs:
+  - role: endpoints
+    namespaces:
+      names:
+      - cattle-monitoring-system
+
 ```
 
+rocketmq-exporter
+```shell
+# modify config and build jar
+rocketmq:
+  config:
+    webTelemetryPath: /metrics
+    namesrvAddr: rocket-exporter.monitoring:9876
+mvn clean install
+
+# create k8s yaml
+#./work_memo/CNCF/OrchestrationManagement/SchedulingOrchestration/Kubernetes/k8s-yaml/others/rocketmq-exporter.yaml
+kubectl apply -f rocketmq-exporter.yaml
+
+# prometheus.yaml
+# option1: rocketmq service scrape
+kind: Service
+metadata:
+  annotations:
+    prometheus.io/scrape: "true"
+# option2: new job
+   - job_name: 'rocketmq-exporter'
+     static_configs:
+     - targets: ['rocketmq-exporter:5557']
+
+```
 
 
 >Reference:
@@ -205,3 +307,4 @@ kafkaServer:
 >5. [InfluxDB Doc](https://docs.influxdata.com/influxdb/v1.8/introduction/get-started/)
 >6. [redis-exporter](https://github.com/oliver006/redis_exporter)
 >7. [kafka-exporter](https://github.com/danielqsj/kafka_exporter)
+>8. [rocketmq-exporter](https://github.com/apache/rocketmq-exporter)

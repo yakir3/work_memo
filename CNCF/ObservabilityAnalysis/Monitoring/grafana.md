@@ -145,13 +145,19 @@ helm -n monitorning install grafana .
 7589
 
 # redis
+# single
 11835
+# cluster
+763
+
+# rocketmq
+10477
 
 ```
 
 
 #### Alert
-##### telegra_bot
+##### telegram_bot
 ```shell
 # 1.get bot and token
 https://core.telegram.org/bots#how-do-i-create-a-bot
@@ -193,7 +199,7 @@ curl "https://api.telegram.org/bot<token>/sendMessage?chat_id=<chat_id>&text=<ms
 告警详情: {{ $alert.Annotations.summary }};{{ $alert.Annotations.description }}
 故障时间: {{ ($alert.StartsAt.Add 28800e9).Format "2006-01-02 15:04:05" }}
 实例信息: {{ $alert.Labels.instance }}
-当前数值: {{ $alert.values.alarmvalue}}
+当前数值: {{ $alert.Values.B }}
 静默告警: {{ .SilenceURL }}
 告警大盘: {{ .DashboardURL }}
 ============END============
@@ -209,7 +215,7 @@ curl "https://api.telegram.org/bot<token>/sendMessage?chat_id=<chat_id>&text=<ms
 故障时间: {{ ($alert.StartsAt.Add 28800e9).Format "2006-01-02 15:04:05" }}
 恢复时间: {{ ($alert.EndsAt.Add 28800e9).Format "2006-01-02 15:04:05" }}
 实例信息: {{ $alert.Labels.instance }}
-当前数值: {{ $alert.values.alarmvalue }}
+当前数值: {{ $alert.Values.B }}
 静默告警: {{ .SilenceURL }}
 告警大盘: {{ .DashboardURL }}
 ============END============
