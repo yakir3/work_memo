@@ -1,3 +1,4 @@
+#### kafka
 ```shell
 # 动态查看&更新节点配置（官方配置支持 cluster-wide 类型配置才可以更新）
 ./kafka-configs.sh --bootstrap-server localhost:9092 --entity-type brokers --entity-name 1 --describe
@@ -50,3 +51,4 @@ echo -e '    ]\n}' >> yakirtopic.json
 ./kafka-server-start.sh -daemon ../config/server.properties
 
 ```
+

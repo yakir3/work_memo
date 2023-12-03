@@ -15,7 +15,7 @@ Control plane
 Data plane
 + kubelet
 + kube-proxy
-+ container-runtime(docker,containerd,rkt...)
++ container-runtime(docker, containerd, rkt, ...)
 + kube-dns
 
 

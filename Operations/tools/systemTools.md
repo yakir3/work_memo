@@ -1,10 +1,58 @@
 #### openssl
 ```shell
-# 
+# install 
+apt install openssl
+
+# get crt info
 openssl x509 -dates -text -noout -in xxx.crt
 
 ```
 
+
+#### sar
+```shell
+# install 
+apt install sysstat
+# use
+sar [options] [delay [count]]
+sar -r 1 10
+
+# cpu 
+-u     Report CPU utilization
+-q     Report queue length and load averages
+-P (cpu_list|ALL)    Report per-processor statistics for the specified processor or processors
+-w     Report task creation and system switching activity
+
+# memory
+-r     Report memory utilization statistics
+-S     Report swap space utilization statistics
+-W     Report swapping statistics
+
+# network 
+-n (DEV|ICMP|IP|SOCK|TCP|UDP)   Report network statistics
+
+# I/O statistics
+-b     Report I/O and transfer rate statistics
+-d     Report activity for each block device 
+-p     Pretty-print device names
+
+# others
+-v     Report status of inode, file and other kernel tables
+-y     Report TTY devices activity
+-o | -f [filename]
+
+```
+
+
+#### strace
+```shell
+# install 
+apt install sysstat
+
+#
+strace -c ls
+
+```
 
 
 #### systemd
@@ -81,6 +129,34 @@ trap - SIGINT
 ```
 
 
+#### vmstat
+```shell
+# install
+apt install procps
+# use
+vmstat [options] [delay [count]]
+
+
+# probe uninterrupted every 2 seconds
+vmstat 2
+# probe 10 times per second
+vmstat 1 10
+
+
+# Displays a table of various event counters and memory statistics
+vmstat -s
+# The -f switch displays the number of forks since boot
+vmstat -f
+# Report disk statistics
+vmstat -d -t 
+
+# 
+vmstat -ant 1
+
+```
+
+
 
 > 1. [Official systemtap Doc](https://sourceware.org/systemtap/documentation.html)
 > 2. [Ubuntu Install systemtap](https://wiki.ubuntu.com/Kernel/Systemtap#Systemtap_Installation)
+> 3. [IBM Documentation](https://www.ibm.com/docs/zh/power9/9080-M9S?topic=commands-vmstat-command)

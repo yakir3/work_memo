@@ -1,5 +1,6 @@
 ##### Introduction
-![[iptables.png]]
+
+![[Pasted image 20231203151405.png]]
 
 
 ##### command

@@ -5,7 +5,7 @@
 ```
 
 
-### salt
+### saltstack
 ```shell
 # show state sls
 salt 'node1' state.show_highstate [saltenv=dev]

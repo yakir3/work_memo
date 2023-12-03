@@ -1,4 +1,4 @@
-### apt 
+#### apt 
 ```shell
 # 更新软件仓库
 apt update
@@ -27,5 +27,10 @@ dpkg -r mysql-common
 dpkg -P mysql-common
 dpkg -i elasticsearch-8.8.2-amd64.deb
 
-
 ```
+
+#### yum
+```shell
+#
+```
+

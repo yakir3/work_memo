@@ -1,3 +1,4 @@
+#### elasticsearch
 ```shell
 # 查看所有 restful api
 curl http://es_server:9200/_cat -u "elastic:es123"
@@ -120,4 +121,64 @@ time curl -X POST "http://es-server:9200/index/_search" -d '{"version":true,"siz
 
 # licence 过期报错解决方法
 curl -X POST 127.0.0.1:9200/_license/start_basic?acknowledge=true
+```
+
+#### mysql
+```shell
+# init reset password
+mysql -u root -p
+mysql -u root --skip-password
+ALTER USER 'root'@'localhost' IDENTIFIED BY 'root-password';
+
+# create database with character
+CREATE DATABASE yakir_test DEFAULT CHARACTER SET utf8mb4 COLLATE utf8_general_ci;
+
+# create account and grant
+use mysql
+CREATE USER 'new_user'@'localhost' IDENTIFIED BY 'password';
+GRANT ALL PRIVILEGES ON *.* TO 'new_user'@'localhost';
+GRANT ALL PRIVILEGES ON *.* TO 'new_user'@'%';
+FLUSH PRIVILEGES;
+
+
+```
+
+#### postgres
+```shell
+# login
+psql -U user [-d database]
+
+# create user,database and grant privileges
+CREATE USER yakirtest WITH PASSWORD 'yakirtest';
+CREATE DATABASE yakirtest OWNER yakirtest;
+GRANT ALL PRIVILEGES ON DATABASE yakirtest TO yakirtest;
+GRANT ALL PRIVILEGES ON all tables in schema public TO yakirtest;
+
+# select all database
+\l
+
+# switch database
+\c database
+
+# select custom table and table schema
+\d
+\d table;
+
+# select all scheme
+select * from information_schema.schemata;
+
+# select all tables
+select * from pg_tables;
+
+```
+
+#### redis
+```shell
+# redis cluster 
+# pattern search key
+redis-cli -h host -a password -c --scan --pattern "mykey*"
+# batch delete key
+redis-cli -h host -a password -c --scan --pattern "mykey*" |xargs -I {} redis-cli  -h host -a password del {}
+
+
 ```
