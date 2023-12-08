@@ -7,6 +7,10 @@ apt policy
 # 查看 apt 所有已安装的软件包
 apt list --installed
 
+# install special version
+apt policy firefox
+apt install firefox=59.0.2+build1-0ubuntu1 
+
 # 搜索关键字可安装的软件包
 apt search dig |grep bin
 # apt-file 方式搜索，结果更多

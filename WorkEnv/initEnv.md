@@ -84,8 +84,7 @@ cp ~/.vim/bundle/ex-colorschemes/colors/molokai.vim ~/.vim/colors/
 ##### K3S
 ```shell
 # kernel module
-nf_conntrack
-br_netfilter
+lsmod |grep -E "nf_conntrack|br_netfilter"
 
 
 # master
@@ -106,9 +105,16 @@ systemctl daemon-reload
 rm /var/lib/rancher/k3s/server/manifests/traefik.yaml
 systemctl restart k3s
 
-
 # worker
 curl -sfL https://get.k3s.io | K3S_URL=https://myserver:6443 K3S_TOKEN=mynodetoken sh -
+
+# get kubectl and helm client
+curl -LO https://dl.k8s.io/release/v1.27.3/bin/linux/amd64/kubectl
+wget https://get.helm.sh/helm-v3.11.0-linux-amd64.tar.gz
+#apt install bash-completion
+#complete -o default -F __start_kubectl k
+#source <(kubectl completion zsh)
+#source <(helm completion bash)
 
 # access
 mkdir ~/.kube

@@ -36,6 +36,6 @@ vgextend vg_name /dev/sdc
 # get lv name and extend 
 lvdisplay
 lvextend -l +100%free /dev/vg_name/lv_name
-resizefs /dev/vg_name/lv_name
+resize2fs /dev/vg_name/lv_name
 
 ```

@@ -13,10 +13,9 @@ apt install -y curl openssh-server ca-certificates tzdata perl
 
 # Add the Gitlab package repository and install package
 curl https://packages.gitlab.com/install/repositories/gitlab/gitlab-ee/script.deb.sh | sudo bash
-EXTERNAL_URL="https://gitlab.example.com" apt install gitlab-ee
+GITLAB_ROOT_PASSWORD="7K48w3NaUH4v5AQq" EXTERNAL_URL="http://gitlab-sl.opsre.net" apt install gitlab-ee
 
 # Browse to the hostname and login
-
 cat /etc/gitlab/initial_root_password
 ```
 
