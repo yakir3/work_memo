@@ -59,6 +59,10 @@ containerd -c /var/lib/rancher/k3s/agent/etc/containerd/config.toml -a /run/k3s/
 
 
 # ctr (see pause container)
+## default 
+ctr --address /run/containerd/containerd.sock namespace ls 
+ctr --address /run/containerd/containerd.sock -n k8s.io images ls 
+## run by k3s
 ctr --address /run/k3s/containerd/containerd.sock namespace ls 
 ctr --address /run/k3s/containerd/containerd.sock -n k8s.io images ls 
 ctr --address /run/k3s/containerd/containerd.sock -n k8s.io container ls
@@ -82,6 +86,12 @@ kubectl create secret tls my-tls --save-config \
 --cert=./tls.crt \
 --key=./tls.key \
 -oyaml | kubectl apply -f -
+# pricate docker repo 
+kubectl create secret generic my-harbor --from-file=.dockerconfigjson=~/.docker/config.json --type=kubernetes.io/dockerconfigjson
+# config pod or deployment
+kubectl get deployment xxx -oyaml
+      imagePullSecrets:
+      - name: my-harbor
 
 # expose 
 kubectl expose service/pod nginx --port=8888 --target-port=8080 --name=myname

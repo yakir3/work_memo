@@ -1,4 +1,4 @@
-#### env
+##### env
 ```shell
 # add share lib search
 # option1 for tmp 
@@ -38,7 +38,60 @@ $@   # args list
 
 ```
 
-#### truncate string
+##### exec
+```shell
+# define shell script output log
+exec 1> /dev/null
+exec 1>> /tmp/output.log
+exec 2> /dev/null
+exec 2>> /tmp/err.log
+
+#
+exec $@
+
+```
+
+##### set 
+```shell
+# set to environment variable
+set -a testk
+set -o allexport
+
+# exit the shell script if returned by the command is not equal 0
+set -e
+set -o errexit
+# return the value of pipline rightmost command if it non-zero status 
+set -o pipefail
+
+# cancle to use wildcards
+set -f 
+set -o noglob
+
+# monitor mode
+set -m
+set -o monitor
+
+# only reads instructions without actually executing them
+set -n
+set -o noexec
+
+# exit after reading and executing one command.
+set -t
+set -o onecmd
+
+# display error if variable not exists
+set -u
+set -o nounset
+
+# display parameters after executing command
+set -x
+set -o xtrace
+
+
+
+```
+
+##### truncate string
 ```shell
 # truncate string
 variable="Hello World"
@@ -54,3 +107,6 @@ result="${variable%%/*}"   # longest match from end, get: path
 
 ```
 
+
+>Reference:
+> 1. [Shell command official manual](https://www.gnu.org/software/bash/manual/html_node/The-Set-Builtin.html)

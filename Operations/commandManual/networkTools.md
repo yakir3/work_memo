@@ -1,4 +1,4 @@
-#### ab && wrk
+##### ab && wrk
 ```shell
 # install ab
 apt install apache2-utils
@@ -16,8 +16,7 @@ wrk -t 100 -c 10000 -d 30 --latency http://www.google.com/
 
 ```
 
-
-#### arp && arping
+##### arp && arping
 ```shell
 # install
 apt install net-tools
@@ -39,8 +38,14 @@ tcpdump -ttttnvvvS -i ens160 arp
 
 ```
 
+##### dig
+```shell
+# select external local DNS address
+dig xxx.debug.danuoyi.tbcache.com 
 
-#### hping3
+```
+
+##### hping3
 ```shell
 # install 
 apt install hping3
@@ -51,8 +56,7 @@ hping3 -S -p 8877 --flood 127.0.0.1
 
 ```
 
-
-#### iftop
+##### iftop
 ```shell
 #
 iftop -nN -i ens4 -o 10s
@@ -81,8 +85,7 @@ iftop -nN -i ens4 -o 10s
 
 ```
 
-
-#### ip
+##### ip
 ```shell
 # apt install iproute2
 
@@ -137,8 +140,7 @@ ip netns exec net0 ping -c 3 10.0.1.3
 
 ```
 
-
-#### netstat && ss
+##### netstat && ss
 ```shell
 # netstat = apt install net-tools 
 # count all tcp state number
@@ -161,8 +163,7 @@ ss -K dst 1.1.1.1 dport = 57156
 
 ```
 
-
-#### nc && netcat
+##### nc && netcat
 ```shell
 # install 
 apt install netcat-openbsd
@@ -175,8 +176,7 @@ echo -e "POST /post HTTP/1.1\r\nHost: httpbin.org\r\nContent-Type: application/x
 
 ```
 
-
-#### tcpdump
+##### tcpdump
 ```shell
 # install
 apt install tcpdump
@@ -229,8 +229,7 @@ tcpdump -i eth0 -nStttvvv src 1.1.1.1 or dst 1.1.1.1 and port 80
 
 ```
 
-
-#### tcpkill
+##### tcpkill
 ```shell
 # install
 apt install dsniff

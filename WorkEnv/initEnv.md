@@ -1,18 +1,38 @@
 #### Common Init
-##### Homebrew & zsh & oh-my-zsh
+##### homebrew
 ```shell
 # Homebrew
-#官方地址 = https://brew.sh/  
-#中科大镜像 = https://mirrors.ustc.edu.cn/help/brew.git.html
+# official
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+# mirror
+export HOMEBREW_BREW_GIT_REMOTE="https://mirrors.ustc.edu.cn/brew.git"
+export HOMEBREW_CORE_GIT_REMOTE="https://mirrors.ustc.edu.cn/homebrew-core.git"
+export HOMEBREW_BOTTLE_DOMAIN="https://mirrors.ustc.edu.cn/homebrew-bottles"
+export HOMEBREW_API_DOMAIN="https://mirrors.ustc.edu.cn/homebrew-bottles/api"
+/bin/bash -c "$(curl -fsSL https://mirrors.ustc.edu.cn/misc/brew-install.sh)"
 
-# oh-my-zsh
+# how to use
+brew list
+brew install wget
+brew search python
+
+```
+
+##### zsh & oh-my-zsh
+```shell
+# install and change shell to zsh
+apt install zsh
+chsh -s $(which zsh)
+
+
+# install oh-my-zsh and plugin
 git clone https://github.com/ohmyzsh/ohmyzsh.git ~/.oh-my-zsh
-#Plugin
 git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
 git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
-# config
-cat > ~/.zshrc << "EOF"
+
+
+# zsh config
+tee ~/.zshrc << "EOF"
 export ZSH="$HOME/.oh-my-zsh"
 export PATH=$PATH:/usr/local/go/bin
 
@@ -25,32 +45,35 @@ plugins=(
 
 source $ZSH/oh-my-zsh.sh
 #source <(kubectl completion zsh)
-#source <(helm completion bash)
+#source <(helm completion zsh)
 EOF
 
-# change shell
-chsh -s $(which zsh)
 
-# PowerlineFont
-#https://github.com/powerline/fonts
+# install fonts = PowerlineFont
 cd /tmp && git clone https://github.com/powerline/fonts.git --depth=1
 cd fonts && ./install.sh
 
-# iterm2-color
-# https://iterm2colorschemes.com/
 
-# 允许 Mac 安装任何来源软件
+# iterm2-color
+wget -O /tmp/HaX0R_GR33N.itermcolors https://raw.githubusercontent.com/mbadolato/iTerm2-Color-Schemes/master/schemes/HaX0R_GR33N.itermcolorsr
+wget -O /tmp/Solarized_Darcula.itermcolors
+https://raw.githubusercontent.com/mbadolato/iTerm2-Color-Schemes/master/schemes/Solarized%20Darcula.itermcolors
+
+
+# Allow Mac to install software from any source
 sudo spctl --master-disable
 
 ```
 
-##### VIM
+##### vim
 ```shell
-# bundle
+# install vim and vundle 
+apt install vim
 git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
 
+
 # config
-cat > ~/.vimrc << "EOF"
+tee ~/.vimrc << "EOF"
 syntax on
 syntax enable
 set t_Co=256
@@ -66,16 +89,19 @@ filetype on
 filetype plugin indent on
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
-Plugin 'VundleVim/Vundle.vim'       "vundle插件
-Plugin 'vim-syntastic/syntastic'    "语法检查插件
-Plugin 'exvim/ex-colorschemes'      "颜色主题
+Plugin 'VundleVim/Vundle.vim'       "vundle
+Plugin 'vim-syntastic/syntastic'    "syntax check
+Plugin 'exvim/ex-colorschemes'      "color schemes
 call vundle#end()
 EOF
 
+
 # vim plugin install
+vim
 :PluginInstall
 
-# change colorscheme
+
+# set molokai colorscheme
 mkdir ~/.vim/colors
 cp ~/.vim/bundle/ex-colorschemes/colors/molokai.vim ~/.vim/colors/
 
@@ -94,31 +120,35 @@ cat /var/lib/rancher/k3s/server/node-token  # join token
 kubectl -n kube-system delete helmcharts.helm.cattle.io traefik
 kubectl -n kube-system delete helmcharts.helm.cattle.io traefik-crd
 kubectl -n kube-system delete pod --field-selector=status.phase==Succeeded 
-##add to /etc/systemd/system/k3s.service
+##modify /etc/systemd/system/k3s.service
 ExecStart=/usr/local/bin/k3s \
     server \
     --disable traefik \
     --disable traefik-crd \
-
-##
-systemctl daemon-reload
+##restart k3s server
 rm /var/lib/rancher/k3s/server/manifests/traefik.yaml
+systemctl daemon-reload
 systemctl restart k3s
 
+
 # worker
-curl -sfL https://get.k3s.io | K3S_URL=https://myserver:6443 K3S_TOKEN=mynodetoken sh -
+curl -sfL https://get.k3s.io | K3S_URL=https://k3s_server_ip:6443 K3S_TOKEN=k3s_server_token sh -
+
 
 # get kubectl and helm client
+apt install bash-completion
 curl -LO https://dl.k8s.io/release/v1.27.3/bin/linux/amd64/kubectl
 wget https://get.helm.sh/helm-v3.11.0-linux-amd64.tar.gz
-#apt install bash-completion
-#complete -o default -F __start_kubectl k
-#source <(kubectl completion zsh)
-#source <(helm completion bash)
-
-# access
+cat >> ~/.bashrc << "EOF"
+complete -o default -F __start_kubectl k
+source <(kubectl completion bash)
+source <(helm completion bash)
+EOF
+##kubectl client config
 mkdir ~/.kube
 cp /etc/rancher/k3s/k3s.yaml ~/.kube/config
+kubectl get pod -A
+helm list
 
 ```
 
@@ -172,3 +202,8 @@ echo "deb [arch=amd64 signed-by=/etc/apt/keyrings/docker.gpg] https://download.d
 
 ```
 
+
+>Reference:
+> 1. [Homebrew Official](https://brew.sh)
+> 2. [中科大镜像](https://mirrors.ustc.edu.cn/help/brew.git.html)
+> 3. [iterm2colors](https://iterm2colorschemes.com/)

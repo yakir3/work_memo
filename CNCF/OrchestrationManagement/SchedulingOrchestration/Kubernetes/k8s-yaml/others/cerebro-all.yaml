@@ -82,6 +82,8 @@ spec:
         env:
         - name: SERVICE_NAME
           value: cerebro
+        - name: CEREBRO_PORT
+          value: "9000"
         image: lmenezes/cerebro:0.9.4
         imagePullPolicy: IfNotPresent
         name: cerebro
