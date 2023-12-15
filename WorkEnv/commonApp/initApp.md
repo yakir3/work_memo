@@ -47,12 +47,18 @@ iTerm2
 
 ##### development tools
 ```textile
+# develop
 Apifox
 Goland
 Pycharm
 
+# virtual machine
 Multipass
 
+# network
+Wireshark
+
+# record
 Obsidian
 Sublime-text
 
@@ -80,6 +86,16 @@ mysql
 ##### other tolls
 ```textile
 Xmind
+
 KeePassXC
+
+Raycast
+
+iStat Menus
+982092332@qq.com 
+GAWAE-FCWQ3-P8NYB-C7GF7-NEDRT-Q5DTB-MFZG6-6NEQC-CRMUD-8MZ2K-66SRB-SU8EW-EDLZ9-TGH3S-8SGA 
+
+
+Snipaste
 
 ```

@@ -130,7 +130,7 @@ OUE0bUVabWtqVQ==
 ```
 
 
-#### cc-etcd
+#### common command
 ```shell
 export ETCDCTL_API=3
 
