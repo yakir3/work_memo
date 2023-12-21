@@ -1,28 +1,37 @@
-[[cc-helm|helm常用命令]]
-
-## helm repo
+#### Install
 ```shell
-nginx-stable    https://helm.nginx.com/stable
-jetstack        https://charts.jetstack.io
-bitnami         https://charts.bitnami.com/bitnami
-rancher-stable  https://releases.rancher.com/server-charts/stable
-rancher-latest  https://releases.rancher.com/server-charts/latest
-ingress-nginx   https://kubernetes.github.io/ingress-nginx
-fluent          https://fluent.github.io/helm-charts
-gitlab          https://charts.gitlab.io
-harbor          https://helm.goharbor.io
-jenkins         https://charts.jenkins.io
+# Download and Install
+# https://go.dev/doc/install
+
+# Managing Go installations
+# https://go.dev/doc/manage-install
+
+# Installing from source
+# https://go.dev/doc/install/source
+
 
 ```
 
+#### Golang
+```shell
+# active code
+ideaActive
 
-## config
-gitlab - hosts - domain / gitlab name,https
-gitlab - ingress - enabled false
-gitlab - cermanager - disable
 
-jenkins - secrets
+# plugins
+# themes
+gradianto
+# json show
+rainbow brackets
 
-harbor - ingress - hosts (core)
-harbor - externalURL
+```
 
+#### Learning
+
+
+
+
+
+>Reference:
+>1. [Official Document](https://go.dev/)
+>2. [golang Github](https://github.com/golang/go)
