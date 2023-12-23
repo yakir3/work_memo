@@ -58,30 +58,47 @@ hping3 -S -p 8877 --flood 127.0.0.1
 
 ##### iftop
 ```shell
-#
+# iptop -h
+   -n                  dont do hostname lookups
+   -N                  dont convert port numbers to services
+   -i interface        listen on named interface
+   -t                  use text interface without ncurses
+   Sorting orders:
+   -o 2s                Sort by first column (2s traffic average)
+   -o 10s               Sort by second column (10s traffic average) [default]
+   -o 40s               Sort by third column (40s traffic average)
+   -o source            Sort by source address
+   -o destination       Sort by destination address
+   The following options are only available in combination with -t
+   -s num              print one single text output afer num seconds, then quit
+   -L num              number of lines to print
+
+
+# common
 iftop -nN -i ens4 -o 10s
+iftop -nN -s 5 -t
+iptop -nN -L 5 -t
+iftop -F 192.168.1.0/24
 
-按h切换是否显示帮助;
-按n切换显示本机的IP或主机名;
-按s切换是否显示本机的host信息;
-按d切换是否显示远端目标主机的host信息;
-按t切换显示格式为2行/1行/只显示发送流量/只显示接收流量;
-按N切换显示端口号或端口服务名称;
-按S切换是否显示本机的端口信息;
-按D切换是否显示远端目标主机的端口信息;
-按p切换是否显示端口信息;
-按P切换暂停/继续显示;
-按b切换是否显示平均流量图形条;
-按B切换计算2秒或10秒或40秒内的平均流量;
-按T切换是否显示每个连接的总流量;
-按l打开屏幕过滤功能，输入要过滤的字符，比如ip,按回车后，屏幕就只显示这个IP相关的流量信息;
-按L切换显示画面上边的刻度;刻度不同，流量图形条会有变化;
-按j或按k可以向上或向下滚动屏幕显示的连接记录;
-按1或2或3可以根据右侧显示的三列流量数据进行排序;
-按<根据左边的本机名或IP排序;
-按>根据远端目标主机的主机名或IP排序;
-按o切换是否固定只显示当前的连接;
 
+# inside keyboard keys
+Host display:                          General:
+ n - toggle DNS host resolution         P - pause display
+ s - toggle show source host            h - toggle this help display
+ d - toggle show destination host       b - toggle bar graph display
+ t - cycle line display mode            B - cycle bar graph average
+                                        T - toggle cumulative line totals
+Port display:                           j/k - scroll display
+ N - toggle service resolution          f - edit filter code
+ S - toggle show source port            l - set screen filter
+ D - toggle show destination port       L - lin/log scales
+ p - toggle port display                ! - shell command
+                                        q - quit
+Sorting:
+ 1/2/3 - sort by 1st/2nd/3rd column
+ < - sort by source name
+ > - sort by dest name
+ o - freeze current order
 
 ```
 
