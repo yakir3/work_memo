@@ -1,51 +1,45 @@
-##### browser
+#### Browser
 ```textile
-Chrome
+# Chrome
 
-Firefox
-
-```
-
-##### chrome plugin
-```textile
+# Chrome Plugins
 Adblock
-
 Authenticator
-
 Dark mode chrome
-
 DuckDuckGo Privacy Essentials
-
 FeHelper
-
-Free VPN ZenMate-Best VPN for Chrome
-
+Free VPN ZenMate-Best
 Google Docs Offline
-
 Multi Elasticsearch Head
-
 Proxy SwitchyOmega
-
 Tampermonkey
-
 v2ex plus
-
-Vimium
-#map q visitPreviousTab
-
+Vimium  # map q visitPreviousTab
 划词翻译
 
+# Firefox
+
+# Opera
+
 ```
 
-##### terminal tools
+#### Terminal
 ```textile
-SecureCRT
-iTerm2
-[xshell]
+# SecureCRT
+SecureCRT.xml
+# crontab
+* * 9,19,29 * * sh ./activation_code.sh
+
+# iTerm2
+iterm2Profiles.json
+
+# Xshell
+windowsConfig/software/Xshell
 
 ```
 
-##### development tools
+#### Tools
+##### Develop
 ```textile
 # develop
 Apifox
@@ -57,6 +51,7 @@ Multipass
 
 # network
 Wireshark
+bproxy
 
 # record
 Obsidian
@@ -64,38 +59,32 @@ Sublime-text
 
 ```
 
-##### client tools
+##### Clients
 ```textile
-# svn-client
-svn
+# subversion = svn-client
 
-# git-client
-git
+# git = git-client
 
-# redis-client 
-Another Redis Desktop Manager
+# Another Redis Desktop Manager = redis-client 
 
-# kafka-client
-Offset Explorer 2
+# Offset Explorer 2 = kafka-client
 
-# mysql-client
-mysql
+# mysql = mysql-client
 
 ```
 
-##### other tolls
+##### Others
 ```textile
-Xmind
+# Xmind
 
-KeePassXC
+# KeePassXC
 
-Raycast
+# Raycast
 
-iStat Menus
+# iStat Menus
 982092332@qq.com 
 GAWAE-FCWQ3-P8NYB-C7GF7-NEDRT-Q5DTB-MFZG6-6NEQC-CRMUD-8MZ2K-66SRB-SU8EW-EDLZ9-TGH3S-8SGA 
 
-
-Snipaste
+# Snipaste
 
 ```

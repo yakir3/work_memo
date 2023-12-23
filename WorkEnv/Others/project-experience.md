@@ -51,53 +51,59 @@ Archery：postgres、mysql
 
 #### 项目部署、升级
 Apollo
-
 Nacos
 
-rancher
+Gitlab
+
+Jenkins
+
+Rancher
 k8s app deploy script
+
+NFS
 
 
 #### ObservabilityAnalysis
-##### monitoring
-prometheus
+##### Monitoring
+Prometheus
 
-grafana
+Grafana
 
-skywalking
+Skywalking
 
 sentinel
 
 exception 处理中心？
 
-##### logging
+##### Logging
 
-fluent
-fluent-bit
-elasticsearch：index template、index policy
+Fluent
+Fluent-bit
 
-logstash
+Elasticsearch：index template、index policy
+
+Logstash
 GCP cloud storage
 
 
 
 #### Middleware
-+ kafka
++ Kafka
 KnowStreaming
-kafka-ui
+Kafka-ui
 
-+ redis
-redisinsight
++ Redis
+redis-insight
 
 
 #### Security
-安全漏洞平台关注：aws、绿盟、华为云、阿里云、腾讯云、ubuntu、redhat
+安全漏洞平台关注：AWS、绿盟、华为云、阿里云、腾讯云、Ubuntu、Redhat
 
-java jar fix 
+Java jar fix 
 
-docker basic images 
+Docker basic images 
 
-middleware github 漏洞安全补丁关注
+Middleware GitHub 漏洞安全补丁关注
 
 
 

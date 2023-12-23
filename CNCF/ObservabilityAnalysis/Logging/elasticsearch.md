@@ -1,5 +1,5 @@
 #### Deploy by Binaries
-##### Download and Compile
+##### Download
 ```shell
 # 1.download and decompression
 # https://www.elastic.co/downloads/elasticsearch
@@ -22,13 +22,12 @@ vim config/elasticsearch.yml
 
 # 4.install plugin
 ./bin/elasticsearch-plugin install https://github.com/medcl/elasticsearch-analysis-ik/releases/download/v8.5.1/elasticsearch-analysis-ik-8.5.1.zip
+# plugins dir = plugins and config
 
 # 5.set password and verify
 ./bin/elasticsearch-setup-passwords interactive
 curl 127.0.0.1:9200 -u 'elastic:es123123'
-```
 
-```shell
 # 6.boot
 cat > /usr/lib/systemd/system/elasticsearch.service << "EOF"
 [Unit]

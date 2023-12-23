@@ -179,6 +179,10 @@ EOF
 
 
 #### vhosts/\*.conf
+##### iplib
+[[IPV6-COUNTRY-REGION-CITY.BIN.gz|ip2location]]
+[[GeoLite2-City.mmdb.gz|Geoip2]]
+
 ##### real_ip.conf
 ```shell
 real_ip_header X-Forwarded-For;
