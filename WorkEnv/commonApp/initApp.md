@@ -13,7 +13,7 @@ Google Docs Offline
 Multi Elasticsearch Head
 Proxy SwitchyOmega
 Tampermonkey
-v2ex plus
+V2EXPolish
 Vimium  # map q visitPreviousTab
 划词翻译
 

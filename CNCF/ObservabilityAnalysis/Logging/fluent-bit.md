@@ -59,7 +59,6 @@ Kubernetes 管理 nodes 集群，因此我们的日志代理工具需要在每�
 ##### 日志输出方式
 当前集群环境容器日志都为 console 输出，分为两部分：
 + 输出到 Elasticsearch，用于 CMDB / Kibana 前台搜索日志
-~~+ 输出到 http 接口，接口由 logstash 服务提供并获取日志，用于持久化日志上传谷歌云存储桶进行备份~~
 + 输出到 forward 接口，接口由 fluentd 服务提供并持久化日志，本地存储15天，归档日志到谷歌云 Cloud Storage 存储桶备份
 
 ##### helm 下载 charts 包
@@ -74,6 +73,109 @@ helm repo add fluent https://fluent.github.io/helm-charts
 helm update
 helm pull fluent/fluent-bit --untar
 cd fluent-bit
+
+# config
+vim values.yaml
+...
+  inputs: |
+    [INPUT]
+        Name tail
+        Path /var/log/containers/frontend*.log,/var/log/containers/backend*.log
+        Exclude_path *fluent-bit-*,*fluentbit-*,*rancher-*,*cattle-*,*sysctl-*
+        multiline.parser docker, cri
+        Tag kube.*
+        # 指定tail插件使用的最大内存，如果达到限制，插件会停止采集，刷新数据后会恢复
+        Mem_Buf_Limit 15MB
+        Buffer_Chunk_Size 1M
+        Buffer_Max_Size 5M
+        Skip_Long_Lines On
+        Skip_Empty_Lines On
+        Refresh_Interval 10
+  filters: |
+    [FILTER]
+        Name kubernetes
+        Match kube.*
+        Kube_Tag_Prefix kube.var.log.containers.
+        # 解析log字段的json内容，提取到根层级, 附加到Merge_Log_Key指定的字段上
+        Merge_Log Off
+        Keep_Log Off
+        K8S-Logging.Parser Off
+        K8S-Logging.Exclude Off
+        Labels Off
+        Annotations Off
+    # nest过滤器主要是对包含pod_name的日志，在其字段中追加kubernetes_前缀
+    [FILTER]
+        Name         nest
+        Match        kube.*
+        Wildcard     pod_name
+        Operation    lift
+        Nested_under kubernetes
+        Add_prefix   kubernetes_
+    # modify过滤器主要是调整部分kubernetes元数据字段名，同时追加一些额外的字段
+    [FILTER]
+        Name modify
+        Match kube.*
+        # 将log字段重命名为message
+        Rename log message
+        # 移除冗余 kubernetes 字段数据
+        Remove kubernetes_container_image
+        Remove kubernetes_container_hash
+    # 将错误日志由多行转为一行
+    [FILTER]
+        name multiline
+        match kube.*
+        multiline.key_content message
+        multiline.parser multiline_stacktrace_parser
+    # 自定义lua函数过滤，设置 es 索引名称字段
+    [FILTER]
+        Name    lua
+        Match   kube.*
+        script  /fluent-bit/etc/fluentbit.lua
+        call    set_index
+  outputs: |
+    [OUTPUT]
+        Name es
+        Match kube.*
+        #Host 172.30.2.218
+        Host 172.30.2.236
+        Port 9200
+        HTTP_User elastic
+        HTTP_Passwd elastic123
+        Logstash_Format On
+        #Logstash_Prefix logstash-uat_
+        Logstash_Prefix_Key $es_index
+        Logstash_DateFormat %Y-%m-%d
+        Suppress_Type_Name On
+        Retry_Limit False
+        
+  customParsers: |
+    [PARSER]
+        Name docker_no_time
+        Format json
+        Time_Keep Off
+        Time_Key time
+        Time_Format %Y-%m-%dT%H:%M:%S.%L
+    [MULTILINE_PARSER]
+        name multiline_stacktrace_parser
+        type regex
+        flush_timeout 1000
+        rule "start_state"      "/\d{4}-\d{2}-\d{2}\s\d{2}:\d{2}:\d{2}.*/" "exception_name"
+        rule "exception_name"   "/(\w+\.)+\w+: .*/"                        "cont"
+        rule "cont"             "/^\s+at.*/"                               "cont"
+        
+  extraFiles:
+      # 自定义 lua 文件
+      fluentbit.lua: |
+        function set_index(tag, timestamp, record)
+            prefix = "logstash-uat"
+            if record["kubernetes_container_name"] ~= nil then
+                project_initial_name = record["kubernetes_container_name"]
+                project_name, _ = string.gsub(project_initial_name, '-', '_')
+                record["es_index"] = prefix .. "_" .. project_name
+                return 1, timestamp, record
+            end
+            return 1, timestamp, record
+        end
 ```
 
 

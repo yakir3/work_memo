@@ -82,12 +82,20 @@ crictl images
 # create
 kubectl create secret tls my-tls --cert=./tls.crt --key=./tls.key
 kubectl create secret tls my-tls --save-config \
---dry-run=client \
---cert=./tls.crt \
---key=./tls.key \
--oyaml | kubectl apply -f -
-# pricate docker repo 
-kubectl create secret generic my-harbor --from-file=.dockerconfigjson=~/.docker/config.json --type=kubernetes.io/dockerconfigjson
+    --dry-run=client \
+    --cert=./tls.crt \
+    --key=./tls.key \
+    -oyaml | kubectl apply -f -
+# generate private image repo secret
+# option1: from file
+kubectl create secret generic my-harbor \
+    --from-file=.dockerconfigjson=~/.docker/config.json 
+    --type=kubernetes.io/dockerconfigjson
+# option2: from command
+kubectl create secret docker-registry my-harbor \
+    --docker-server=harbor.yakir.com \
+    --docker-username='username' \
+    --docker-password='password' 
 # config pod or deployment
 kubectl get deployment xxx -oyaml
       imagePullSecrets:

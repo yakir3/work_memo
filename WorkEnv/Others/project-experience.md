@@ -10,12 +10,19 @@
 + Route 53
 + SES
 + SNS
++ MetaAPI
 
 ##### CloudFlare
 + CDN
 
-##### GCP  
-+ GKE 
+##### GoogleCloud
++ CloudStorage
++ VPCnetwork
++ ComputerEngine
++ Logging
++ Filestore(NFS)
++ ArtifactRegistry
++ KubernetesEngine
 INIT
 1.gke create
 2.manager machine vm init
@@ -40,61 +47,76 @@ prometheus, grafana
 
 
 #### CICD
-Jira
-devops_tools(custom)
-Archery：postgres、mysql
+##### devops_tools
+对接 CI 制品，生成 Jira CD 流程工单
+自动升级 SQL 工单与代码，根据 Jira webhook 转换流程
+
+##### Jira
+升级流程工单，CD 部分
+
+##### Archery
+Postgres、Mysql SQL 工单生成以及自动执行
+
+##### Jenkins
+脚本工具：定时查询供应商余额通知
+第三方项目 CICD 任务
+
+##### Gitlab
+
+##### Jenkins
+
+##### Rancher
+
+#### Knowledge Base
+##### Confluence
 
 
-#### 开源知识库
+#### Monitoring
+##### Prometheus
+node-exporter
+redis-exporter
+kafka-exporter
+rocketmq-exporter
 
+##### Grafana
+alert notice
 
+##### Skywalking
+skywalking-agent
+alert notice to feishu
 
-#### 项目部署、升级
-Apollo
-Nacos
+#### Logging
 
-Gitlab
+##### Fluentd
+[[sc-fluentd|flent-bit to tcp forward for persistent storage ]]
+upload persistent storage to CloudStorage
 
-Jenkins
+##### Fluent-bit
+collect GKE cluster logs to Elasticsearch
 
-Rancher
-k8s app deploy script
+##### Elasticsearch
+index template
+index policy
 
-NFS
-
-
-#### ObservabilityAnalysis
-##### Monitoring
-Prometheus
-
-Grafana
-
-Skywalking
-
-sentinel
-
-exception 处理中心？
-
-##### Logging
-
-Fluent
-Fluent-bit
-
-Elasticsearch：index template、index policy
-
-Logstash
-GCP cloud storage
-
-
+##### Logstash
+collect VM machine logs to persistent storage
+upload persistent storage to CloudStorage
 
 #### Middleware
-+ Kafka
-KnowStreaming
+##### Server
+Apollo
+Nacos
+Kafka
+Redis
+RocketMQ
+NFS Server
+
+##### Management
 Kafka-ui
-
-+ Redis
 redis-insight
-
+rocketMQ-dashboard
+nfs-common
+cerebro
 
 #### Security
 安全漏洞平台关注：AWS、绿盟、华为云、阿里云、腾讯云、Ubuntu、Redhat
@@ -113,6 +135,9 @@ kube-dashboard？ 权限控制？
 k8s debug 调试 doc？ --> 缩减基础镜像？
 使用 GitOps 等 CICD 应用改造现有发布流程，对接蓝绿发布/金丝雀发布方式提升系统稳定性
 
+ingress proxy_read_timeout
+
+nfs-subdir-external-provisioner
 
 
 
