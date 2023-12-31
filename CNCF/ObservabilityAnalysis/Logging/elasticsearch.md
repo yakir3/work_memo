@@ -20,7 +20,7 @@ vim config/elasticsearch.yml
 # daemon run
 ./bin/elasticsearch -d 
 
-# 4.install plugin
+# 4.options: install plugin
 ./bin/elasticsearch-plugin install https://github.com/medcl/elasticsearch-analysis-ik/releases/download/v8.5.1/elasticsearch-analysis-ik-8.5.1.zip
 # plugins dir = plugins and config
 
@@ -77,7 +77,9 @@ else
 fi
 EOF
 
-chmod +x /opt/elasticsearch/bin/systemd-entrypoint   
+chmod +x /opt/elasticsearch/bin/systemd-entrypoint 
+chown elasticsearch:elasticsearch /opt/elasticsearch -R
+
 systemctl daemon-reload
 systemctl start elasticsearch.service
 systemctl enable elasticsearch.service

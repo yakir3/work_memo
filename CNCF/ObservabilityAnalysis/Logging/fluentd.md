@@ -13,8 +13,11 @@
 [[sc-fluentd|Fluentd Config]]
 
 ```shell
-# important
-chown td-agent.td-agent /opt/fluentd-output/filepath
+# change storage permission
+# td-agent
+chown td-agent.td-agent /opt/log_path/ -R
+# fluentd
+chown _fluentd:_fluentd /opt/log_path/ -R
 
 # boot 
 systemctl daemon-reload
@@ -25,7 +28,10 @@ systemctl enable td-agent.service
 ##### Verify
 ```shell
 # syntax check
-/opt/td-agent/bin/fluentd -v
+# td-agent
+td-agent -c td-agent.conf --dry-run
+# fluentd
+fluentd -c fluentd.conf --dry-run
 ```
 
 ##### Troubleshooting

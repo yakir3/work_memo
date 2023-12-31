@@ -44,6 +44,9 @@ TimeoutStopSec=infinity
 WantedBy=multi-user.target
 EOF
 
+# permission
+chown logstash:logstash /opt/logstash -R
+
 systemctl daemon-reload
 systemctl start .service
 systemctl enable .service
