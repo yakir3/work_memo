@@ -117,7 +117,7 @@ helm -n logging install elasticsearch .
 详见参考文档
 
 
-> 参考文档：
+>Reference:
 > 1. [官方 github 文档](https://github.com/elastic/elasticsearch)
 > 2. [官方 k8s 集群部署文档](https://www.elastic.co/downloads/elastic-cloud-kubernetes)
 > 3. [Ubuntu Install](https://www.elastic.co/guide/en/elasticsearch/reference/8.7/deb.html)

@@ -231,6 +231,7 @@ tcpdump -i eth0 port 31780 -w node-%Y-%m%d-%H%M-%S.pcap -G 120
 # protocol
 tcpdump [ip|tcmp|tcp|udp]
 tcpdump 'tcp[tcpflags] & (tcp-syn|tcp-fin) != 0'
+tcpdump -i ens4 -nStttv icmp and src 1.1.1.1
 
 # source ip or dest ip 
 tcpdump src 1.1.1.1 or dst 1.1.1.1 

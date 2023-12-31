@@ -106,7 +106,7 @@ kubectl expose service/pod nginx --port=8888 --target-port=8080 --name=myname
 
 # run
 kubectl run --rm -it busybox --image=busybox --restart=Never -- sh
-kubectl run --rm -it mysql_client --image bitnami/mysql --restart=Never -- /bin/bash
+kubectl run --rm -it mysql-client --image bitnami/mysql --restart=Never -- /bin/bash
 
 # explain
 kubectl explain statefulset.spec.updateStrategy.rollingUpdate

@@ -1,8 +1,6 @@
 ### 2022
 
 
-
-
 ### 2023
 #### Platform
 ##### AWS
@@ -130,14 +128,25 @@ Middleware GitHub 漏洞安全补丁关注
 
 
 #### Kubernetes 优化
-namespace 资源限制？ limitrange？
-kube-dashboard？ 权限控制？
-k8s debug 调试 doc？ --> 缩减基础镜像？
-使用 GitOps 等 CICD 应用改造现有发布流程，对接蓝绿发布/金丝雀发布方式提升系统稳定性
-
+##### Ingress
 ingress proxy_read_timeout
 
+##### Resource
+request
+limit
+HPA
+
+namespace limitrange?
+
+##### Permission
+RBAC
+
+##### Image
+debug image 调试 Pod：缩减基础镜像
+
+
 nfs-subdir-external-provisioner
+使用 GitOps 等 CICD 应用改造现有发布流程
 
 
 

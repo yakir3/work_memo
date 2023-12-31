@@ -1,14 +1,14 @@
 ### 基础设施
 ● 服务器（centos、Ubuntu）
-● 虚拟化：exsi/Vcenter、kvm、docker
+● 虚拟化：Exsi/Vcenter、kvm、docker
 ● 路由器、交换机
 
 ### PAAS
 ● 系统：ECS、ECC
-● 网络：VPC、SLB、LVS、云企业网、Ipsec
-● 虚拟化：exsi、kvm、docker
+● 网络：VPC、SLB、LVS、云企业网、IPSec
+● 虚拟化：Exsi、kvm、docker
 ● 数据库
-  ○ RDS：Mysql、Oracel
+  ○ RDS：Mysql、Oracle
   ○ DRDS：Polar-DBX
 ● 中间件：
   ○ 缓存：Redis
@@ -34,5 +34,5 @@
 ● 配置中心：Apollo
 ● 注册中心：zookeeper、Eureka
 ● 监控：zabbix、prometheus
-● 其他：DNS、Ntp、
+● 其他：DNS、Ntp
 

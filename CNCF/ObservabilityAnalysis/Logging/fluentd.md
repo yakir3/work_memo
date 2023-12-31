@@ -58,8 +58,8 @@ helm -n logging install fluentd .
 ```
 
 
-> 参考文档：
-> 1. [官方文档](https://docs.fluentd.org/)
+>Reference:
+> 1. [Official Documentation](https://docs.fluentd.org/)
 > 2. [GitHub 地址](https://github.com/fluent/fluentd)
 > 3. [下载地址](https://api-docs.treasuredata.com/en/tools/cli/quickstart/)
 > 4. [helm 安装指引](https://artifacthub.io/packages/helm/bitnami/fluentd)

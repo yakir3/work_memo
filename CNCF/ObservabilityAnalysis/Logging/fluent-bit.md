@@ -533,7 +533,7 @@ output {
 ```
 
 
->参考文档：
+>Reference:
 >1. [fluent-bit 官方文档](https://hulining.gitbook.io/fluentbit/pipeline/filters/kubernetes)
 >2. [项目官方 github 地址](https://github.com/fluent/fluent-bit)
  
