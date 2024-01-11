@@ -46,8 +46,31 @@ exec 1>> /tmp/output.log
 exec 2> /dev/null
 exec 2>> /tmp/err.log
 
+# custom file descriptor output
+#/usr/bin/env bash
+exec 999<>/tmp/yakir.log
+echo console_output >&999
+commanderror 2>&999 >&999
+exec 999>&-
+
 #
 exec $@
+
+```
+
+##### function
+```shell
+# define local variable
+# option1: use local
+fuction test() {
+    local my_key=my_value
+    echo $my_key
+}
+# option2: use (), function will be executed in chirldr process
+function test() (
+    my_key=my_value
+    echo $my_key
+)
 
 ```
 
@@ -108,5 +131,7 @@ result="${variable%%/*}"   # longest match from end, get: path
 ```
 
 
+
 >Reference:
 > 1. [Shell command official manual](https://www.gnu.org/software/bash/manual/html_node/The-Set-Builtin.html)
+> 2. [关于 Bash 的 10 个常见误解](https://xie.infoq.cn/article/247481c8dc6dc4607c1d7515e)
