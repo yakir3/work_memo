@@ -30,6 +30,8 @@ curl http://es_server:9200/index_name/_mappings
 curl http://es_server:9200/_cat/indices |awk '{print $3}' |sort -rn |uniq
 # 查看所有索引分片
 curl http://es_server:9200/_cat/shards -u "elastic:es123" |awk '{print $1}' |sort -rn |uniq |grep -v "\." > /tmp/index.tmp
+
+
 # 查看索引模板配置信息
 curl http://es_server:9200/_template/logstash_template
 # 创建索引/索引模板，默认分片、副本数规则、映射等
@@ -44,7 +46,9 @@ curl http://es_server:9200/_template/logstash_template -X PUT -H 'Content-Type: 
 	}
 	...
 }' 
+
 # 删除索引/分片
+curl http://es_server:9200/_cat/shards |grep xxx |awk '{print $1}' > /tmp/index.tmp
 for i in `cat /tmp/index.tmp`
 do
      curl -X DELETE http://es_server:9200/$i -u "elastic:es123"

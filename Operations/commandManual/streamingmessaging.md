@@ -1,4 +1,4 @@
-##### kafka
+##### Kafka
 ```shell
 # 动态查看&更新节点配置（官方配置支持 cluster-wide 类型配置才可以更新）
 ./kafka-configs.sh --bootstrap-server localhost:9092 --entity-type brokers --entity-name 1 --describe
@@ -49,5 +49,44 @@ echo -e '    ]\n}' >> yakirtopic.json
 ./kafka-server-stop.sh
 # 启动应用
 ./kafka-server-start.sh -daemon ../config/server.properties
+
+```
+
+##### RocketMQ
+```shell
+# help
+./mqadmin -h
+./mqadmin {command} {args}
+# args
+-b brokerIp:port
+-c clusterName
+-h
+-n nameserver:9876
+-t topicName
+
+
+
+# topic
+./mqadmin updateTopic 
+./mqadmin deleteTopic
+./mqadmin topicList -n rocketmq-nameserver:9876
+./mqadmin topicStatus
+./mqadmin topicClusterList -t topicName -n rocketmq-nameserver:9876
+
+
+# cluster
+./mqadmin clusterList
+
+
+# message
+./mqadmin queryMsgById -i msgId -n rocketmq-nameserver:9876
+./mqadmin queryMsgByKey -k msgKey -n rocketmq-nameserver:9876
+./mqadmin queryMsgByOffset -t topicName -b brokerName -i queueId -o offsetValue -n rocketmq-nameserver:9876
+./mqadmin sendMessage -t topicName -b brokerName -p yakirTest -n rocketmq-nameserver:9876
+./mqadmin consumeMessage -t topicName -b brokerName -o offset -i queueId -g consumerGroup
+
+
+# consumer
+./mqadmin consumerStatus
 
 ```

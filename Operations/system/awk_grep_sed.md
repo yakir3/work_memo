@@ -136,6 +136,12 @@ awk 'BEGIN{tB["a"]="a1";tB["b"]="b1";delete tB["a"];for(k in tB){print k,tB[k];}
 # 判断字符拆分输出文件
 awk 'NR>1 {if($0~/tomcat/){printf "%-8s %-8s %-8s %-18s\n",$1,$2,$9,$12 > "1.txt"}else if($0~/root/){printf "%-8s %-8s %-8s %-18s\n",$1,$2,$9,$12 > "2.txt"}else{printf "%-8s %-8s %-8s %-18s\n",$1,$2,$9,$12 > "3.txt"}}' top.txt 
 
+
+# 删除关键字 memory 的重复行
+awk '!seen[$0]++ || !/memory/' values.yaml
+# 删除并修改原文件
+awk '!seen[$0]++ || !/memory/' values.yaml > tmp && mv -v tmp values.yaml
+
 ```
 
 
@@ -220,6 +226,9 @@ tee top.txt << "EOF"
 1612431 systemd   20   0    888    7708 103788 S   6.2   9.6   2519:09  k3s
       1 systemd   20   0    777    1884   6596 S   0.0   0.1  43:55.21  systemd
 EOF
+
+# search and append new line
+sed -n '/requests/a\  cpu: 1000m\n  memory: 1Gi' values.yaml
 
 # search and replace next line
 sed -i '/autoscaling:/{n;s/enabled: true/enabled: false/}' values.yaml
