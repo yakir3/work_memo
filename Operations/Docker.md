@@ -1,26 +1,162 @@
-#### Introduction
-##### Description
+### Docker Engine
+#### Install
 ```shell
 # install docker engine
 https://docs.docker.com/engine/install/debian/
 
 ```
 
-##### Storage
+#### Storage
+##### Overview
 ```shell
+# show docker volume info
+docker volume ls
+DRIVER    VOLUME NAME
+local     jenkins_home
+local     yakir-test
+
+
+# how to use
+# default volume, directory = /var/lib/docker/volumes/
+-v yakir-test:/container-app/my-app
+--volume yakir-test:/container-app/my-app
+--mount
+# bind mounts
+-v /local_path/app.conf:/container-app/app.conf
+--volume /local_path/app.conf:/container-app/app.conf
+--mount
+# memory volume
+--tmpfs
 
 ```
 
-##### Network
+##### Volumes
 ```shell
-# 查看 docker 网络信息
+# create volume
+docker volume create yakir-test
+
+
+# start container with volume
+docker run -d --name test \
+### 
+# option1
+-v yakir-test:/app \
+--volume yakir-test:/app \
+# anonymous mode
+--volume /app
+# option2
+--mount source=yakir-test,target=/app \
+# readonly mode
+--mount source=yakir-test,destination=/usr/share/nginx/html,readonly \
+--mount 'type=volume,source=nfsvolume,target=/app,volume-driver=local,volume-opt=type=nfs,volume-opt=device=:/var/docker-nfs,volume-opt=o=addr=10.0.0.10' \
+###
+nginx:latest
+
+
+# use a volume with docker-ompose
+services:
+  frontend:
+    image: node:lts
+    volumes:
+      - yakir-test:/home/node/app
+volumes:
+  yakir-test:
+     # external: true
+
+
+# show and remove volume
+docker inspect volume yakir-test
+docker stop test
+docker volume rm yakir-test
+
+```
+
+##### Bind mounts
+```shell
+# start container with bind mounts
+docker run -d --name test \
+###
+# option1
+-v /opt/app.conf:/app/app.conf \
+# option2
+--mount type=bind,source="$(pwd)"/target,target=/app/ \
+--mount type=bind,source="$(pwd)"/target,target=/app/,readonly \
+# bind propagation
+--mount type=bind,source="$(pwd)"/target,target=/app2,readonly,bind-propagation=rslave \
+###
+nginx:latest
+
+
+# use bind mounts with docker-compose
+services:
+  frontend:
+    image: node:lts
+    volumes:
+      - type: bind
+        source: ./static
+        target: /opt/app/static
+volumes:
+  myapp:
+
+
+# show and remove container
+docker inspect test --format '{{ json .Mounts }}'
+docker stop test
+docker rm test
+
+```
+
+##### tmpfs mounts
+```shell
+# start container with tmpfs
+docker run -it --name tmptest \
+###
+# option1
+--tmpfs /app
+# option2
+--mount type=tmpfs,target=/app \
+# specify tmpfs options
+--mount type=tmpfs,destination=/app,tmpfs-mode=1770,tmpfs-size=104857600 \
+###
+nginx:latest
+
+
+# show and remove container
+docker inspect tmptest --format '{{ json .Mounts }}'
+docker stop tmptest
+docker rm tmptest
+
+```
+
+##### Storage drivers
+###### Btrfs
+###### Device Mapper
+
+###### OverlayFS
+```shell
+# main
+
+```
+
+###### AUFS
+```shell
+# not in kernel
+# support only ubuntu
+
+```
+
+#### Networking
+##### Overview
+
+```shell
+# show docker network info
 docker network ls
 NETWORK ID     NAME      DRIVER    SCOPE
 b2adc1fcf214   bridge    bridge    local
 2ed9fbc8db3e   host      host      local
 f1b2d749ed2c   none      null      local
 
-# how to user
+# how to use
 # bridge
 --net bridge
 # host
@@ -32,7 +168,8 @@ f1b2d749ed2c   none      null      local
 
 ```
 
-###### bridge 网络模式
+##### Networking drivers
+###### Bridge
 ```shell
 # bridge
 每个容器拥有独立网络协议栈，为每一个容器分配、设置 IP 等。将容器连接到虚拟网桥（默认为 docker0 网桥）。
@@ -49,7 +186,7 @@ docker0         8000.0242db01d347       no              vethccab668
 # 查看宿主机 vethxxx 接口
 ip addr |grep vethccab668
 # 另外一个接口放进 container 所属的 namespace 下并命名为 eth0 接口
-docker run --rm -itd busybox sh ip addr
+docker run --rm -dit busybox sh ip addr
 
 # 3.daemon 进程还会从网桥 docker0 的私有地址空间中分配一个 IP 地址和子网给该容器，并设置 docker0 的 IP 地址为容器的默认网关
 docker inspect test |grep Gateway
@@ -57,72 +194,21 @@ docker inspect test |grep Gateway
 
 ```
 
-###### host 网络模式
+###### Overlay
+```shell
+# 多 docker 主机组建网络，配合 docker swarm 使用
+```
+
+###### Host
 ```shell
 # host
 使用宿主机的 IP 和端口，共享宿主机网络协议栈。
 
 # test
-docker run --rm -itd --net host busybox ip addr
+docker run --rm -dit --net host busybox ip addr
 ```
 
-###### none 网络模式
-```shell
-# none
-每个容器拥有独立网络协议栈，但没有网络设置，如分配 veth pair 和网桥连接等。
-
-# verify
-docker run --rm -itd --net none busybox ip addr
-```
-
-###### container 网络模式
-```shell
-# container
-和一个指定已有的容器共享网络协议栈，使用共有的 IP、端口等。
-
-# verify
-docker run --rm -itd busybox sh
-docker run --rm -itd --net container:test1 busybox ip addr
-```
-
-###### 自定义网络模式
-```shell
-# user-defined 
-默认 docker0 网桥无法通过 container name host 通信，自定义网络默认使用 daemon 进程内嵌的 DNS server，可以直接通过 --name 指定的 container name 进行通信
-
-# test
-docker network create yakir_test
-# 宿主机查看新增虚拟网卡
-ip addr
-    inet 172.19.0.1/16 brd 172.19.255.255 scope global br-8cb8260a95cf
-brctl show
-bridge name     bridge id               STP enabled     interfaces
-br-8cb8260a95cf         8000.024272aa9d38       no              veth556b81b
-# verify
-docker run --name test1 --rm -itd --net yakir_test busybox sh
-docker run --name test2 --rm -it --net yakir_test ping -c 4 test1
-
-
-# 连接已有的网络
-docker run --name test --rm -itd --net yakir_test busybox sh
-docker network connect yakir_test test 
-docker exec -it test ip a             
-1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue qlen 1000
-    link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
-    inet 127.0.0.1/8 scope host lo
-       valid_lft forever preferred_lft forever
-531: eth0@if532: <BROADCAST,MULTICAST,UP,LOWER_UP,M-DOWN> mtu 1500 qdisc noqueue 
-    link/ether 02:42:ac:11:00:02 brd ff:ff:ff:ff:ff:ff
-    inet 172.17.0.2/16 brd 172.17.255.255 scope global eth0
-       valid_lft forever preferred_lft forever
-533: eth1@if534: <BROADCAST,MULTICAST,UP,LOWER_UP,M-DOWN> mtu 1500 qdisc noqueue 
-    link/ether 02:42:ac:13:00:02 brd ff:ff:ff:ff:ff:ff
-    inet 172.19.0.2/16 brd 172.19.255.255 scope global eth1
-       valid_lft forever preferred_lft forever
-
-```
-
-###### IPvlan 模式
+###### IPvlan
 ```shell
 # ipvlan
 ipvlan_mode: l2, l3(default), l3s
@@ -136,7 +222,7 @@ docker network create -d ipvlan \
      -o ipvlan_mode=l2 \
      -o parent=eth0 test_l2_net
 # test
-docker run --net=test_l2_net --name=ipv1 -itd alpine /bin/sh
+docker run --net=test_l2_net --name=ipv1 -dit alpine /bin/sh
 docker run --net=test_l2_net --name=ipv2 -it --rm alpine /bin/sh
 ping -c 4 ipv1
 
@@ -146,15 +232,15 @@ docker network create -d ipvlan \
      --subnet=10.10.1.0/24 \
      -o ipvlan_mode=l3 test_l3_net
 # test
-docker run --net=test_l3_net --ip=192.168.1.10 -itd busybox /bin/sh
-docker run --net=test_l3_net --ip=10.10.1.10 -itd busybox /bin/sh
+docker run --net=test_l3_net --ip=192.168.1.10 -dit busybox /bin/sh
+docker run --net=test_l3_net --ip=10.10.1.10 -dit busybox /bin/sh
 
 docker run --net=test_l3_net --ip=192.168.1.9 -it --rm busybox ping -c 2 10.10.1.10
 docker run --net=test_l3_net --ip=10.10.1.9 -it --rm busybox ping -c 2 192.168.1.10
 
 ```
 
-###### Macvlan 模式
+###### Macvlan
 ```shell
 # macvlan
 
@@ -179,12 +265,81 @@ docker network create -d macvlan \
 # https://zhuanlan.zhihu.com/p/616504632
 ```
 
-###### Overlay 模式
+###### None
 ```shell
-# 多 docker 主机组建网络，配合 docker swarm 使用
+# none
+每个容器拥有独立网络协议栈，但没有网络设置，如分配 veth pair 和网桥连接等。
+
+# verify
+docker run --rm -dit --net none busybox ip addr
 ```
 
-#### Docker Build && Docker Compose
+###### Container
+```shell
+# container
+和一个指定已有的容器共享网络协议栈，使用共有的 IP、端口等。
+
+# verify
+docker run -dit --name test --rm busybox sh
+docker run -it --name c1 --net container:test --rm busybox ip addr
+docker run -it --name c2 --net container:test --rm busybox ip addr
+```
+
+###### 自定义网络模式
+```shell
+# user-defined 
+默认 docker0 网桥无法通过 container name host 通信，自定义网络默认使用 daemon 进程内嵌的 DNS server，可以直接通过 --name 指定的 container name 进行通信
+
+# 创建自定义网络
+docker network create yakir-test
+# 宿主机查看新增虚拟网卡
+ip addr
+    inet 172.19.0.1/16 brd 172.19.255.255 scope global br-8cb8260a95cf
+brctl show
+br-8cb8260a95cf         8000.024272aa9d38       no              veth556b81b
+# verify
+docker run -dit --name test1 --net yakir-test --rm busybox sh
+docker run -it --name test2 --net yakir-test --rm busybox ping -c 4 test1
+
+# 连接已有的网络
+docker run -dit --name test3 --net yakir-test --rm busybox sh
+docker network connect yakir-test test3 
+docker exec -it test3 ip addr
+531: eth0@if532: <BROADCAST,MULTICAST,UP,LOWER_UP,M-DOWN> mtu 1500 qdisc noqueue 
+    link/ether 02:42:ac:11:00:02 brd ff:ff:ff:ff:ff:ff
+    inet 172.17.0.2/16 brd 172.17.255.255 scope global eth0
+       valid_lft forever preferred_lft forever
+533: eth1@if534: <BROADCAST,MULTICAST,UP,LOWER_UP,M-DOWN> mtu 1500 qdisc noqueue 
+    link/ether 02:42:ac:13:00:02 brd ff:ff:ff:ff:ff:ff
+    inet 172.19.0.2/16 brd 172.19.255.255 scope global eth1
+       valid_lft forever preferred_lft forever
+
+```
+
+##### Daemon
+```shell
+# configuration file
+/etc/docker/daemon.json
+~/.config/docker/daemon.json
+# configuration using flags
+dockerd --debug \
+  --tls=true \
+  --tlscert=/var/docker/server.pem \
+  --tlskey=/var/docker/serverkey.pem \
+  --host tcp://192.168.10.1:2376
+
+
+# default data directory
+/var/lib/docker
+
+
+# systemd
+cat /lib/systemd/system/docker.service
+
+
+```
+
+#### Docker Build && Compose
 ##### Dockerfile
 ```shell
 

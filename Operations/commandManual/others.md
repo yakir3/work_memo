@@ -46,11 +46,22 @@ git checkout -b dev
 # 创建本地分支管理远程dev分支
 git checkout -b dev origin/dev 
 # 删除本地分支
-git branch -d dev 
+git branch -d --force dev 
+git branch -D dev
+# 删除远程分支
+git push origin --delete dev
 # 关联本地和远程dev分支
 git branch --set-upstream-to=origin/dev dev 
 # 分支变基
 git rebase
+
+# 合并dev分支到当前分支，fast-forward模式 新版本git
+git merge dev 
+# 删除分支后保留合并记录
+git merge --no-ff -m "merge with no-ff" dev 
+# 查看分支记录
+git log --graph --pretty=oneline --abbrev-commit 
+
 
 
 # 根据版本号打标签
@@ -65,14 +76,6 @@ git tag -d v0.9
 git push origin :refs/tags/v0.9 
 
 
-# 合并dev分支到当前分支，fast-forward模式 新版本git
-git merge dev 
-# 删除分支后保留合并记录
-git merge --no-ff -m "merge with no-ff" dev 
-# 查看分支记录
-git log --graph --pretty=oneline --abbrev-commit 
-
-
 # 暂存工作到堆栈去
 git stash save "stash message for log"
 # 查看所有暂存堆栈
@@ -81,4 +84,5 @@ git stash list
 git stash pop 
 # 复制某一个特定提交到当前分支 既可在master分支上修复bug后，在dev分支上可以“重放”这个修复过程，也可以在dev分支上修复bug，然后在master分支上“重放”
 git cherry-pick 4c805e2
+
 ```

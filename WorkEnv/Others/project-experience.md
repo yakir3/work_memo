@@ -128,6 +128,23 @@ Middleware GitHub 漏洞安全补丁关注
 
 
 #### Kubernetes 优化
+##### JVM
+```shell
+JAVA_OPTS="-Dfile.encoding=utf-8 \
+-Dcatalina.base=${PWD}
+-Dlog.file.path=/app/logs
+"
+
+java $JAVA_OPTS -XX:InitialRAMPercentage=50.0 \
+-XX:MinRAMPercentage=50.0 \
+-XX:MaxRAMPercentage=75.0 \
+-Xlog:gc:/app/logs/gc.log:time,level,tags \
+-XX:+HeapDumpOnOutOfMemoryError \
+-XX:HeapDumpPath=/app/logs/heapdump.hprof \
+-jar app.jar
+--server.port=${SERVER_PORT-8080}
+```
+
 ##### Ingress
 ingress proxy_read_timeout
 

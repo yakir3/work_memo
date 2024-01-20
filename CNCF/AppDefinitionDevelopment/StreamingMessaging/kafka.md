@@ -193,7 +193,7 @@ export PATH=$JAVA_HOME/bin:$JRE_HOME/bin:$PATH
 
 
 #### Deploy by Helm
-##### download helm charts
+##### Get helm charts
 [[cc-helm|helm使用]]
 ```shell
 # add and update repo
@@ -223,7 +223,7 @@ helm -n middleware install kafka .
 
 ```
 
-##### 持久化存储部署
+##### Persistent storage
 kafka 需要使用持久化存储配置，k8s 本身不支持 nfs 做 storageclass ，需要安装第三方 nfs 驱动实现
 
 [[nfs-server|1.nfs-server部署]]
@@ -232,7 +232,7 @@ kafka 需要使用持久化存储配置，k8s 本身不支持 nfs 做 storagecla
 [[nfs-server#nfs-subdir-external-provisioner|deploy provisioner]]
 
 
-##### deploy kafka
+##### Install kafka
 ```shell
 # Chart.yaml 配置修改，视情况修改
 sed -i 's/^name: .*/name: uat-kafka-xxx/' Chart.yaml
