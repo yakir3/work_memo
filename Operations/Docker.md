@@ -426,6 +426,16 @@ cat /lib/systemd/system/docker.service
 ##### Dockerfile
 ```shell
 
+# 编写规范
+1. 使用统一的 base 镜像。
+2. 动静分离（基础稳定内容放在底层）。
+3. 最小原则（镜像只打包必需的东西）。
+4. 一个原则（每个镜像只有一个功能，交互通过网络，模块化管理）。
+5. 使用更少的层，减少每层的内容。
+6. 不要在 Dockerfile 单独修改文件权限（entrypoint / 拷贝+修改权限同时操作）。
+7. 利用 cache 加快构建速度。
+8. 版本控制和自动构建（放入 git 版本控制中，自动构建镜像，构建参数/变量给予文档说明）。
+9. 使用 .dockerignore 文件（排除文件和目录）
 ```
 
 ##### docker-compose
@@ -441,3 +451,4 @@ cat /lib/systemd/system/docker.service
 >Reference:
 >1. [Docker Official Documentation](https://docs.docker.com/)
 >2. [Docker network-drivers](https://docs.docker.com/network/drivers/)
+>3. [Dockerfile reference](https://docs.docker.com/engine/reference/builder/)
