@@ -130,18 +130,101 @@ docker rm tmptest
 
 ##### Storage drivers
 ###### Btrfs
-###### Device Mapper
+```shell
+# stop docker
+systemctl stop docker.service
+
+# backup and empty contents
+cp -au /var/lib/docker/ /var/lib/docker.bk
+rm -rf /var/lib/docker/*
+
+# format block device as a btrfs filesystem
+mkfs.btrfs -f /dev/xvdf
+
+# mount the btrfs filesystem on /var/lib/docker mount point
+mount -t btrfs /dev/xvdf /var/lib/docker
+cp -au /var/lib/docker.bk/* /var/lib/docker/
+
+# configure Docker to use the btrfs storage driver
+vim /etc/docker/daemon.json
+{
+  "storage-driver": "btrfs"
+}
+systemctl start docker.service
+
+# verify
+docker info --format '{{ json .Driver }}'
+"btrfs"
+```
 
 ###### OverlayFS
 ```shell
-# main
+# stop docker
+systemctl stop docker.service
 
+# backup and empty contents
+cp -au /var/lib/docker/ /var/lib/docker.bk
+rm -rf /var/lib/docker/*
+
+# options: separate backing filesystem, mount into /var/lib/docker and make sure to add mount to /etc/fstab to make it.  
+
+# configure Docker to use the btrfs storage driver
+vim /etc/docker/daemon.json
+{
+  "storage-driver": "overlay2"
+}
+systemctl start docker.service
+
+# verify
+docker info --format '{{ json .Driver }}'    
+"overlay2"
+mount |grep overlay |grep docker
 ```
 
-###### AUFS
+###### ZFS
 ```shell
-# not in kernel
-# support only ubuntu
+# stop docker
+systemctl stop docker.service
+
+# backup and empty contents
+cp -auR /var/lib/docker/ /var/lib/docker.bk
+rm -rf /var/lib/docker/*
+
+# create a new zpool on block device and mount into /var/lib/docker
+zpool create -f zpool-docker -m /var/lib/docker /dev/xvdf
+# add zpoll
+zpool add zpool-docker /dev/xvdh
+# verify zpool
+zfs list
+NAME           USED  AVAIL  REFER  MOUNTPOINT
+zpool-docker    55K  96.4G    19K  /var/lib/docker
+
+# configure Docker to use the btrfs storage driver
+vim /etc/docker/daemon.json
+{
+  "storage-driver": "zfs"
+}
+systemctl start docker.service
+
+# verify
+docker info --format '{{ json .Driver }}'    
+"zfs"
+```
+
+###### containerd snapshotters
+```shell
+# configure Docker to use the btrfs storage driver
+vim /etc/docker/daemon.json
+{
+  "features": {
+    "containerd-snapshotter": true
+  }
+}
+systemctl restart docker.service
+
+# verify
+docker info -f '{{ .DriverStatus }}'
+[[driver-type io.containerd.snapshotter.v1]]
 
 ```
 
