@@ -20,6 +20,7 @@ kernel.shmall = 4294967296
 
 # system open files
 fs.file-max = 655350
+#fs.nr_open = 655350
 
 
 # Controls source route verification
@@ -164,6 +165,7 @@ conntrack -L -o extended | awk -F'[ =]+' '{print $8}' |sort |uniq -c |sort -rn |
 net.netfilter.nf_conntrack_buckets = 65536
 echo 262144 | sudo tee /sys/module/nf_conntrack/parameters/hashsize
 # conntrack number: buckets * 4
+net.nf_conntrack_max=262144
 net.netfilter.nf_conntrack_max = 262144
 
 # tcp state timeout parameters

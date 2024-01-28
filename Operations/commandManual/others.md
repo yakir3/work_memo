@@ -1,4 +1,4 @@
-##### git
+### git
 ```shell
 # 回退上一个版本
 git reset --hard HEAD^ 
@@ -84,5 +84,22 @@ git stash list
 git stash pop 
 # 复制某一个特定提交到当前分支 既可在master分支上修复bug后，在dev分支上可以“重放”这个修复过程，也可以在dev分支上修复bug，然后在master分支上“重放”
 git cherry-pick 4c805e2
+```
 
+### mvn
+```shell
+# determine file location
+mvn -X clean | grep "settings"
+
+# determini effective settings
+mvn help:effective-settings
+
+# override the default location
+mvn clean --settings /tmp/my-settings.xml --global-settings /tmp/global-settings.xml
+
+# package
+mvn clean package -U -DskipTests
+
+# deploy
+mvn clean package deploy -U -DskipTests
 ```

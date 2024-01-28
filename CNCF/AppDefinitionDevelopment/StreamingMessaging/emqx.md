@@ -27,18 +27,49 @@ helm -n middleware install my-emqx .
 ```
 
 #### How to use
-##### mqttx-cli
+emqx
+```shell
+# manual cluster
+./bin/emqx ctl cluster join emqx@node1.emqx.com
+# static cluster
+cluster {
+    discovery_strategy = static
+    static {
+        seeds = ["emqx@node1.emqx.com", "emqx@node2.emqx.com"]
+    }
+}
+
+
+# cluster status
+./bin/emqx ctl cluster status
+# remove node
+./bin/emqx ctl cluster leave
+./bin/emqx ctl cluster force-leave emqx@s2.emqx.io
+
+
+```
+
+##### mqttx
 ```shell
 # connect 
 mqttx conn -h 'broker.emqx.io' -p 1883 -u 'admin' -P 'public'
 
 # subscribe
-mqttx sub -t 'hello' -h 'broker.emqx.io' -p 1883
+mqttx sub -t 'hello' -h 'broker.emqx.io' -p 1883 -u 'admin' -P 'public'
 
 # publish
-mqttx pub -t 'hello' -h 'broker.emqx.io' -p 1883 -m 'Hello from MQTTX CLI'
+mqttx pub -t 'hello' -h 'broker.emqx.io' -p 1883 -m 'Hello from MQTTX CLI' -u 'admin' -P 'public'
 
-
+# args
+-t the message topic
+-m the message
+-q the QoS of the message <0|1|2>
+-v print the topic before the message
+-h the broker host
+-p the broker port
+-u the username
+-P the password
+-l the protocol to use,<mqtt|ws|wss>
 ```
 
 
