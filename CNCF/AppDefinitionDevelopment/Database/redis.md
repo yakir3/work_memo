@@ -250,7 +250,7 @@ docker run --rm --name redis-cluster -e ALLOW_EMPTY_PASSWORD=yes -d bitnami/redi
 
 
 
->参考文档：
+>Reference:
 >1. [官方文档地址](https://redis.io/docs/getting-started/)
 >2. [官方 github 地址](https://github.com/redis/redis)
 >3. [redis 集群方案](https://segmentfault.com/a/1190000022028642)

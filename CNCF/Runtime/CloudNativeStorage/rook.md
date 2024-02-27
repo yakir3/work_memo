@@ -83,6 +83,6 @@ kubectl -n rook-ceph apply -f pvc-test.yaml
 ```
 
 
-> 参考文档:
+> Reference:
 > 1. [官方文档](https://rook.io/)
 > 2. [官方 github 地址](https://github.com/rook/rook)

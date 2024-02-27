@@ -91,7 +91,7 @@ print(client.get(b'foo')) # b'baz'
 ```
 
 
-> 参考文档：
+> Reference:
 > 1. [官方文档](https://tikv.org/docs/6.5/concepts/overview/)
 > 2. [GitHub 地址](https://github.com/tikv/tikv)
 > 3. [Production Cluster Deploy](https://tikv.org/docs/6.5/deploy/install/production/)

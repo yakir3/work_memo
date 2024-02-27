@@ -15,10 +15,11 @@ mkfs.ext4 /dev/vg_name/lv_name
 uuid=$(blkid /dev/mapper/vg_name-lv_name |awk '{print $2}' |awk -F'[="]+' '{print $2}')
 echo "UUID=$uuid /mnt/dir ext4 defaults 0 0" >> /etc/fstab
 mount -a
+```
 
-
-# expand disk capacity
-## option1: expand the original disk
+##### expand disk capacity
+```shell
+# option1: expand the original disk
 # get original disk name and pvresize
 fdisk /dev/sdb # if /dev/sdb partition
 pvs -a -o +devices
@@ -28,7 +29,9 @@ lvdisplay
 lvextend -l +100%free /dev/vg_name/lv_name
 resize2fs /dev/vg_name/lv_name
 
-## option2: add new disk to expand
+
+# option2: add new disk to expand
+# create pv
 pvcreate /dev/sdc
 # get vg name and add new pv to vg group
 vgs
@@ -37,5 +40,10 @@ vgextend vg_name /dev/sdc
 lvdisplay
 lvextend -l +100%free /dev/vg_name/lv_name
 resize2fs /dev/vg_name/lv_name
-
 ```
+
+不重启，直接刷新磁盘数据总线，获取新加的磁盘?
+```shell
+for host in $(ls /sys/class/scsi_host); do echo "- - -" > /sys/class/scsi_host/$host/scan; done
+```
+

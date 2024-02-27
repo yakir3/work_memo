@@ -71,7 +71,7 @@ kubectl -n observability get jaegers
 ```
 
 
-> 参考文档：
+> Reference:
 > 1. 官方 github 地址 = https://github.com/jaegertracing/jaeger
 > 2. 官方文档 = https://www.jaegertracing.io/docs/1.45/getting-started/
 > 3. jaeger-operator = https://github.com/jaegertracing/jaeger-operator

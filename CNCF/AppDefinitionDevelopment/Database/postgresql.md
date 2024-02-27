@@ -101,7 +101,7 @@ helm -n middleware install postgresql .
 ```
 
 
-> 参考文档：
+> Reference:
 > 1. [官方文档](https://www.postgresql.org/)
 > 2. [GitHub 地址](https://github.com/postgres/postgres)
 > 3. [apt 安装方式](https://www.postgresql.org/download/linux/ubuntu/)

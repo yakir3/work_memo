@@ -96,7 +96,7 @@ helm -n middleware install mysql .
 ```
 
 
-> 参考文档：
+> Reference:
 > 1. [官方文档](https://www.mysql.com/)
 > 2. [GitHub 地址](https://github.com/mysql/mysql-server)
 > 3. [Download](https://dev.mysql.com/downloads/)

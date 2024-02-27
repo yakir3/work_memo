@@ -74,7 +74,7 @@ helm -n kube-system install coredns .
 ```
 
 
-> 参考文档:
+> Reference:
 > 1. [官方文档](https://coredns.io/)
 > 2. [官方 github 地址](https://github.com/coredns/coredns)
 

@@ -104,6 +104,6 @@ Harbor12345
 
 
 
-> 参考文档:
+> Reference:
 > 1. [官方文档](https://docs.gitlab.com/)
 > 2. [官方 github 地址](https://github.com/gitlabhq/gitlabhq)

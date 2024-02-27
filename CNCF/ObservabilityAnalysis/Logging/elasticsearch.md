@@ -116,7 +116,7 @@ helm -n logging install elasticsearch .
 
 
 #### Deploy by ECK Operator
-详见参考文档
+详见Reference:
 
 
 >Reference:

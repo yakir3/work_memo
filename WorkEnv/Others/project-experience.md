@@ -166,8 +166,13 @@ nfs-subdir-external-provisioner
 使用 GitOps 等 CICD 应用改造现有发布流程
 
 
+### 2024
+#### CICD
+##### Nexus
+npm: hosted-repo, proxy-repo, group-repo
+maven
+
+
 
 >1. [乌云知识库](https://github.com/SuperKieran/WooyunDrops)
 >2. [mindoc](https://github.com/mindoc-org/mindoc)
-
-

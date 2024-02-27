@@ -146,7 +146,7 @@ etcdctl get yakir-key
 ```
 
 
-> 参考文档:
+> Reference:
 > 1. [官方文档](https://etcd.io/)
 > 2. [官方 github 地址](https://github.com/etcd-io/etcd)
 > 3. [中文文档](https://www.zhaowenyu.com/etcd-doc/ops/etcd-install-k8s-static-pod.html)

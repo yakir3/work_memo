@@ -186,7 +186,7 @@ helm -n ingress-nginx install ingress-nginx .
 ```
 
 
-> 参考文档：
+> Reference:
 > 1. [官方文档](https://nginx.org/en/docs/)
 > 2. [Openrestry Github](https://github.com/openresty)
 > 3. [Luajit Download](https://luajit.org/download.html)

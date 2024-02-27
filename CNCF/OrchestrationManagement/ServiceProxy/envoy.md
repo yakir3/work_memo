@@ -48,6 +48,6 @@ curl -v 127.0.0.1:80
 
 
 
-> 参考文档:
+> Reference:
 > 1. [官方文档](https://cloudnative.to/envoy/start/start.html)
 > 2. [官方 github 地址](https://github.com/envoyproxy/envoy)

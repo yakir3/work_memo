@@ -87,6 +87,6 @@ mxP4KKfGtn6hJ8IF2zMMLt
 
 
 
-> 参考文档:
+> Reference:
 > 1. [官方文档](https://www.jenkins.io/doc/book/installing/)
 > 2. [官方 github 地址](https://github.com/jenkinsci/jenkins)

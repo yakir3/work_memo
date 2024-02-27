@@ -140,7 +140,7 @@ argo -n argo get @latest
 ```
 
 
-> 参考文档：
+> Reference:
 > 1. [Argo Workflows Doc](https://argoproj.github.io/argo-workflows/quick-start/)
 > 2. [argo-workflows GitHub](https://github.com/argoproj/argo-workflows)
 > 3. [Argo CD Doc](https://argo-cd.readthedocs.io/en/stable/)

@@ -118,7 +118,7 @@ helm -n middleware install rabbitmq .
 ```
 
 
-> 参考文档：
+> Reference:
 > 1. [Rabbitmq 官方文档](https://www.rabbitmq.com/documentation.html)
 > 2. [Rabbitmq GitHub](https://github.com/rabbitmq/rabbitmq-server)
 > 3. [Erlang 官方文档](https://www.erlang.org/downloads)

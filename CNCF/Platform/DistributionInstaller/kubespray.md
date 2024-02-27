@@ -46,6 +46,6 @@ kubectl -n middleware exec -it zookeeper-0 -- zkServer.sh status
 
 
 
-> 参考文档:
+> Reference:
 > 1. [官方文档](https://kubespray.io/#/)
 > 2. [官方 github 地址](https://github.com/kubernetes-sigs/kubespray)

@@ -184,6 +184,14 @@ set -o xtrace
 
 ```
 
+##### print
+```shell
+# format 
+df -h |column -t
+
+df -h | awk '{printf "%-20s %-10s %-10s %-10s %-10s %-10s\n", $1, $2, $3, $4, $5, $6}'
+```
+
 ##### truncate string
 ```shell
 # truncate string
