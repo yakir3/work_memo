@@ -25,15 +25,31 @@ make && make install
 ```
 
 #### Pycharm
+##### active
 ```shell
-# active code
-ideaActive
+cat ideaActive/ja-netfilter-all/ja-netfilter/readme.txt
+```
 
+##### config
+```shell
+# Editor
+Font
+Color Scheme
 
-# plugins
+# Plugins
 # themes
 gradianto
 # json show
 rainbow brackets
 
+# Project
+Python Interpreter
+
+# Build,Execution,Deployment
+Deployment
+
+# Tools
+Python Intergrated Tools -> Docstring format: Google
+
 ```
+

@@ -8,6 +8,14 @@ time dd if=/dev/zero of=test.file bs=1G count=2 oflag=direct
 
 ```
 
+##### fdisk && parted
+```shell
+# show info
+fdisk -l
+parted -l
+
+```
+
 #### fio
 ```shell
 # sequence read

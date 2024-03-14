@@ -1,7 +1,51 @@
-### 2022
+### 2021.06~2022.07
+##### AliyunCloud
+计算与容器
++ ECS
++ ACK
++ ACR
+
+存储
++ OSS
++ NAS
++ SLS
+
+网络与 CDN
++ SLB
++ 专有网络 VPC
++ 云企业网 CEN
++ CDN
++ VPN 网关
+
+安全
++ 云安全中心
++ 访问控制 RAM
+
+中间件
++ 微服务引擎 MSE
++ 企业级分布式应用服务 Edas
++ 云消息队列 RabbitMQ
+
+数据库
++ PolarDB Mysql
++ RDS Mysql
++ 云数据库 Redis
++ 数据传输服务 DTS
+
+大数据计算
++ 检索分析服务 Elasticsearch
+
+媒体服务
++ 直播 点播
+
+开发工具
++ OpenAPI Explorer
++ 云效 DevOps: CICD
++ API 网关
++ 内部使用 Aone: CICD
 
 
-### 2023
+### 2022.07~2023
 #### Platform
 ##### AWS
 + CloudFront
@@ -164,6 +208,8 @@ debug image 调试 Pod：缩减基础镜像
 
 nfs-subdir-external-provisioner
 使用 GitOps 等 CICD 应用改造现有发布流程
+
+
 
 
 ### 2024

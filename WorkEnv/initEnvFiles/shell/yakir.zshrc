@@ -40,4 +40,3 @@ source <(kubectl completion zsh)
 
 # Jetbrain Active
 ___MY_VMOPTIONS_SHELL_FILE="${HOME}/.jetbrains.vmoptions.sh"; if [ -f "${___MY_VMOPTIONS_SHELL_FILE}" ]; then . "${___MY_VMOPTIONS_SHELL_FILE}"; fi
-export PATH="/opt/homebrew/opt/openjdk/bin:$PATH"

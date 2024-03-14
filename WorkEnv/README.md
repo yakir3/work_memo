@@ -27,10 +27,10 @@ apt install zsh  # Debian
 chsh -s $(which zsh)
 
 # install oh-myzsh
-# cat InitEnvFiles/shell/yakir.zshrc
+# cat initEnvFiles/shell/yakir.zshrc
 
 # config
-cp InitEnvFiles/shell/yakir.zshrc ~/.zshrc
+cp initEnvFiles/shell/yakir.zshrc ~/.zshrc
 
 # install fonts = PowerlineFont
 cd /tmp && git clone https://github.com/powerline/fonts.git --depth=1
@@ -52,7 +52,7 @@ apt install vim
 git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
 
 # config
-cp InitEnvFiles/yakir.vimrc ~/.vimrc
+cp initEnvFiles/yakir.vimrc ~/.vimrc
 
 # vim plugin install
 vim
@@ -68,14 +68,14 @@ cp ~/.vim/bundle/ex-colorschemes/colors/molokai.vim ~/.vim/colors/
 ##### SSH Config
 ``` shell
 # copy ssh config
-cp InitEnvFiles/ssh/yakir.sshconfig ~/.ssh/config
+cp initEnvFiles/ssh/yakir.sshconfig ~/.ssh/config
 # change private permission
-chmod 600 InitEnvFiles/ssh/yakir_server.key
+chmod 600 initEnvFiles/ssh/yakir_server.key
 
 # Client Machine
 mkdir ~/.ssh
-cp InitEnvFiles/ssh/yakir_server.key ~/.ssh/
-cp InitEnvFiles/ssh/yakir_server.pub ~/.ssh/
+cp initEnvFiles/ssh/yakir_server.key ~/.ssh/
+cp initEnvFiles/ssh/yakir_server.pub ~/.ssh/
 ```
 
 ##### iTerm2
@@ -84,11 +84,11 @@ cp InitEnvFiles/ssh/yakir_server.pub ~/.ssh/
 brew install iterm2
 
 # import config
-InitEnvFiles/iterm2/iterm2Profile.json
+initEnvFiles/iterm2/iterm2Profile.json
 
 # import iterm2-color
-InitEnvFiles/iterm2/Solarized_Darcula.itermcolors
-InitEnvFiles/iterm2/HaX0R_GR33N.itermcolors
+initEnvFiles/iterm2/Solarized_Darcula.itermcolors
+initEnvFiles/iterm2/HaX0R_GR33N.itermcolors
 
 ```
 
@@ -202,6 +202,7 @@ Multi Elasticsearch Head
 Network+
 Proxy SwitchyOmega
 Tampermonkey
+uBlock Origin
 V2EXPolish
 Vimium  # map q visitPreviousTab
 划词翻译
@@ -215,55 +216,71 @@ Vimium  # map q visitPreviousTab
 #### Terminal
 ```textile
 # SecureCRT
-InitEnvFiles/SecureCRT.xml
+initEnvFiles/SecureCRT.xml
 # activation software crontab
-cp InitEnvFiles/activation_software.sh /opt/activation_software.sh
+cp initEnvFiles/activation_software.sh /opt/activation_software.sh
 * * 9,19,29 * * sh /opt/activation_software.sh
 
 # iTerm2
-InitEnvFiles/iterm2Profiles.json
+initEnvFiles/iterm2Profiles.json
 
 # Xshell
-InitEnvFiles/windows_config/software/Xshell
-
+initEnvFiles/windows_config/software/Xshell
 ```
 
 #### Tools
-##### Develop
+##### develop
 ```textile
-# develop
 Apifox
 Goland
 Pycharm
+```
 
-# virtual machine
-Multipass
+##### virtual
+```shell
+# Multipass
+ssh-keygen -t rsa -b 4096 -f ~/test_rsa
+multipass launch -c 2 -m 2G -d 50G -n node1 --cloud-init - << EOF
+ssh_authorized_keys:
+- $(cat ~/.ssh/test_rsa.pub)
+EOF
 
-# network
+```
+
+##### network
+```textile
 Wireshark
-bproxy
 
-# record
+# npm
+bproxy
+localtunnel
+```
+
+##### record
+```textile
 Obsidian
 Sublime-text
-
 ```
 
-##### Clients
+##### clients
 ```textile
-# subversion = svn-client
+# svn-client
+subversion
 
-# git = git-client
+# git-client
+git
 
-# Another Redis Desktop Manager = redis-client 
+# redis-client
+Another Redis Desktop Manager 
 
-# Offset Explorer 2 = kafka-client
+# kafka-client
+Offset Explorer 2
 
-# mysql = mysql-client
-
+# mysql-client
+mysql
 ```
 
-##### Others
+##### others
 ```textile
 # Xmind
 
@@ -276,7 +293,6 @@ Sublime-text
 GAWAE-FCWQ3-P8NYB-C7GF7-NEDRT-Q5DTB-MFZG6-6NEQC-CRMUD-8MZ2K-66SRB-SU8EW-EDLZ9-TGH3S-8SGA 
 
 # Snipaste
-
 ```
 
 
