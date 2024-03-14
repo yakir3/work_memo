@@ -38,8 +38,7 @@ cd fonts && ./install.sh
 
 # iterm2-color
 wget -O /tmp/HaX0R_GR33N.itermcolors https://raw.githubusercontent.com/mbadolato/iTerm2-Color-Schemes/master/schemes/HaX0R_GR33N.itermcolorsr
-wget -O /tmp/Solarized_Darcula.itermcolors
-https://raw.githubusercontent.com/mbadolato/iTerm2-Color-Schemes/master/schemes/Solarized%20Darcula.itermcolors
+wget -O /tmp/Solarized_Darcula.itermcolors https://raw.githubusercontent.com/mbadolato/iTerm2-Color-Schemes/master/schemes/Solarized%20Darcula.itermcolors
 
 # Allow Mac to install software from any source
 sudo spctl --master-disable
