@@ -2,66 +2,59 @@
 #### Common
 ##### HomeBrew
 ```shell
-# Homebrew
-# official
+# Official
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-# mirror
+
+# Options: mirror
 export HOMEBREW_BREW_GIT_REMOTE="https://mirrors.ustc.edu.cn/brew.git"
 export HOMEBREW_CORE_GIT_REMOTE="https://mirrors.ustc.edu.cn/homebrew-core.git"
 export HOMEBREW_BOTTLE_DOMAIN="https://mirrors.ustc.edu.cn/homebrew-bottles"
 export HOMEBREW_API_DOMAIN="https://mirrors.ustc.edu.cn/homebrew-bottles/api"
 /bin/bash -c "$(curl -fsSL https://mirrors.ustc.edu.cn/misc/brew-install.sh)"
 
-# how to use
+# How to use
 brew list
+brew search wget
 brew install wget
-brew search python
-
 ```
 
 ##### zsh && oh-my-zsh || oh-my-bash
 ```shell
-# install and change shell to zsh
+# Install and change shell to zsh
 brew install zsh # Mac
 apt install zsh  # Debian
 chsh -s $(which zsh)
 
-# install oh-myzsh
-# cat initEnvFiles/shell/yakir.zshrc
+# Install oh-myzsh
+head -20 initEnvFiles/shell/yakir.zshrc
 
-# config
+# Config zshrc
 cp initEnvFiles/shell/yakir.zshrc ~/.zshrc
 
-# install fonts = PowerlineFont
+# Install fonts = PowerlineFont
 cd /tmp && git clone https://github.com/powerline/fonts.git --depth=1
 cd fonts && ./install.sh
 
-# iterm2-color
-wget -O /tmp/HaX0R_GR33N.itermcolors https://raw.githubusercontent.com/mbadolato/iTerm2-Color-Schemes/master/schemes/HaX0R_GR33N.itermcolorsr
-wget -O /tmp/Solarized_Darcula.itermcolors https://raw.githubusercontent.com/mbadolato/iTerm2-Color-Schemes/master/schemes/Solarized%20Darcula.itermcolors
-
-# Allow Mac to install software from any source
+# Options: Allow Mac to install software from any source
 sudo spctl --master-disable
-
 ```
 
 ##### Vim
 ```shell
-# install vim and vundle
+# Install vim and vundle
 apt install vim
 git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
 
-# config
+# Config
 cp initEnvFiles/yakir.vimrc ~/.vimrc
 
-# vim plugin install
+# Vim plugin install
 vim
 :PluginInstall
 
-# install colorshceme and set to molokai
+# Install colorshceme and set to molokai
 mkdir ~/.vim/colors
 cp ~/.vim/bundle/ex-colorschemes/colors/molokai.vim ~/.vim/colors/
-
 ```
 
 #### Custom
@@ -87,9 +80,10 @@ brew install iterm2
 initEnvFiles/iterm2/iterm2Profile.json
 
 # import iterm2-color
-initEnvFiles/iterm2/Solarized_Darcula.itermcolors
-initEnvFiles/iterm2/HaX0R_GR33N.itermcolors
-
+# initEnvFiles/iterm2/Solarized_Darcula.itermcolors
+wget -O /tmp/Solarized_Darcula.itermcolors https://raw.githubusercontent.com/mbadolato/iTerm2-Color-Schemes/master/schemes/Solarized%20Darcula.itermcolors
+# initEnvFiles/iterm2/HaX0R_GR33N.itermcolors
+wget -O /tmp/HaX0R_GR33N.itermcolors https://raw.githubusercontent.com/mbadolato/iTerm2-Color-Schemes/master/schemes/HaX0R_GR33N.itermcolorsr
 ```
 
 ##### K3S
@@ -137,31 +131,30 @@ helm list
 #### Others
 ##### Fedora Init
 ```shell
-# install packages
+# Install packages
 dnf install zsh git svn telnet wget curl make cmake
 dnf install containerd
 
-# yum repos resource(/etc/yum.repos.d/)
+# Repos resource(/etc/yum.repos.d/)
 dnf install fedora-workstation-repositories
 dnf config-manager --set-enabled google-chrome
 dnf update
 dnf install google-chrome-stable
 
 
-# install extensions 
+# Install extensions 
 dnf install gnome-shell-extension-user-theme
 gnome-extensions enable user-theme@gnome-shell-extensions.gcampax.github.com
-# list
-# https://extensions.gnome.org/
+# Extensions list: https://extensions.gnome.org/
 gnome-extensions list
 dash-to-dock@micxgx.gmail.com
 Hide_Activities@shay.shayel.org
 
-# install theme tools
+# Install theme tools
 dnf install gnome-shell-theme-yaru
 dnf install gnome-tweak-tool
 
-# search 
+# Search 
 dnf search gtk | grep theme
 dnf search shell-theme
 dnf search icon-theme
@@ -171,16 +164,15 @@ dnf search cursor-theme
 
 ##### Ubuntu Init
 ```shell
-# install package
+# Install package
 apt install zsh git svn telnet wget curl make cmake
 apt install openjdk-11-jdk 
 apt install containerd.io
 
 
-# apt repos resource(/etc/apt/sources.list)
+# Repos resource(/etc/apt/sources.list)
 echo "deb [signed-by=/usr/share/keyrings/cloud.google.gpg] https://packages.cloud.google.com/apt cloud-sdk main" |tee /etc/apt/sources.list.d/google-cloud-sdk.list
 echo "deb [arch=amd64 signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu  focal stable" |tee /etc/apt/sources.list.d/docker.list
-
 ```
 
 ### Init App
@@ -249,7 +241,7 @@ EOF
 
 ##### network
 ```textile
-Wireshark
+# Wireshark
 
 # npm
 bproxy
@@ -258,8 +250,10 @@ localtunnel
 
 ##### record
 ```textile
-Obsidian
-Sublime-text
+# Obsidian
+
+# Sublime-text
+initEnvFiles/Preferences.sublime-settings
 ```
 
 ##### clients
