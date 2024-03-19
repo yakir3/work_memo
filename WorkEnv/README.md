@@ -37,6 +37,7 @@ cd fonts && ./install.sh
 
 # Options: Allow Mac to install software from any source
 sudo spctl --master-disable
+
 ```
 
 ##### Vim
@@ -55,14 +56,15 @@ vim
 # Install colorshceme and set to molokai
 mkdir ~/.vim/colors
 cp ~/.vim/bundle/ex-colorschemes/colors/molokai.vim ~/.vim/colors/
+
 ```
 
 #### Custom
 ##### SSH Config
 ``` shell
-# copy ssh config
+# Copy ssh config
 cp initEnvFiles/ssh/yakir.sshconfig ~/.ssh/config
-# change private permission
+# Change private permission
 chmod 600 initEnvFiles/ssh/yakir_server.key
 
 # Client Machine
@@ -73,32 +75,31 @@ cp initEnvFiles/ssh/yakir_server.pub ~/.ssh/
 
 ##### iTerm2
 ``` shell
-# install
+# Install
 brew install iterm2
 
-# import config
+# Import config
 initEnvFiles/iterm2/iterm2Profile.json
 
-# import iterm2-color
-# initEnvFiles/iterm2/Solarized_Darcula.itermcolors
-wget -O /tmp/Solarized_Darcula.itermcolors https://raw.githubusercontent.com/mbadolato/iTerm2-Color-Schemes/master/schemes/Solarized%20Darcula.itermcolors
-# initEnvFiles/iterm2/HaX0R_GR33N.itermcolors
-wget -O /tmp/HaX0R_GR33N.itermcolors https://raw.githubusercontent.com/mbadolato/iTerm2-Color-Schemes/master/schemes/HaX0R_GR33N.itermcolorsr
+# Import iterm2-color
+initEnvFiles/iterm2/Solarized_Darcula.itermcolors
+initEnvFiles/iterm2/HaX0R_GR33N.itermcolors
+
 ```
 
 ##### K3S
 ```shell
-# kernel module
+# Kernel module
 lsmod |grep -E "nf_conntrack|br_netfilter"
 
-# master
+# Master
 curl -sfL https://get.k3s.io | sh -
 cat /var/lib/rancher/k3s/server/node-token  # join token
-##disable traefik
+# Disable traefik
 kubectl -n kube-system delete helmcharts.helm.cattle.io traefik
 kubectl -n kube-system delete helmcharts.helm.cattle.io traefik-crd
 kubectl -n kube-system delete pod --field-selector=status.phase==Succeeded 
-##modify /etc/systemd/system/k3s.service
+# Modify /etc/systemd/system/k3s.service
 ExecStart=/usr/local/bin/k3s \
     server \
     --disable traefik \
@@ -108,10 +109,10 @@ rm /var/lib/rancher/k3s/server/manifests/traefik.yaml
 systemctl daemon-reload
 systemctl restart k3s
 
-# worker
+# Worker
 curl -sfL https://get.k3s.io | K3S_URL=https://k3s_server_ip:6443 K3S_TOKEN=k3s_server_token sh -
 
-# get kubectl and helm client
+# Get kubectl and helm client
 apt install bash-completion
 curl -LO https://dl.k8s.io/release/v1.27.3/bin/linux/amd64/kubectl
 wget https://get.helm.sh/helm-v3.11.0-linux-amd64.tar.gz
@@ -142,13 +143,14 @@ dnf update
 dnf install google-chrome-stable
 
 
-# Install extensions 
+# Install extensions
 dnf install gnome-shell-extension-user-theme
 gnome-extensions enable user-theme@gnome-shell-extensions.gcampax.github.com
 # Extensions list: https://extensions.gnome.org/
 gnome-extensions list
 dash-to-dock@micxgx.gmail.com
 Hide_Activities@shay.shayel.org
+
 
 # Install theme tools
 dnf install gnome-shell-theme-yaru
@@ -173,6 +175,7 @@ apt install containerd.io
 # Repos resource(/etc/apt/sources.list)
 echo "deb [signed-by=/usr/share/keyrings/cloud.google.gpg] https://packages.cloud.google.com/apt cloud-sdk main" |tee /etc/apt/sources.list.d/google-cloud-sdk.list
 echo "deb [arch=amd64 signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu  focal stable" |tee /etc/apt/sources.list.d/docker.list
+
 ```
 
 ### Init App
@@ -215,6 +218,8 @@ cp initEnvFiles/activation_software.sh /opt/activation_software.sh
 
 # iTerm2
 initEnvFiles/iterm2Profiles.json
+initEnvFiles/iterm2/HaX0R_GR33N.itermcolors
+initEnvFiles/iterm2/Solarized_Darcula.itermcolors
 
 # Xshell
 initEnvFiles/windows_config/software/Xshell
@@ -265,7 +270,7 @@ subversion
 git
 
 # redis-client
-Another Redis Desktop Manager 
+Another Redis Desktop Manager
 
 # kafka-client
 Offset Explorer 2
