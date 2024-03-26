@@ -224,7 +224,7 @@ nixos-install
 # set root password and reboot
 ```
 
-###### 3. Upgrading
+##### 3. Upgrading
 ```shell
 # switch channel
 nix-channel --list
@@ -255,6 +255,9 @@ nixos-rebuild switch -p test
 # to build the configuration but nothing more. can check syntax
 nixos-rebuild build
 
+# rollback
+nixos-rebuild switch --rollback
+
 # verbose argument
 --show-trace --print-build-logs --verbose
 ```
@@ -268,8 +271,102 @@ nix-channel list
 nix-channel --add https://channels.nixos.org/channel-name nixos
 ```
 
+##### nix-shell
+```shell
+# nodejs env
+bash-5.2# nix-shell -p nodejs
+[nix-shell:/]# node -e "console.log(1+1)"
+
+# nix-shell
+cat > /default.nix << "EOF"
+{ pkgs ? import <nixpkgs> {}
+}:
+pkgs.mkShell {
+  name = "yakir-test";
+  buildInputs = [
+    pkgs.nodejs
+  ];
+  shellHook = ''
+    echo "Start developing..."
+  '';
+}
+EOF
+bash-5.2# nix-shell
+[nix-shell:/]# node -e "console.log(1+1)"
+```
+
+##### nix-build
+```shell
+# create normal redis nix file
+cat > /docker-redis.nix << "EOF"
+{ pkgs ? import <nixpkgs> { system = "x86_64-linux";} 
+}:
+pkgs.dockerTools.buildLayeredImage {
+  name = "nix-redis";
+  tag = "latest";
+  contents = [ pkgs.redis ];
+}
+EOF
+# build a normal docker image
+nix-build docker-redis.nix -o ./result
+docker load -i ./result
+docker images
+
+
+# create redis-minimal.nix
+cat > /redis-minimal.nix << "EOF"
+{ pkgs ? import <nixpkgs> {} 
+}:
+pkgs.redis.overrideAttrs (old: {
+  makeFlags = old.makeFlags ++ ["USE_SYSTEMD=no"];
+  preBuild = ''
+    makeFlagsArray=(PREFIX="$out"
+                    CC="${pkgs.musl.dev}/bin/musl-gcc -static"
+                    CFLAGS="-I{pkgs.musl.dev/include}"
+                    LDFLAGS="-L{pkgs.musl.dev/lib}");
+  '';
+  postInstall = "rm -f $out/bin/redis-{benchmark,check-*,cli}";
+})
+EOF
+# create minimal redis nix file
+cat > /docker-redis.nix << "EOF"
+{ pkgs ? import <nixpkgs> { system = "x86_64-linux";} 
+}:
+let
+  redisMinimal = import ./redis-minimal.nix { inherit pkgs; };
+in
+pkgs.dockerTools.buildLayeredImage {
+  name = "nix-redis-minimal";
+  tag = "latest";
+  contents = [ redisMinimal ];
+}
+EOF
+# build a minimal docker image
+nix-build redis-minimal.nix -o ./result
+docker load -i ./result
+docker images
+```
+
 ### Flakes
-...
+#### nix-commands
+```shell
+# nix-channel
+# no need
+
+# nix-env
+nix profile
+
+# nix-shell
+nix develop
+nix shell
+nix run
+
+# nix-build
+nix build
+
+# nix-collect-garbage
+nix storage gc --debug
+```
 
 
 
