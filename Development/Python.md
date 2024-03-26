@@ -1,4 +1,4 @@
-#### Build Install
+### Build Install
 ```shell
 # centos
 yum install -y make gcc zlib-devel bzip2-devel openssl-devel ncurses-devel libffi-devel
@@ -24,13 +24,13 @@ apt install build-essential zlib1g-dev libncurses5-dev libgdbm-dev libnss3-dev l
 make && make install
 ```
 
-#### Pycharm
-##### active
+### Pycharm
+#### active
 ```shell
 cat ideaActive/ja-netfilter-all/ja-netfilter/readme.txt
 ```
 
-##### config
+#### config
 ```shell
 # Editor
 Font
@@ -53,3 +53,99 @@ Python Intergrated Tools -> Docstring format: Google
 
 ```
 
+### ProjectManage
+#### pip
+```shell
+# Install
+...
+
+# Create Virtualenv
+python -m venv venv
+
+# Output installed packages in requirements format
+pip freeze > requirements.txt
+
+# Install dependencies
+pip install Django==4.1.3
+pip install -r requirements.txt
+
+```
+
+#### poetry
+##### Install
+```shell
+# Option 1(recommend)
+# Install
+curl -sSL https://install.python-poetry.org | python -
+# Upgrade
+poetry self update
+
+
+# Option 2
+# Install system binary to /usr/local/bin/pipx
+pip3 install pipx
+# Install shared tool poetry to /root/.local/bin/poetry
+/usr/local/bin/pipx install poetry
+/usr/local/bin/pipx list
+export /root/.local/bin/
+# Upgrade
+pipx upgrade poetry
+```
+
+##### How to use
+```shell
+# New project
+poetry new poetry-project
+
+# Init existed project
+cd my-project
+poetry init
+
+
+# Create Virtualenv with system Python
+poetry env use /usr/bin/python3.10
+poetry env info
+poetry env list <--full-path>
+
+# Add and install dependencies
+poetry add <package_name==version>
+# Add requirements.txt depencies
+poetry add $(cat requirements.txt)
+# Add depency for only dev
+poetry add --dev pytest
+
+# Add dependencies by manual
+vim pyproject.toml
+poetry install
+
+# show all depencies
+poetry show
+
+# Update dependencies by manual
+poetry update
+
+# Remove Virtualenv
+poetry env remove <env_name>
+
+# Run in poetry Virtualenv
+poetry run python -V
+poetry run python <your_script.py>
+
+# Active Virtualenv python shell
+poetry shell
+
+# Build and publish to PyPI
+poetry build
+poetry publish
+
+# Config poetry
+poetry config --list
+poetry config virtualenvs.create false <--local>
+```
+
+
+
+>Reference:
+>1. [Writing your pyproject.toml](https://packaging.python.org/en/latest/guides/writing-pyproject-toml/)
+>2. [Poetry Official Docs](https://python-poetry.org/docs/)
+>3. [toml.io](https://toml.io/cn/)
