@@ -1,15 +1,15 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: yakir-test
+  name: stdin-test
   namespace: default
   labels:
-    app: yakir-test
+    app: stdin-test
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: yakir-test
+      app: stdin-test
   revisionHistoryLimit: 10
   minReadySeconds: 60
   strategy:
@@ -20,7 +20,7 @@ spec:
   template:
     metadata:
       labels:
-        app: yakir-test
+        app: stdin-test
     spec:
       containers:
       - args: ["/bin/sh","-c", 'i=0; while true; do echo "$i: $(date)"; i=$((i+1)); sleep 10; done']
